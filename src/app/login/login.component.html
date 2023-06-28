@@ -1,0 +1,39 @@
+<img class="join-logo logo-animation" src="assets/img/join-logo.png" alt="join-logo">
+<img class="d-none bg-mobile-animation" src="assets/img/bg-mobile.png" alt="mobile-background">
+<img class="d-none" [class.animation-stop]="animationStopped" id="animation-mobile" src="assets/img/animation-mobile.png" alt="animation mobile">
+
+
+<div class="start-bg start-bg-mobile">
+    <div class="content">
+        <div class="sign-up">
+            <span>Not a Join user?</span>
+            <button>Sign up</button>
+        </div>
+        <form class="login-page standard-box" return false>
+            <span class="heading-span">Log in</span>
+            <span class="msg-box d-none">Invalid email or password!</span>
+            <span class="msg-box d-none">Logged-In as guest!</span>
+            <img src="assets/img/underline.png" alt="underline" class="underline">
+            <img src="assets/img/log-in-underline-mob.png" alt="underline-mobile"
+                class="underline-mobile d-none">
+            <input class="input-email-pw input-email-img" type="email" name="email" placeholder="Email" required>
+            <input class="input-email-pw input-password-img" type="password" name="password"
+                placeholder="Password" required>
+            <div class="login-bottom">
+                <mat-card>
+                    <mat-card-content>
+                      <section class="example-section">
+                        <mat-checkbox class="example-margin" [(ngModel)]="checked" (change)="handleCheckboxChange()">Checked</mat-checkbox>
+                      </section>
+                    </mat-card-content>
+                  </mat-card>
+                <a class="login-bottom-font">Forgot my
+                    password</a>
+            </div>
+            <div class="login-buttons">
+                <button type="submit" class="login-btn btn-font login-btn-mob">Log in</button>
+                <button type="button" class="guest-login-btn btn-font login-btn-mob">Guest Log in</button>
+            </div>
+        </form>
+    </div>
+</div>
