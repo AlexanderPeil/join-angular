@@ -5,7 +5,7 @@
     </div>
     <div class="header-nav">
         <img class="add-btn-mobile d-none" src="assets/img/add_task_btn_mob.svg" alt="add-button">
-        <img routerLink="/help" class="header-help-icon" src="assets/img/help-icon.png">
+        <img routerLink="/help-page" class="header-help-icon" src="assets/img/help-icon.png">
         <button class="header-nav button-style" mat-button [matMenuTriggerFor]="logoutMenu">
             <img class="header-user-img mobile-dnone" src="assets/img/user-guest.png">
         </button>
@@ -20,7 +20,7 @@
     </button>
     <mat-menu #logoutMenuMobile="matMenu">
         <div class="logout-menu">
-            <span routerLink="/help" class="mat-mdc-menu-item">Help</span>
+            <span routerLink="/help-page" class="mat-mdc-menu-item">Help</span>
             <span routerLink="/legal-notice" class="hide-content">Legal notice</span>
             <button mat-menu-item (click)="logOut()">Log out</button>
         </div>

@@ -1,16 +1,16 @@
    <app-header></app-header>
-   <div id="overDivMobile"></div>
+   <app-nav-bar></app-nav-bar>
 
     <!--Greet-Mobile-->
-    <div id="greetMobileCont" class="greet-container-mobile d-none">
+    <div class="greet-container-mobile d-none">
         <div class="greet-content-mobile">
-            <span id="greetMobile"></span>
-            <span id="usernameMobile"></span>
+            <span></span>
+            <span></span>
         </div>
     </div>
 
     <!--Main Content-->
-    <div id="mainContainer" class="main-container">
+    <div class="main-container">
         <div class="headline-mobile d-none">Kanban Project Management Tool</div>
         <div class="title-container no-gap">
             <h1>Summary</h1>
@@ -26,15 +26,15 @@
             <div class="summary-contant-container">
                 <div class="nav-to-container">
                     <a class=" nav-to-content" href="board.html">
-                        <span id="countInBoard" class="counter"></span>
+                        <span class="counter"></span>
                         <span class="counter-title">Tasks in Board</span>
                     </a>
                     <a class="nav-to-content" href="board.html" onclick="highlightTask('in-progress')">
-                        <span id="countInProgress" class="counter"></span>
+                        <span class="counter"></span>
                         <span class="counter-title">Tasks in Progress</span>
                     </a>
                     <a class="nav-to-content"  href="board.html" onclick="highlightTask('awaiting-feedback')">
-                        <span id="countAwaitFeedback" class="counter"></span>
+                        <span class="counter"></span>
                         <span class="counter-title">Awaiting Feedback</span>
                     </a>
                 </div>
@@ -46,13 +46,13 @@
                             <img class="urgency-img" src="assets/img/urgency.png">
                             <img class="urgency-img-mob d-none" src="assets/img/urgency_mob.svg" alt="urgency-image">
                             <div class="cont-containter">
-                                <span id="countUrgent" class="counter-urg"></span>
+                                <span class="counter-urg"></span>
                                 <span class="counter-title-urg">Urgent</span>
                             </div>
                         </div>
                         <div class="vl-urg"></div>
                         <div class="dl-containter">
-                            <span id="dlDate" class="dl-date"></span>
+                            <span class="dl-date"></span>
                             <span class="dl-text">Upcoming Deadline</span>
                         </div>
                     </a>
@@ -66,7 +66,7 @@
                                 <img class="pencil-check-img" src="assets/img/pencil.png">
                                 <img class="d-none hover-img" src="assets/img/check_white.png">
                                 <div class="cont-containter">
-                                    <span id="countToDo" class="counter-todo counter-mob"></span>
+                                    <span class="counter-todo counter-mob"></span>
                                     <span class="counter-title-todo counter-text-mob">To-do</span>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                 <img class="pencil-check-img" src="assets/img/check.png">
                                 <img class="d-none hover-img" src="assets/img/check_white.png">
                                 <div class="cont-containter">
-                                    <span id="countDone" class="counter-done counter-mob"></span>
+                                    <span class="counter-done counter-mob"></span>
                                     <span class="counter-title-done counter-text-mob">Done</span>
                                 </div>
                             </div>
@@ -88,8 +88,8 @@
 
             </div>
             <div class="greet-container">
-                <span id="greet"></span>
-                <span id="username"></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </div>
