@@ -16,7 +16,8 @@
     height: 120px;
     position: absolute;
     top: 67px;
-    left: 77px;
+    left: 77px;    
+    object-fit: contain;
 }
 
 .start-bg {
@@ -38,8 +39,6 @@
         }
     }
 }
-
-
 
 .logo-animation {
     animation: start-logo-animation 1s ease-in-out;
@@ -69,16 +68,6 @@
             left: 77px;
         }
     }
-}
-
-.standard-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-    border-radius: 30px;
-    gap: 35px;
 }
 
 .sign-up {
@@ -116,14 +105,17 @@
     }
 }
 
-.login-page {
+form {
     width: 652px;
     padding-top: 70px;
     padding-bottom: 35px;
-
-    input {
-        
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
+    border-radius: 30px;
+    gap: 35px;
 }
 
 .heading-span {
@@ -165,34 +157,34 @@
     background-position: calc(100% - 15px);
 }
 
-// .input-name-img {
-//     background-image: url(../assets/img/sign_up_name_img.svg);
-//     background-repeat: no-repeat;
-//     background-position: calc(100% - 15px);
-// }
-
 .login-bottom {
     display: flex;
     align-items: center;
     justify-content: center;
 
-}
 
-.login-bottom-font {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19.2px;
-}
+    .mat-mdc-card {
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
 
-.login-bottom span {
-    margin-left: 20px;
-    margin-right: 35px;
-}
+    .login-bottom-font {
+        font-weight: 400 !important;
+        font-size: 16px !important;
+        line-height: 19.2px !important;
+    }
 
-.login-bottom a {
-    text-decoration: none;
-    color: #29ABE2;
-    margin-left: 25px;
+    span {
+        margin-left: 20px;
+        margin-right: 35px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #29ABE2;
+        margin-left: 25px;
+    }
 }
 
 .login-buttons {
@@ -201,49 +193,45 @@
     justify-content: space-between;
     align-items: center;
     width: 340px;
-}
 
-.btn-font {
-    font-size: 21px;
-    font-weight: 700;
-    line-height: 25.2px;
-}
+    button {
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 25.2px;
+        border-radius: 8px;
+        padding: 4px 0;
+        cursor: pointer;
+    }
 
-.login-buttons button {
-    border-radius: 8px;
-    padding: 4px 0;
-    gap: 10px;
-    cursor: pointer;
-}
+    .login-btn {
+        background-color: #2A3647;
+        border: none;
+        color: white;
+        width: 145px;
+        height: 51px;
+        width: 130px;
+    
+        &:hover {
+            background: #29ABE2;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            transition: all 125ms ease-in-out;
+        }
+    }
 
-.login-btn {
-    background-color: #2A3647;
-    border: none;
-    color: white;
-    width: 145px;
-    height: 51px;
-    width: 130px;
-}
-
-.login-btn:hover {
-    background: #29ABE2;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    transition: all 125ms ease-in-out;
-}
-
-.guest-login-btn {
-    background-color: white;
-    color: #2A3647;
-    border: 1px solid black;
-    height: 51px;
-    width: 150px;
-}
-
-.guest-login-btn:hover {
-    color: #29ABE2;
-    border-color: #29ABE2;
-    transition: all 125ms ease-in-out;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    .guest-login-btn {
+        background-color: white;
+        color: #2A3647;
+        border: 1px solid black;
+        height: 51px;
+        width: 150px;
+    
+        &:hover {
+            color: #29ABE2;
+            border-color: #29ABE2;
+            transition: all 125ms ease-in-out;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }
 }
 
 .forgot-pw-page {
@@ -430,7 +418,7 @@
         margin-bottom: 22px;
     }
 
-    .login-page {
+    form {
         width: 320px;
     }
 
@@ -451,10 +439,6 @@
         display: none;
     }
 
-    .sign-up-page {
-        width: 320px;
-    }
-
     .back-img-sign-up-mobile {
         display: block !important;
         position: absolute;
@@ -462,30 +446,8 @@
         left: 25px;
     }
 
-    .reset-pw-page {
-        height: 450px;
-        width: 360px;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
     .back-img {
         display: none;
-    }
-
-    .back-img-reset-pw-mob {
-        display: block;
-        position: absolute;
-        top: 30px;
-        left: 25px;
-    }
-
-    .continue-btn {
-        width: 180px;
-    }
-
-    #email-sent-text {
-        width: 360px;
     }
 
     .logo-animation {
@@ -532,14 +494,6 @@
 
         .content {
             height: 90vh;
-        }
-
-        .sign-up {
-            bottom: 1825px;
-        }
-
-        #email-sent-text {
-            bottom: 35px;
         }
     }
 }
