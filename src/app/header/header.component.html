@@ -1,16 +1,28 @@
 <header>
-    <div class="headline">Kanban Project Management Tool</div>
+    <span class="headline">Kanban Project Management Tool</span>
     <div class="header-logo">
-        <img src="assets/img/join_logo.svg" alt="Join-logo">
+        <img src="assets/img/join-logo.png" alt="Join-Logo">
     </div>
     <div class="header-nav">
         <img class="add-btn-mobile d-none" src="assets/img/add_task_btn_mob.svg" alt="add-button">
-        <a class="help-icon" href="help.html"><img class="header-help-icon" src="assets/img/Help-Icon.png"></a>
-        <img class="header-user-img" src="assets/img/user_guest.png" onclick="showLogout();dontClose(event)">
+        <img routerLink="/help" class="header-help-icon" src="assets/img/help-icon.png">
+        <button class="header-nav button-style" mat-button [matMenuTriggerFor]="logoutMenu">
+            <img class="header-user-img mobile-dnone" src="assets/img/user-guest.png">
+        </button>
+        <mat-menu #logoutMenu="matMenu">
+            <div class="logout-menu">
+                <button mat-menu-item (click)="logOut()">Log out</button>
+            </div>
+        </mat-menu>
     </div>
-    <div class="logout-menu d-none" onclick="dontClose(event)">
-        <a href="help.html"><span class="hide-content">Help</span></a>
-        <a href="legal_notice.html"><span href="legal_notice.html" class="hide-content">Legal notice</span></a>
-        <span onclick="logOut()">Log out</span>
-    </div>
+    <button class="header-nav-mobile button-style" mat-button [matMenuTriggerFor]="logoutMenuMobile">
+        <img class="header-user-img" src="assets/img/user-guest.png">
+    </button>
+    <mat-menu #logoutMenuMobile="matMenu">
+        <div class="logout-menu">
+            <span routerLink="/help" class="mat-mdc-menu-item">Help</span>
+            <span routerLink="/legal-notice" class="hide-content">Legal notice</span>
+            <button mat-menu-item (click)="logOut()">Log out</button>
+        </div>
+    </mat-menu>
 </header>
