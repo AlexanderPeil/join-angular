@@ -1,3 +1,146 @@
 <app-header></app-header>
 <app-nav-bar></app-nav-bar>
-<p>add-task works!</p>
+
+<div class="main-container">
+    <div class="title-container width-unset">
+        <div class="headline-mobile d-none">Kanban Project Management Tool</div>
+        <h1>Add Task</h1>
+    </div>
+    <form onsubmit="addTask();return false">
+        <div class="content-container">
+            <div class="left-container width-unset">
+                <div class="selection-container">
+                    <label>Title</label>
+                    <input placeholder="Enter a title" required>
+                </div>
+                <div class="selection-container">
+                    <label>Description</label>
+                    <textarea placeholder="Enter a description" required></textarea>
+                </div>
+                <div class="selection-container prevent-select">
+                    <label>Category</label>
+                    <div class="category-added-cont d-none">Please enter a category!</div>
+                    <div class="new-cat input-new-cat d-none">
+                        <input type="name" placeholder="Category Name ...">
+                        <div class="category-added-cont d-none" >New Category added!</div>
+
+                        <div class="new-category-icons">
+                            <input type="color">
+                            <img src="./assets/img/checkmark.png" alt="#" onclick="addColorCategory()">
+                            <img src="./assets/img/cancel.png" alt="#" onclick="closeNewCategory()">
+                        </div>
+                    </div>
+                    <div class="select-wrapper" onclick="openDropdown('category-choices')">
+                        <div class="sector_top">
+                            <p>Select your Category</p><img src="./assets/img/arrow_down.png">
+                            <div class="category-added-cont d-none">Please enter a category!</div>
+                        </div>
+                        <div class="category-assigned-to d-none">
+                            <div class="category cursor-pointer" onclick="openAddNewCategory('category-choices')">New Category<img class="new-category-img" src="assets/img/add_task_mob.svg"></div>
+                            <div class="category" cursor-pointer onclick="changeCategoryHeader('Marketing')">
+                                <div>Marketing </div>
+                                <div class="circle" style="background: #0038ff;"></div>
+                            </div>
+                            <div class="category cursor-pointer" onclick="changeCategoryHeader('Media')">
+                                <div>Media </div>
+                                <div class="circle" style="background: #ffc702;"></div>
+                            </div>
+                            <div class="category cursor-pointer" onclick="changeCategoryHeader('Backoffice')">
+                                <div>Backoffice </div>
+                                <div class="circle" style="background: #1FD7C1;"></div>
+                            </div>
+                            <div class="category cursor-pointer" onclick="changeCategoryHeader('Design')">
+                                <div>Design </div>
+                                <div class="circle" style="background:  #ff7a00;"></div>
+                            </div>
+                            <div class="category cursor-pointer" onclick="changeCategoryHeader('Sales')">
+                                <div>Sales </div>
+                                <div class="circle" style="background: #fc71ff;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="selection-container prevent-select">
+                    <label>Assigned To</label>
+                    <div class="category-added-cont d-none">Please select a member!</div>
+                    <div class="select-wrapper assigned-to-wrapper">
+                        <div class="sector_top" onclick="openDropdown('assigned-to-choices')">
+                            <p>Select your Members</p><img
+                                src="./assets/img/arrow_down.png">
+                        </div>
+                        <div class="assigned-to-choices d-none">
+                            <div class="category-assigned-to" onclick="changeCategoryHeader('Marketing')">
+                                <div>Marketing </div>
+                                <div class="circle" style="background: #0038ff;"></div>
+                            </div>
+                            <div class="assigned-to" onclick="changeCategoryHeader('Media')">
+                                <div>Media </div>
+                                <div class="circle" style="background: #ffc702;"></div>
+                            </div>
+                            <div class="assigned-to" onclick="changeCategoryHeader('Backoffice')">
+                                <div>Backoffice </div>
+                                <div class="circle" style="background: #1FD7C1;"></div>
+                            </div>
+                            <div class="assigned-to" onclick="changeCategoryHeader('Design')">
+                                <div>Design </div>
+                                <div class="circle" style="background:  #ff7a00;"></div>
+                            </div>
+                            <div class="assigned-to" onclick="changeCategoryHeader('Sales')">
+                                <div>Sales </div>
+                                <div class="circle" style="background: #fc71ff;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="middle-gap"></div>
+            <div class="right-container width-unset">
+                <div class="features-container">
+                    <label for="date">Due Date</label>
+                    <input class="date" type="date" name="date"  required>
+                </div>
+                <div class="features-container">
+                    <label>Prio</label>
+                    <div onchange="changeColor(); return false" class="prio-btn-container">
+                        <input type="radio" class="checkbox_urgen" name="radio">
+                        <label for="urgentBtn" class="prio-btn prio-urgent urgentSection" for="checkbox_urgen">
+                            Urgent<img class="add-task-img" src="assets/img/prio_urgent.png">
+                        </label>
+                        <input type="radio" class="checkbox_medium" name="radio">
+                        <label for="mediumBtn" class="prio-btn prio-urgent mediumSection" for="checkbox_urgen">
+                            Medium<img class="add-task-img" src="assets/img/prio_medium.png">
+                        </label>
+                        <input type="radio" class="checkbox_low" name="radio" checked>
+                        <label for="lowBtn" class="prio-btn prio-urgent lowSection" for="checkbox_urgen">
+                            Low<img class="add-task-img" src="assets/img/prio_low_white.png">
+                        </label>
+                    </div>
+
+
+
+                    <div class="features-container">
+                        <label>Subtasks</label>
+                        <div class="subtask-container">
+                            <input class="subtask-input" onclick="inputChangeSubIcons()"placeholder="Add new subtask">
+                            <img class="plus-icon" src="assets/img/plus_icon.png" onclick="changeSubIcon()">
+                            <div class="subtask-img-container">
+                            <img src="assets/img/icon_cancel_subtask.png" onclick="clearSubtask()" class="subtask-icons d-none">
+                            <div class="gap-img-subtask"></div>
+                            <img src="assets/img/icon_check_subtask.png" onclick="addSubtask()" class="subtask-icons d-none">
+                            </div>
+                        </div>
+                        <div>
+                            <ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="submit-and-clear">
+                    <div class="btn-clear" onclick="clearAll()">Clear<img class="clear-img" src ="assets/img/iconoir_cancel.png"></div>
+                    <div><Button class="btn-createTask">Create Task<img src ="assets/img/icons_check.png"></Button></div>
+                </div>
+                <button  class="add-task-mobile d-none"><img src="assets/img/add_task_btn_mob.png" alt="Create task button"></button>
+            </div>
+        </div>
+    </form>
+</div>
