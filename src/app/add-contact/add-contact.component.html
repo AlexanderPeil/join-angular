@@ -1,0 +1,37 @@
+<div mat-dialog-content class="add-contact-popup">
+    <div class="contact-popup-headline">
+        <img class="close-popup-mobile" src="../../assets/img/x_ixon.png">
+        <img src="../../assets/img/join_logo_add_contact.png">
+        <h1>Add Contact</h1>
+        <span>Tasks are better with a team!</span>
+        <img src="../../assets/img/add_contact_underline.png">
+    </div>
+    <div class="add-contact-menu">
+        <img class="user-icon" src="../../assets/img/contact_user_icon.png">
+        <form action="">
+            <mat-form-field class="example-form-field">
+                <mat-label>First Name</mat-label>
+                <input matInput type="text" [(ngModel)]="firstName" name="first-name">
+            </mat-form-field>
+            <mat-form-field class="example-form-field">
+                <mat-label>Last Name</mat-label>
+                <input matInput type="text" [(ngModel)]="lastName" name="last-name">
+            </mat-form-field>
+            <mat-form-field class="example-form-field">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" [(ngModel)]="email" name="email">
+            </mat-form-field>
+            <mat-form-field class="example-form-field">
+                <mat-label>Phone</mat-label>
+                <input matInput type="tel" [(ngModel)]="phone" name="phone">
+            </mat-form-field>
+            <img class="close" src="../../assets/img/xicon.svg" (click)="onNoClick()">
+            <div class="contact-popup-bottom">
+                <input class="p-none" type="color" id="color" name="color" value="#000000" required>
+                <button mat-raised-button class="disabled-conditions"
+                    [disabled]="firstName.length == 0 || lastName.length == 0 || email.length == 0 || phone.length == 0">Create
+                    Contact <img src="../../assets/img/checkmark.png"></button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +21,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { HelpPageComponent } from './help-page/help-page.component';
+import { AddContactComponent } from './add-contact/add-contact.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,8 @@ import { HelpPageComponent } from './help-page/help-page.component';
     AddTaskComponent,
     ContactsComponent,
     LegalNoticeComponent,
-    HelpPageComponent
+    HelpPageComponent,
+    AddContactComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,11 @@ import { HelpPageComponent } from './help-page/help-page.component';
     MatCheckboxModule,
     FormsModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
