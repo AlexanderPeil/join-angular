@@ -60,7 +60,7 @@ nav {
     text-decoration: none;
     display: flex;
     align-items: center;
-    padding: 8px 48px;
+    padding: 8px 37px;
     height: 31px;
     margin-top: auto;
     white-space: nowrap;
@@ -73,6 +73,14 @@ nav {
 .d-none {
     display: none !important;
 }
+
+nav a.active {
+    background-color: #29ABE2;
+    /* Set the desired background color for the focus effect */
+    color: white;
+    /* Set the desired text color for the focus effect */
+}
+
 
 @media(max-width: 1000px) {
     nav {
@@ -106,7 +114,7 @@ nav {
     .legal-notice {
         display: none;
     }
-    
+
     .summary-logo {
         display: none;
     }

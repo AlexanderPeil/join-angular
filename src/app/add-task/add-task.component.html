@@ -9,18 +9,25 @@
     <form onsubmit="addTask();return false">
         <div class="content-container">
             <div class="left-container width-unset">
-                <div class="selection-container">
-                    <label>Title</label>
-                    <input placeholder="Enter a title" required>
-                </div>
-                <div class="selection-container">
-                    <label>Description</label>
-                    <textarea placeholder="Enter a description" required></textarea>
-                </div>
+                <span>Title</span>
+                <mat-form-field class="input-content">
+                    <mat-label>Enter a title</mat-label>
+                    <input matInput placeholder="Title">
+                </mat-form-field>
+                <span>Description</span>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter a description</mat-label>
+                    <textarea matInput placeholder="Description"></textarea>
+                </mat-form-field>
                 <div class="selection-container prevent-select">
-                    <label>Category</label>
-                    <div class="category-added-cont d-none">Please enter a category!</div>
-                    <div class="new-cat input-new-cat d-none">
+                    <span>Category</span>
+                    <mat-form-field>
+                        <mat-label>Select me</mat-label>
+                        <mat-select>
+                            <mat-option value="option">Option</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- <div class="new-cat input-new-cat d-none">
                         <input type="name" placeholder="Category Name ...">
                         <div class="category-added-cont d-none" >New Category added!</div>
 
@@ -29,8 +36,8 @@
                             <img src="./assets/img/checkmark.png" alt="#" onclick="addColorCategory()">
                             <img src="./assets/img/cancel.png" alt="#" onclick="closeNewCategory()">
                         </div>
-                    </div>
-                    <div class="select-wrapper" onclick="openDropdown('category-choices')">
+                    </div> -->
+                    <!-- <div class="select-wrapper" onclick="openDropdown('category-choices')">
                         <div class="sector_top">
                             <p>Select your Category</p><img src="./assets/img/arrow_down.png">
                             <div class="category-added-cont d-none">Please enter a category!</div>
@@ -58,11 +65,17 @@
                                 <div class="circle" style="background: #fc71ff;"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="selection-container prevent-select">
-                    <label>Assigned To</label>
-                    <div class="category-added-cont d-none">Please select a member!</div>
+                    <span>Assigned To</span>
+                    <mat-form-field>
+                        <mat-label>Select me</mat-label>
+                        <mat-select>
+                            <mat-option value="option">Option</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- <div class="category-added-cont d-none">Please select a member!</div>
                     <div class="select-wrapper assigned-to-wrapper">
                         <div class="sector_top" onclick="openDropdown('assigned-to-choices')">
                             <p>Select your Members</p><img
@@ -90,15 +103,19 @@
                                 <div class="circle" style="background: #fc71ff;"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="middle-gap"></div>
             <div class="right-container width-unset">
-                <div class="features-container">
-                    <label for="date">Due Date</label>
-                    <input class="date" type="date" name="date"  required>
-                </div>
+                <span class="">Choose a date</span>
+                <mat-form-field class="date-picker">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+                    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
                 <div class="features-container">
                     <label>Prio</label>
                     <div onchange="changeColor(); return false" class="prio-btn-container">
@@ -121,12 +138,14 @@
                     <div class="features-container">
                         <label>Subtasks</label>
                         <div class="subtask-container">
-                            <input class="subtask-input" onclick="inputChangeSubIcons()"placeholder="Add new subtask">
+                            <input class="subtask-input" onclick="inputChangeSubIcons()" placeholder="Add new subtask">
                             <img class="plus-icon" src="assets/img/plus_icon.png" onclick="changeSubIcon()">
                             <div class="subtask-img-container">
-                            <img src="assets/img/icon_cancel_subtask.png" onclick="clearSubtask()" class="subtask-icons d-none">
-                            <div class="gap-img-subtask"></div>
-                            <img src="assets/img/icon_check_subtask.png" onclick="addSubtask()" class="subtask-icons d-none">
+                                <img src="assets/img/icon_cancel_subtask.png" onclick="clearSubtask()"
+                                    class="subtask-icons d-none">
+                                <div class="gap-img-subtask"></div>
+                                <img src="assets/img/icon_check_subtask.png" onclick="addSubtask()"
+                                    class="subtask-icons d-none">
                             </div>
                         </div>
                         <div>
@@ -136,10 +155,12 @@
                     </div>
                 </div>
                 <div class="submit-and-clear">
-                    <div class="btn-clear" onclick="clearAll()">Clear<img class="clear-img" src ="assets/img/iconoir_cancel.png"></div>
-                    <div><Button class="btn-createTask">Create Task<img src ="assets/img/icons_check.png"></Button></div>
+                    <div class="btn-clear" onclick="clearAll()">Clear<img class="clear-img"
+                            src="assets/img/iconoir_cancel.png"></div>
+                    <div><Button class="btn-createTask">Create Task<img src="assets/img/icons_check.png"></Button></div>
                 </div>
-                <button  class="add-task-mobile d-none"><img src="assets/img/add_task_btn_mob.png" alt="Create task button"></button>
+                <button class="add-task-mobile d-none"><img src="assets/img/add_task_btn_mob.png"
+                        alt="Create task button"></button>
             </div>
         </div>
     </form>
