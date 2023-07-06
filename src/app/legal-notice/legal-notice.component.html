@@ -1,8 +1,8 @@
 <app-header></app-header>
 <app-nav-bar></app-nav-bar>
-<a class="arrow-left arrow-left-legal-notice" href="summary.html"><img src="assets/img/arrow_left.svg"
+<a class="arrow-left arrow-left-legal-notice" (click)="goBack()"><img src="assets/img/arrow_left.png"
     alt="arrow-back"></a>
-<a class="arrow-left-mobile d-none" href="summary.html"><img src="assets/img/arrow_left_mob.svg" alt=""></a>
+<a class="arrow-left-mobile d-none" (click)="goBack()"><img src="assets/img/arrow_left_mobile.png" alt=""></a>
 <div class="headline-mobile d-none width">Kanban Project Management Tool</div>
 <div class="main-content">
 <h1>Legal Notice</h1>
