@@ -9,6 +9,8 @@ import { Component } from '@angular/core';
 export class AddTaskComponent {
   minDate: Date;
   maxDate: Date;
+  subtask: string = '';
+  public showInputSubtask: boolean = false;
 
   constructor() {
     const currentYear = new Date().getFullYear();

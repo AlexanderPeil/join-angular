@@ -132,12 +132,18 @@
                             Low<img class="add-task-img" src="assets/img/prio_low_white.png">
                         </label>
                     </div>
-
-
-
                     <div class="features-container">
-                        <label>Subtasks</label>
-                        <div class="subtask-container">
+                        <span>Subtasks</span>
+                        <mat-form-field class="example-form-field">
+                            <mat-label>First Name</mat-label>
+                            <input matInput *ngIf="!showInputSubtask" (click)="showInputSubtask = true" type="text"
+                                name="open-subtask">
+                            <mat-icon matSuffix *ngIf="!showInputSubtask">add</mat-icon>
+                            <input matInput *ngIf="showInputSubtask" type="text" [(ngModel)]="subtask" name="subtask">
+                            <mat-icon *ngIf="showInputSubtask" matSuffix>check</mat-icon>
+                            <mat-icon *ngIf="showInputSubtask" (click)="showInputSubtask = false" matSuffix>cancel</mat-icon>
+                        </mat-form-field>
+                        <!-- <div class="subtask-container">
                             <input class="subtask-input" onclick="inputChangeSubIcons()" placeholder="Add new subtask">
                             <img class="plus-icon" src="assets/img/plus_icon.png" onclick="changeSubIcon()">
                             <div class="subtask-img-container">
@@ -147,7 +153,7 @@
                                 <img src="assets/img/icon_check_subtask.png" onclick="addSubtask()"
                                     class="subtask-icons d-none">
                             </div>
-                        </div>
+                        </div> -->
                         <div>
                             <ul>
                             </ul>
