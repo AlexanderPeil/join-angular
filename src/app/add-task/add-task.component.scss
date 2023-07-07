@@ -30,6 +30,17 @@ button {
     gap: 10px;
 }
 
+.gap-img-subtask {
+    width: 2px;
+    height: 24px;
+    background-color: #D1D1D1;
+}
+
+label {
+    font-weight: 400;
+    font-size: 21px;
+}
+
 .selection-container {
     display: flex;
     flex-direction: column;
@@ -40,21 +51,21 @@ button {
     width: 100%;
 }
 
-// .input-content {
-//     background-color: white;
-// }
+.input-content {
+    background-color: white;
+}
 
-// input,
-// select,
-// .select-wrapper {
-//     border: 1px solid #D1D1D1;
-//     border-radius: 10px;
-//     font-size: 21px;
-//     font-weight: 400;
-//     padding: 13px 21px;
-//     background-color: white;
-//     outline: none;
-// }
+input,
+select,
+.select-wrapper {
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    font-size: 21px;
+    font-weight: 400;
+    padding: 13px 21px;
+    background-color: white;
+    outline: none;
+}
 
 .sector_top {
     display: flex;
