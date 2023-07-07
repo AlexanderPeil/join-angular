@@ -8,8 +8,11 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./add-task-menu.component.scss']
 })
 export class AddTaskMenuComponent {
+  public subtaskInput: boolean = false;
+
   profileForm = new FormGroup({
     title: new FormControl(''),
+    description: new FormControl('')
   });
 
   onSubmit() {

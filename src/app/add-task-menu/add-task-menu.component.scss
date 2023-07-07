@@ -13,14 +13,20 @@
     z-index: 999;
 }
 
-.add_task_menu {
+.add-task-menu {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px 50px;
+    gap: 25px;
+    height: 600px;
+    overflow-y: auto;
+}
+
+.header-popup {
     display: flex;
-    justify-content: center;
-    width: 1100px;
-    height: 70%;
-    position: relative;
-    z-index: 999;
-    background-color: white;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .close-header-popup {
@@ -34,15 +40,6 @@
         border-radius: 10px;
         transition: all 225ms ease-in-out;
     }
-}
-
-.popUp-content_add_task {}
-
-h1 {
-    width: 315px;
-    font-weight: 700;
-    font-size: 61px;
-    margin-top: 0px;
 }
 
 button {
@@ -77,6 +74,15 @@ span {
     gap: 10px;
 }
 
+.select-wrapper {
+    position: relative;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important;
+}
+
+input,
 select,
 .select-wrapper {
     border: 1px solid #D1D1D1;
@@ -153,10 +159,6 @@ select::-ms-expand {
 }
 
 .prio-btn {
-    cursor: pointer;
-}
-
-.prio-btn {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -171,11 +173,22 @@ select::-ms-expand {
     width: 100%;
     position: relative;
     transition: all 100ms ease-in-out;
+    cursor: pointer;
 
     &:hover {
         box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
         width: 110%;
     }
+}
+
+.sector-top {
+    display: flex;
+    justify-content: space-between;
+    line-height: 0;
+    align-items: center;
+    font-size: 18px;
+    padding: 5px 20px;
+    cursor: pointer;
 }
 
 .prio-btn-red,
@@ -233,18 +246,13 @@ select::-ms-expand {
     margin-right: -7px;
 }
 
-.subtask-img-container {
-    display: flex;
-    gap: 9px;
-    padding-right: 15px;
-}
-
 .subtask-icons {
     cursor: pointer;
 }
 
 .gap-img-subtask {
-    width: 1px;
+    width: 2px;
+    height: 24px;
     background-color: #D1D1D1;
 }
 
@@ -252,13 +260,13 @@ select::-ms-expand {
     display: flex;
     justify-content: center;
     padding-top: 85px;
-}
 
-.submit-and-clear button {
-    font-size: 1.5rem;
-    border-radius: 10px;
-    padding: 18px 10px;
-    margin-left: 25px;
+    button {
+        font-size: 1.5rem;
+        border-radius: 10px;
+        padding: 18px 10px;
+        margin-left: 25px;
+    }
 }
 
 .btn-createTask {
@@ -271,12 +279,12 @@ select::-ms-expand {
     gap: 10px;
     font-weight: 700;
     transition: all 100ms ease-in-out;
-}
 
-.btn-createTask:hover {
-    background-color: #29ABE2;
-    border: 2px solid #29ABE2;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    &:hover {
+        background-color: #29ABE2;
+        border: 2px solid #29ABE2;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
 }
 
 .btn-clear {
@@ -385,6 +393,10 @@ fieldset {
     align-items: center;
     padding: 7px 20px;
     cursor: pointer;
+
+    &:hover {
+        background-color: lightgray;
+    }
 }
 
 .new-cat {
@@ -417,10 +429,6 @@ fieldset {
     display: flex;
     align-items: center;
     padding: 7px 20px;
-}
-
-.category:hover {
-    background-color: lightgray;
 }
 
 .prevent-select {
@@ -512,16 +520,20 @@ fieldset {
 }
 
 @media(max-width:1200px) {
+    .add-task-menu {
+        height: 77%;
+    }
+
     .btn-clear {
         margin-left: unset;
     }
 
     .submit-and-clear {
         padding: unset;
-    }
 
-    .submit-and-clear button {
-        white-space: nowrap;
+        button {
+            white-space: nowrap;
+        }
     }
 
     .left-container {
@@ -583,10 +595,6 @@ fieldset {
         cursor: pointer;
     }
 
-    h1 {
-        margin-top: 25px;
-    }
-
     .title-container {
         flex-direction: column;
     }
@@ -599,10 +607,6 @@ fieldset {
     .headline-mobile {
         display: block !important;
         font-size: 16px;
-    }
-
-    h1 {
-        font-size: 47px;
     }
 
     .left-container {
@@ -622,6 +626,11 @@ fieldset {
 }
 
 @media(max-width: 500px) {
+    .add-task-menu {
+        width: 100vw;
+        padding: 15px 24px;
+    }
+
     .main-container {
         margin-right: 0;
     }

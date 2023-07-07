@@ -1,6 +1,10 @@
+<app-header></app-header>
+<app-nav-bar></app-nav-bar>
+
 <div class="add-task-content" routerLink="/board">
-    <div class="add_task_menu" (click)="stopPropagation($event)">
-        <div class="headerPopUp"><h2>Add Task</h2>
+    <div class="add-task-menu" (click)="stopPropagation($event)">
+        <div class="header-popup">
+            <h2>Add Task</h2>
             <img class="close-header-popup" src="../../assets/img/xicon.svg" routerLink="/board">
         </div>
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
@@ -12,28 +16,31 @@
                     </div>
                     <div class="selection-container">
                         <label>Description</label>
-                        <textarea placeholder="Enter a description" required></textarea>
+                        <textarea placeholder="Enter a description" formControlName="description"></textarea>
                     </div>
                     <div class="selection-container prevent-select">
-                    <label id="category-headline">Category</label>
-                    <div id="category-required" class="category-added-cont d-none">Please enter a category!</div>
+                        <label id="category-headline">Category</label>
+                        <div id="category-required" class="category-added-cont d-none">Please enter a category!</div>
                         <div id="new-category" class="new-cat input-new-cat d-none">
                             <input id="new-category-input" type="name" placeholder="Category Name ...">
-                            <div id="category-added-cont" class="category-added-cont d-none" >New Category added!</div>
+                            <div id="category-added-cont" class="category-added-cont d-none">New Category added!</div>
                             <div class="new-category-icons">
                                 <input id="category-color" type="color" value="#2a3647" required>
                                 <img src="../../assets/img/checkmark.png" alt="#" onclick="addColorCategory()">
                                 <img src="../../assets/img/cancel.png" alt="#" onclick="closeNewCategory()">
                             </div>
                         </div>
-                            <div class="select-wrapper" id="select-wrapper" onclick="openDropdown('category-choices'), event.stopPropagation()">
-                                <div class="sector_top" id="sector-top">
-                                    <p id="category-header">Select your Category</p>
-                                    <div id="category-required-header" class="category-added-cont d-none">Please enter a category!</div>
-                                    <img src="../../assets/img/arrow_down.png">
-                                </div>
-                                <div class="category-assigned-to d-none" id="category-choices">
-                                    <div class="category" onclick="openAddNewCategory('category-choices')">New Category<img class="new-category-img" src="../../assets/img/add_task_mob.png">
+                        <div class="select-wrapper" id="select-wrapper"
+                            onclick="openDropdown('category-choices'), event.stopPropagation()">
+                            <div class="sector-top" id="sector-top">
+                                <p id="category-header">Select your Category</p>
+                                <div id="category-required-header" class="category-added-cont d-none">Please enter a
+                                    category!</div>
+                                <img src="../../assets/img/arrow_down.png">
+                            </div>
+                            <div class="category-assigned-to d-none" id="category-choices">
+                                <div class="category" onclick="openAddNewCategory('category-choices')">New Category<img
+                                        class="new-category-img" src="../../assets/img/add_task_mob.png">
                                 </div>
                                 <div class="category" onclick="changeCategoryHeader('Marketing')">
                                     <div id="marketing">Marketing </div>
@@ -59,13 +66,16 @@
                         </div>
                     </div>
                     <div class="selection-container prevent-select">
-                    <label id="assignedto-headline">Assigned To</label>
-                    <div id="member-required" class="category-added-cont d-none">Please select a member!</div>
+                        <label id="assignedto-headline">Assigned To</label>
+                        <div id="member-required" class="category-added-cont d-none">Please select a member!</div>
                         <div class="select-wrapper assigned-to-wrapper">
-                            <div class="sector_top" onclick="openDropdown('assigned-to-choices'), event.stopPropagation()">
-                                <p id="assigned-to-header">Select your Members</p><img src="../../assets/img/arrow_down.png">
+                            <div class="sector-top"
+                                onclick="openDropdown('assigned-to-choices'), event.stopPropagation()">
+                                <p id="assigned-to-header">Select your Members</p><img
+                                    src="../../assets/img/arrow_down.png">
                             </div>
-                            <div class="category-assigned-to d-none" id="assigned-to-choices" onclick="dontClose(event)">
+                            <div class="category-assigned-to d-none" id="assigned-to-choices"
+                                onclick="dontClose(event)">
                                 <div class="assigned-to" onclick="changeCategoryHeader('Marketing')">
                                     <div id="marketing">Marketing </div>
                                     <div class="circle" style="background: #0038ff;"></div>
@@ -74,59 +84,67 @@
                                     <div>Media </div>
                                     <div class="circle" style="background: #ffc702;"></div>
                                 </div>
-                        <div class="assigned-to" onclick="changeCategoryHeader('Backoffice')">
-                            <div>Backoffice </div>
-                            <div class="circle" style="background: #1FD7C1;"></div>
+                                <div class="assigned-to" onclick="changeCategoryHeader('Backoffice')">
+                                    <div>Backoffice </div>
+                                    <div class="circle" style="background: #1FD7C1;"></div>
+                                </div>
+                                <div class="assigned-to" onclick="changeCategoryHeader('Design')">
+                                    <div>Design </div>
+                                    <div class="circle" style="background:  #ff7a00;"></div>
+                                </div>
+                                <div class="assigned-to" onclick="changeCategoryHeader('Sales')">
+                                    <div>Sales </div>
+                                    <div class="circle" style="background: #fc71ff;"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="assigned-to" onclick="changeCategoryHeader('Design')">
-                            <div>Design </div>
-                            <div class="circle" style="background:  #ff7a00;"></div>
+                    </div>
+                </div>
+                <div class="middle-gap"></div>
+                <div class="right-container width-unset">
+                    <div class="features-container">
+                        <label for="date">Due Date</label>
+                        <input class="date" type="date" id="date" name="date" min="" required>
+                    </div>
+                    <div class="features-container">
+                        <label>Prio</label>
+                        <div onchange="changeColor(); return false" class="prio-btn-container">
+                            <input type="radio" class="checkbox_urgen" id="urgentBtn" name="radio">
+                            <label for="urgentBtn" class="prio-btn prio-urgent urgentSection" for="checkbox_urgen"
+                                id="urgentSection">Urgent<img id="prioUrgentWhite"
+                                    src="assets/img/prio_urgent.png"></label>
+                            <input type="radio" class="checkbox_medium" id="mediumBtn" name="radio">
+                            <label for="mediumBtn" class="prio-btn prio-urgent mediumSection" for="checkbox_urgen"
+                                id="mediumSection">Medium<img id="prioUrgentWhite"
+                                    src="assets/img/prio_medium.png"></label>
+                            <input type="radio" class="checkbox_low" id="lowBtn" name="radio" checked><label
+                                for="lowBtn" class="prio-btn prio-urgent lowSection" for="checkbox_urgen"
+                                id="lowSection">Low<img id="prioUrgentWhite"
+                                    src="assets/img/prio_low_white.png"></label>
                         </div>
-                        <div class="assigned-to" onclick="changeCategoryHeader('Sales')">
-                            <div>Sales </div>
-                            <div class="circle" style="background: #fc71ff;"></div>
+                        <div class="features-container">
+                            <label>Subtasks</label>
+                            <div class="subtask-container">
+                                <input *ngIf="!subtaskInput" class="subtask-input" placeholder="Add new subtask" (click)="subtaskInput = true"><img *ngIf="!subtaskInput" class="plus-icon" src="assets/img/plus_icon.png" (click)="subtaskInput = true">
+                                <input *ngIf="subtaskInput" class="subtask-input" type="text" placeholder="Enter a title" formControlName="title">
+                                <img *ngIf="subtaskInput" class="subtask-icons" src="../../assets/img/icon_check_subtask.svg">
+                                <div *ngIf="subtaskInput" class="gap-img-subtask"></div>
+                                <img *ngIf="subtaskInput" class="subtask-icons" src="../../assets/img/icon_cancel_subtask.svg" (click)="subtaskInput = false">
+                            </div>
+                            <div>
+                                <ul id="subtask-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-and-clear" id="submit-and-clear">
+                        <div class="btn-clear" onclick="clearAll()">Clear<img class="clear-img"
+                                src="assets/img/iconoir_cancel.png"></div>
+                        <div><Button class="btn-createTask">Create Task<img src="assets/img/icons_check.png"></Button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="middle-gap"></div>
-        <div class="right-container width-unset">
-            <div class="features-container">
-                <label for="date">Due Date</label>
-                <input class="date" type="date" id="date" name="date" min="" required>
-            </div>
-            <div class="features-container">
-                <label>Prio</label>
-                <div onchange="changeColor(); return false" class="prio-btn-container">
-                    <input type="radio" class="checkbox_urgen" id="urgentBtn" name="radio">
-                    <label for="urgentBtn" class="prio-btn prio-urgent urgentSection" for="checkbox_urgen" id="urgentSection">Urgent<img id="prioUrgentWhite" src="assets/img/prio_urgent.png"></label>
-                    <input type="radio" class="checkbox_medium" id="mediumBtn" name="radio">
-                    <label for="mediumBtn" class="prio-btn prio-urgent mediumSection" for="checkbox_urgen" id="mediumSection">Medium<img id="prioUrgentWhite" src="assets/img/prio_medium.png"></label>
-                    <input type="radio" class="checkbox_low" id="lowBtn" name="radio" checked><label for="lowBtn" class="prio-btn prio-urgent lowSection" for="checkbox_urgen" id="lowSection">Low<img id="prioUrgentWhite" src="assets/img/prio_low_white.png"></label>
-                </div>
-                <div class="features-container">
-                    <label>Subtasks</label>
-                    <div class="subtask-container">
-                        <input class="subtask-input" onclick="inputChangeSubIcons()"placeholder="Add new subtask" id="subtask"><img id="plusSubtaskImg" class="plus-icon" src="assets/img/plus_icon.png" onclick="changeSubIcon()">
-                        <div class="subtask-img-container">
-                            <img id="clearSubtaskImg" src="assets/img/icon_cancel_subtask.png" onclick="clearSubtask()" class="subtask-icons d-none">
-                            <div class="gap-img-subtask"></div>
-                            <img id="addSubtaskImg" src="assets/img/icon_check_subtask.png" onclick="addSubtask()" class="subtask-icons d-none">
-                        </div>
-                    </div>
-                <div>
-            <ul id="subtask-list"></ul>
-            </div>
-        </div>
+        </form>
     </div>
-    <div class="submit-and-clear" id="submit-and-clear">
-        <div class="btn-clear" onclick="clearAll()">Clear<img class="clear-img" src ="assets/img/iconoir_cancel.png"></div>
-        <div><Button class="btn-createTask">Create Task<img src ="assets/img/icons_check.png"></Button></div>
-    </div>
-</div>
-</div>
-</form>
-</div>
 </div>
 <script>setDateToday();</script>
