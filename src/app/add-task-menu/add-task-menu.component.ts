@@ -9,6 +9,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class AddTaskMenuComponent {
   minDate: Date;
   maxDate: Date;
+  subtask: string = '';
+  public showInputSubtask: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<AddTaskMenuComponent>) {
     const currentYear = new Date().getFullYear();

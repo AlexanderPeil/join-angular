@@ -1,7 +1,8 @@
 <app-header></app-header>
 <app-nav-bar></app-nav-bar>
-
-<!-- <div class="overflow"> -->
+<!-- <div class="overlay-container" *ngIf="overlayVisible">
+    <app-add-contact (closeContactForm)="showContactForm()"></app-add-contact>
+  </div> -->
     <main class="contacts-main-container">
         <!-- Content - left side -->
         <section class="contact-list-container">
@@ -19,58 +20,9 @@
             <div id="contactSelection"></div>
             <div id="formContainer"></div>
         </section>
-        <button title="add contact" class="contact-add-btn contact-btn-position" mat-raised-button
-            (click)="openDialog()">New Contact</button>
+        <button routerLink="/add-contact" (click)="setBackgroundDark()" class="contact-add-btn contact-btn-position">
+        <p>New Contact</p>
+        <img class="contact-btn-icon" src="./assets/img/add_contact.png">
+    </button>
     </main>
-<!-- </div> -->
-
-<!-- <div id="new-contact-bg" class="contact-popup-bg d-none">
-    <div id="contactForm" class="contact-form-overlay edit-contact d-none" onclick="event.stopPropagation()">
-        <div class="contact-form-left">
-            <img class="contact-form-logo" src="./assets/img/Logo-Join.png" alt="#">
-            <span class="contact-form-heading">Add Contact</span>
-            <p class="contact-form-slogan">Tasks are better with a team!</p>
-            <img class="contact-form-underline" src="assets/img/underline.svg" alt="">
-        </div>
-        <div class="contact-form-right">
-            <img class="contact-form-user-icon" src="./assets/img/contact-user-icon.svg">
-            <div class="contact-input-container margin-top">
-                <div class="icon-top-right" title="close form">
-                    <img class="contact-cancel-icon" src="./assets/img/contact-cancel-icon.svg" alt="#"
-                        onclick="closeAddContactForm()">
-                    <img class="contact-cancel-icon-mobile hide-content" src="assets/img/x_ixon.png" alt=""
-                        onclick="closeAddContactForm()">
-                </div>
-                <form onsubmit="addContacts(); return false;">
-                    <div class="form-group">
-                        <input class="contact-input-field input-name-img" type="text" placeholder="First Name"
-                            id="firstName" name="firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <input class="contact-input-field input-name-img" type="text" placeholder="Last Name"
-                            id="lastName" name="lastName" required>
-                    </div>
-                    <div class="form-group">
-                        <input class="contact-input-field input-email-img" type="email" placeholder="Email" id="email"
-                            name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <input class="contact-input-field input-phone-img" type="tel" placeholder="Phone" id="phone"
-                            name="phone" pattern="[+0-9\s]+" required>
-                    </div>
-                    <div class="contact-popup-bottom">
-                        <div class="form-group color-picker">
-                            <input class="p-none" type="color" id="color" name="color" value="#000000" required>
-                        </div>
-                        <div class="form-group btn-centered">
-                            <button type="submit" class="contact-add-btn">
-                                <p>Create Contact</p>
-                                <img class="contact-create-icon" src="./assets/img/contact-create-icon.svg" alt="#">
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> -->
+      

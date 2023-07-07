@@ -1,4 +1,8 @@
 <div class="add-task-content">
+    <div class="header-popup">
+        <h2>Add Task</h2>
+        <img class="close-header-popup" src="./../assets/img/xicon.svg">
+    </div>
     <form onsubmit="addTask();return false">
         <div class="content-container">
             <div class="left-container">
@@ -121,17 +125,17 @@
                         <input type="radio" class="checkbox_urgen" id="urgentBtn" name="radio">
                         <label for="urgentBtn" class="prio-btn prio-urgent urgentSection" for="checkbox_urgen"
                             id="urgentSection">
-                            Urgent<img class="add-task-img" id="prioUrgentWhite" src="assets/img/Prio-urgent.png">
+                            Urgent<img class="add-task-img" id="prioUrgentWhite" src="assets/img/prio_urgent.png">
                         </label>
                         <input type="radio" class="checkbox_medium" id="mediumBtn" name="radio">
                         <label for="mediumBtn" class="prio-btn prio-urgent mediumSection" for="checkbox_urgen"
                             id="mediumSection">
-                            Medium<img class="add-task-img" id="prioUrgentWhite" src="assets/img/Prio-medium.png">
+                            Medium<img class="add-task-img" id="prioUrgentWhite" src="assets/img/prio_medium.png">
                         </label>
                         <input type="radio" class="checkbox_low" id="lowBtn" name="radio" checked>
                         <label for="lowBtn" class="prio-btn prio-urgent lowSection" for="checkbox_urgen"
                             id="lowSection">
-                            Low<img class="add-task-img" id="prioUrgentWhite" src="assets/img/prio-low-white.png">
+                            Low<img class="add-task-img" id="prioUrgentWhite" src="assets/img/prio_low_white.png">
                         </label>
                     </div>
 
@@ -139,7 +143,18 @@
 
                     <div class="features-container">
                         <label>Subtasks</label>
-                        <div class="subtask-container">
+                        <span>Subtasks</span>
+                        <mat-form-field class="example-form-field">
+                            <mat-label>Enter a subtask</mat-label>
+                            <input matInput *ngIf="!showInputSubtask" (click)="showInputSubtask = true" type="text"
+                                name="open-subtask">
+                            <mat-icon matSuffix *ngIf="!showInputSubtask">add</mat-icon>
+                            <input matInput *ngIf="showInputSubtask" type="text" [(ngModel)]="subtask" name="subtask">
+                            <mat-icon *ngIf="showInputSubtask" matSuffix>check</mat-icon>
+                            <mat-icon *ngIf="showInputSubtask" (click)="showInputSubtask = false"
+                                matSuffix>cancel</mat-icon>
+                        </mat-form-field>
+                        <!-- <div class="subtask-container">
                             <input class="subtask-input" onclick="inputChangeSubIcons()" placeholder="Add new subtask"
                                 id="subtask">
                             <img id="plusSubtaskImg" class="plus-icon" src="assets/img/plus-icon.png"
@@ -151,7 +166,7 @@
                                 <img id="addSubtaskImg" src="assets/img/icon_check_subtask.svg" onclick="addSubtask()"
                                     class="subtask-icons d-none">
                             </div>
-                        </div>
+                        </div> -->
                         <div>
                             <ul id="subtask-list">
                             </ul>
@@ -160,9 +175,9 @@
                 </div>
                 <div class="submit-and-clear">
                     <div><Button class="btn-clear">Clear<img class="clear-img"
-                                src="assets/img/iconoir_cancel.svg"></Button>
+                                src="assets/img/iconoir_cancel.png"></Button>
                     </div>
-                    <div><Button class="btn-createTask">Create Task<img src="assets/img/akar-icons_check.svg"></Button>
+                    <div><Button class="btn-createTask">Create Task<img src="assets/img/icons_check.png"></Button>
                     </div>
                 </div>
             </div>

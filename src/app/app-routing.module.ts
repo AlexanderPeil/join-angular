@@ -9,6 +9,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { HelpPageComponent } from './help-page/help-page.component';
+import { AddContactComponent } from './add-contact/add-contact.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'contacts', component: ContactsComponent},
   { path: 'legal-notice', component: LegalNoticeComponent},
   { path: 'help-page', component: HelpPageComponent},
+  { path: 'add-contact', component: AddContactComponent},
   { path: '**', component: LoginComponent }
 ];
 

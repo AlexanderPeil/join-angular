@@ -1,21 +1,26 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-add-contact',
   templateUrl: './add-contact.component.html',
   styleUrls: ['./add-contact.component.scss']
 })
+
 export class AddContactComponent {
-  firstName:string = '';
-  lastName:string = '';
-  email:string = '';
-  phone:string = '';
+  profileForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    email: new FormControl(''),
+    phone: new FormControl(''),
+  });
 
-  constructor(public dialogRef: MatDialogRef<AddContactComponent>) { }
-
-  onNoClick() {
-    this.dialogRef.close();
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.warn(this.profileForm.value);
   }
 
+  stopPropagation(event: Event) {
+    event.stopPropagation();
+  }
 }

@@ -1,41 +1,38 @@
-<div mat-dialog-content class="add-contact-popup">
-    <div class="contact-popup-headline">
-        <img class="close-popup-mobile" src="../../assets/img/x_ixon.png"  (click)="onNoClick()">
-        <img src="../../assets/img/join_logo_add_contact.png">
-        <h1>Add Contact</h1>
-        <span>Tasks are better with a team!</span>
-        <img src="../../assets/img/add_contact_underline.png">
-    </div>
-    <div class="add-contact-menu">
-        <img class="user-icon" src="../../assets/img/contact_user_icon.png">
-        <form action="">
-            <mat-form-field class="example-form-field">
-                <mat-label>First Name</mat-label>
-                <input matInput type="text" [(ngModel)]="firstName" name="first-name">
-                <mat-icon matSuffix>perm_identity</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="example-form-field">
-                <mat-label>Last Name</mat-label>
-                <input matInput type="text" [(ngModel)]="lastName" name="last-name">
-                <mat-icon matSuffix>perm_identity</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="example-form-field">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" [(ngModel)]="email" name="email">
-                <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="example-form-field">
-                <mat-label>Phone</mat-label>
-                <input matInput type="tel" [(ngModel)]="phone" name="phone">
-                <mat-icon matSuffix>call</mat-icon>
-            </mat-form-field>
-            <img class="close" src="../../assets/img/xicon.svg" (click)="onNoClick()">
-            <div class="contact-popup-bottom">
-                <input class="p-none" type="color" id="color" name="color" value="#000000" required>
-                <button mat-raised-button class="disabled-conditions"
-                    [disabled]="firstName.length == 0 || lastName.length == 0 || email.length == 0 || phone.length == 0">Create
-                    Contact <img src="../../assets/img/checkmark.png"></button>
+<app-header class="bg-dark"></app-header>
+<app-nav-bar class="bg-dark"></app-nav-bar>
+
+<div class="add-contact-content" routerLink="/contacts">
+    <div class="add-contact-menu" (click)="stopPropagation($event)">
+        <div class="contact-form-left">
+            <img class="contact-form-logo" src="../../assets/img/join_logo_add_contact.png">
+            <h1>Add Contact</h1>
+            <span>Tasks are better with a team!</span>
+            <img class="contact-form-underline" src="../../assets/img/add_contact_underline.png">
+        </div>
+        <div class="contact-form-right">
+            <img class="user-icon" src="../../assets/img/contact_user_icon.png">
+            <div class="contact-input-container">
+                <div class="icon-top-right">
+                    <img class="close-popup-mobile" src="../../assets/img/x_ixon.png" routerLink="/contacts">
+                    <img class="close" src="../../assets/img/xicon.svg" routerLink="/contacts"> 
+                </div>
+                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                    <!-- <label for="first-name"></label> -->
+                    <input class="input-name-img" type="text" placeholder="First Name" formControlName="firstName">
+                    <!-- <label for="last-name"></label> -->
+                    <input class="input-name-img"  type="text" placeholder="Last Name"  formControlName="lastName">
+                    <!-- <label for="email"></label> -->
+                    <input class="input-email-img"  type="email" placeholder="Email"  formControlName="email">
+                    <!-- <label for="phone"></label> -->
+                    <input class="input-phone-img"  type="text" placeholder="Phone"  formControlName="phone">
+                    <div class="contact-popup-bottom">
+                        <input class="p-none" type="color" id="color" name="color" value="#000000" required>
+                        <button mat-raised-button class="disabled-conditions"
+                            [disabled]="profileForm.get('firstName')?.value === '' || profileForm.get('lastName')?.value === '' || profileForm.get('email')?.value === '' || profileForm.get('phone')?.value === ''">Create
+                            Contact <img src="../../assets/img/checkmark.png"></button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
