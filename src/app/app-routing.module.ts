@@ -10,6 +10,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { HelpPageComponent } from './help-page/help-page.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
+import { AddTaskMenuComponent } from './add-task-menu/add-task-menu.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'summary', component: SummaryComponent},
   { path: 'board', component: BoardComponent},
   { path: 'add-task', component: AddTaskComponent},
+  { path: 'add-task-menu', component: AddTaskMenuComponent},
   { path: 'contacts', component: ContactsComponent},
   { path: 'legal-notice', component: LegalNoticeComponent},
   { path: 'help-page', component: HelpPageComponent},

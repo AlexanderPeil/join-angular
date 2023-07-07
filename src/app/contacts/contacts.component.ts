@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-// import { AddContactComponent } from '../add-contact/add-contact.component';
-
 
 @Component({
   selector: 'app-contacts',
@@ -8,10 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent {
-  public darkBackground = false;
 
-  setBackgroundDark() {
-    this.darkBackground = true;
-  }
 }
 

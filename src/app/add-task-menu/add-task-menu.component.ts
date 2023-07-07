@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-add-task-menu',
@@ -7,19 +8,31 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./add-task-menu.component.scss']
 })
 export class AddTaskMenuComponent {
-  minDate: Date;
-  maxDate: Date;
-  subtask: string = '';
-  public showInputSubtask: boolean = false;
+  profileForm = new FormGroup({
+    title: new FormControl(''),
+  });
 
-  constructor(public dialogRef: MatDialogRef<AddTaskMenuComponent>) {
-    const currentYear = new Date().getFullYear();
-    this.minDate = new Date;
-    this.maxDate = new Date(currentYear + 1, 11, 31);
+  onSubmit() {
+
   }
 
-  onNoClick() {
-    this.dialogRef.close();
+  stopPropagation(event: Event) {
+    event.stopPropagation();
   }
+
+  // minDate: Date;
+  // maxDate: Date;
+  // subtask: string = '';
+  // public showInputSubtask: boolean = false;
+
+  // constructor(public dialogRef: MatDialogRef<AddTaskMenuComponent>) {
+  //   const currentYear = new Date().getFullYear();
+  //   this.minDate = new Date;
+  //   this.maxDate = new Date(currentYear + 1, 11, 31);
+  // }
+
+  // onNoClick() {
+  //   this.dialogRef.close();
+  // }
 
 }
