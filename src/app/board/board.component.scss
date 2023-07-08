@@ -479,7 +479,7 @@ a {
         width: 100%;
     }
     .add-task {
-        display: none;
+        display: none !important;
     }
 
     .add-task-btn-mobile {
