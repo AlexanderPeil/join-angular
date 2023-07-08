@@ -8,10 +8,15 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AddTaskComponent {
   public subtaskInput: boolean = false;
+  
+  prioUrgent: boolean = false;
+  prioMedium: boolean = false;
+  prioLow: boolean = true;
+
   minDate: Date;
   maxDate: Date;
   subtask: string = '';
-  public showInputSubtask: boolean = false;
+  // public showInputSubtask: boolean = false;
 
   constructor() {
     const currentYear = new Date().getFullYear();

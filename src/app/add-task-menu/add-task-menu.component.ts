@@ -10,6 +10,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class AddTaskMenuComponent {
   public subtaskInput: boolean = false;
 
+  prioUrgent: boolean = false;
+  prioMedium: boolean = false;
+  prioLow: boolean = true;
+
   profileForm = new FormGroup({
     title: new FormControl(''),
     description: new FormControl('')
