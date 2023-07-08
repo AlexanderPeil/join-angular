@@ -27,11 +27,11 @@ export class LoginComponent {
   handleCheckboxChange(): void {
     // this.checked = this.checkboxControl.value;
     console.log('Checkbox checked', this.checked);
-    
+
   }
 
   onSubmit() {
-    
+
   }
 
   // public linkToSignUp = '/sign-up';

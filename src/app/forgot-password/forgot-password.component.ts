@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-password',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent {
+
+  profileForm = new FormGroup({
+    email: new FormControl(''),
+  });
+
+  onSubmit() {
+    
+  }
 
 }
