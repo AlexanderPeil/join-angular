@@ -16,7 +16,7 @@
     height: 120px;
     position: absolute;
     top: 67px;
-    left: 77px;    
+    left: 77px;
     object-fit: contain;
 }
 
@@ -203,34 +203,40 @@ form {
         cursor: pointer;
     }
 
-    .login-btn {
-        background-color: #2A3647;
-        border: none;
-        color: white;
-        width: 145px;
-        height: 51px;
-        width: 130px;
-    
-        &:hover {
-            background: #29ABE2;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            transition: all 125ms ease-in-out;
-        }
-    }
-
     .guest-login-btn {
         background-color: white;
         color: #2A3647;
         border: 1px solid black;
         height: 51px;
         width: 150px;
-    
+
         &:hover {
             color: #29ABE2;
             border-color: #29ABE2;
             transition: all 125ms ease-in-out;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         }
+    }
+}
+
+.login-btn {
+    background-color: #2A3647;
+    border: none;
+    color: white;
+    width: 145px;
+    height: 51px;
+    width: 130px;
+
+    &:not([disabled]):hover {
+        background: #29ABE2;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        transition: all 125ms ease-in-out;
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        pointer-events: none;
+        filter: contrast(0.5);
     }
 }
 

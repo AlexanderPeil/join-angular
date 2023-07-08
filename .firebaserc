@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "join-97787": {
+      "hosting": {
+        "join-angular": [
+          "join-97787"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "join-97787"
+  }
+}

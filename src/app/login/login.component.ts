@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,10 @@ import { FormControl } from '@angular/forms';
 export class LoginComponent {
   animationStopped = false;
   checked = false;
-  checkboxControl = new FormControl();
+  profileForm = new FormGroup({
+    password: new FormControl(''),
+    email: new FormControl(''),
+  });
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -22,8 +25,12 @@ export class LoginComponent {
   }
 
   handleCheckboxChange(): void {
-    this.checked = this.checkboxControl.value;
+    // this.checked = this.checkboxControl.value;
     console.log('Checkbox checked', this.checked);
+    
+  }
+
+  onSubmit() {
     
   }
 

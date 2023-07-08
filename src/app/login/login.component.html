@@ -1,6 +1,7 @@
 <img class="join-logo logo-animation" src="assets/img/join-logo.png" alt="join-logo">
 <img class="d-none bg-mobile-animation" src="assets/img/bg-mobile.png" alt="mobile-background">
-<img class="d-none" [class.animation-stop]="animationStopped" id="animation-mobile" src="assets/img/animation-mobile.png" alt="animation mobile">
+<img class="d-none" [class.animation-stop]="animationStopped" id="animation-mobile"
+    src="assets/img/animation-mobile.png" alt="animation mobile">
 
 
 <div class="start-bg start-bg-mobile">
@@ -11,32 +12,27 @@
             <!-- <button><a routerLink="/sign-up">Sign up</a></button> -->
             <!-- <button [routerLink]="linkToSignUp">Sign up</button> -->
         </div>
-        <form return false>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
             <span class="heading-span">Log in</span>
             <span class="msg-box d-none">Invalid email or password!</span>
             <span class="msg-box d-none">Logged-In as guest!</span>
             <img src="assets/img/underline.png" alt="underline" class="underline">
-            <img src="assets/img/log-in-underline-mob.png" alt="underline-mobile"
-                class="underline-mobile d-none">
-            <input class="input-email-pw input-email-img" type="email" name="email" placeholder="Email" required>
-            <input class="input-email-pw input-password-img" type="password" name="password"
-                placeholder="Password" required>
+            <img src="assets/img/log-in-underline-mob.png" alt="underline-mobile" class="underline-mobile d-none">
+            <input class="input-email-pw" type="email" placeholder="Email" formControlName="email">
+            <input class="input-email-pw" type="password" placeholder="Password" formControlName="password">
             <div class="login-bottom">
-                <mat-card>
-                    <mat-card-content>
-                      <section class="example-section">
-                        <mat-checkbox class="example-margin" name="ngModel" [(ngModel)]="checked" (change)="handleCheckboxChange()">
-                            <span class="login-bottom-font">Remember me</span>
-                        </mat-checkbox>
-                      </section>
-                    </mat-card-content>
-                  </mat-card>
+                <section class="example-section">
+                    <input type="checkbox" class="example-margin"
+                        (change)="handleCheckboxChange()">
+                    <span class="login-bottom-font">Remember me</span>
+                </section>
                 <a routerLink="/forgot-password" class="login-bottom-font">Forgot my
                     password</a>
             </div>
             <div class="login-buttons">
-                <button type="submit" class="login-btn btn-font login-btn-mob">Log in</button>
-                <button routerLink="/summary" type="button" class="guest-login-btn btn-font login-btn-mob">Guest Log in</button>
+                <button [disabled]="profileForm.get('email')?.value === '' || profileForm.get('password')?.value === ''  " type="submit" class="login-btn btn-font login-btn-mob">Log in</button>
+                <button routerLink="/summary" type="button" class="guest-login-btn btn-font login-btn-mob">Guest Log
+                    in</button>
             </div>
         </form>
     </div>

@@ -28,6 +28,11 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { HelpPageComponent } from './help-page/help-page.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { AddTaskMenuComponent } from './add-task-menu/add-task-menu.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -61,7 +66,11 @@ import { AddTaskMenuComponent } from './add-task-menu/add-task-menu.component';
     MatNativeDateModule,
     MatDatepickerModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore())
 
   ],
   providers: [],

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject  } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-contact',
