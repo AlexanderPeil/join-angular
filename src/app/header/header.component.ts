@@ -9,8 +9,22 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   constructor(private router: Router) {}
 
+  isDropdownOpen = false;
+
+  showLogout() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
   logOut() {
     this.router.navigateByUrl('login.html');
+  }
+
+  dontClose() {
+
+  }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation();
   }
 
 }

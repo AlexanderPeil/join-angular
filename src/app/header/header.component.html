@@ -1,28 +1,16 @@
-<header>
-    <span class="headline">Kanban Project Management Tool</span>
+<header (click)="isDropdownOpen = false">
+    <div class="headline">Kanban Project Management Tool</div>
     <div class="header-logo">
-        <img src="assets/img/join-logo.png" alt="Join-Logo">
+        <img src="assets/img/join_logo.png" alt="Join-logo">
     </div>
     <div class="header-nav">
         <img class="add-btn-mobile d-none" src="assets/img/add_task_btn_mob.svg" alt="add-button">
-        <img routerLink="/help-page" class="header-help-icon" src="assets/img/help-icon.png">
-        <button class="header-nav button-style" mat-button [matMenuTriggerFor]="logoutMenu">
-            <img class="header-user-img mobile-dnone" src="assets/img/user-guest.png">
-        </button>
-        <mat-menu #logoutMenu="matMenu">
-            <div class="logout-menu">
-                <button mat-menu-item (click)="logOut()">Log out</button>
-            </div>
-        </mat-menu>
+        <a class="help-icon" href="help.html"><img class="header-help-icon" src="assets/img/help_icon.png"></a>
+        <img class="header-user-img" src="assets/img/user_guest.png" (click)="showLogout();stopPropagation($event)">
+        <ul class="logout-menu" [hidden]="!isDropdownOpen">
+            <li class="hide-content" routerLink="/help-page"><span>Help</span></li>
+            <li class="hide-content" routerLink="/legal-notice"><span>Legal notice</span></li>
+            <li routerLink="/login"><span>Log out</span></li>
+        </ul>
     </div>
-    <button class="header-nav-mobile button-style" mat-button [matMenuTriggerFor]="logoutMenuMobile">
-        <img class="header-user-img" src="assets/img/user-guest.png">
-    </button>
-    <mat-menu #logoutMenuMobile="matMenu">
-        <div class="logout-menu">
-            <span routerLink="/help-page" class="mat-mdc-menu-item">Help</span>
-            <span routerLink="/legal-notice" class="hide-content">Legal notice</span>
-            <button mat-menu-item (click)="logOut()">Log out</button>
-        </div>
-    </mat-menu>
 </header>
