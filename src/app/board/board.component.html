@@ -6,62 +6,45 @@
         <div class="headline-mobile d-none">Kanban Project Management Tool</div>
         <div class="board-add-task width">
             <h2>Board</h2>
-            <img routerLink="/add-task-menu" class="add-task-btn-mobile d-none" src="assets/img/add-task-mob.png"
-                alt="">
+            <img routerLink="/add-task-menu" class="add-task-btn-mobile d-none" src="assets/img/add-task-mob.png">
         </div>
         <div class="search-container">
             <div class="search-box"><input type="text" placeholder="Find Task" onkeyup="findTasks()" id="findTask">
                 <div class="dividing-line"></div>
-                <div class="search-icon"><img src="assets/img/magnifier.png" alt=""></div>
+                <div class="search-icon"><img src="assets/img/magnifier.png"></div>
             </div>
-            <!-- <button class="add-task" onclick="openAddTask()">Add task +</button> -->
             <button class="add-task" routerLink="/add-task-menu">Add task +</button>
         </div>
-
     </div>
 
-    <div class="board width">
-        <div class="splits width">
-            <div class="splits-head">
-                <h3>To Do</h3>
-                <div class="add_plus" onclick="openAddTask('to_do')">+</div>
-            </div>
-            <div class="dropArea" id="dropArea_to_do" ondrop="moveTo('to_do')" ondragover="allowDrop(event, 'to_do')" ondragleave="disableDrop('to_do')">
-                <div class="drop-ground width" id="to_do"></div>
+    <div cdkDropListGroup>
+        <div class="example-container">
+            <h2>To do</h2>
+            <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of todo" cdkDrag >{{item}}</div>
             </div>
         </div>
 
-        <div class="splits width">
-            <div class="splits-head">
-                <h3>In Progress</h3>
-                <div class="add_plus" onclick="openAddTask('in_progress')">+</div>
-            </div>
-            <div  class="dropArea" id="dropArea_in_progress" ondrop="moveTo('in_progress')" ondragover="allowDrop(event, 'in_progress')" ondragleave="disableDrop('in_progress')">
-                <div class="drop-ground width" id="in_progress"></div>
+        <div class="example-container">
+            <h2>In Progress</h2>
+            <div cdkDropList [cdkDropListData]="in_progress" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of in_progress" cdkDrag>{{item}}</div>
             </div>
         </div>
 
-        <div class="splits width">
-            <div class="splits-head">
-                <h3>Awaiting Feedback</h3>
-                <div class="add_plus" onclick="openAddTask('awaiting_feedback')">+</div>
+        <div class="example-container">
+            <h2>Awaitng Feedback</h2>
+            <div cdkDropList [cdkDropListData]="awaiting_feedback" class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of awaiting_feedback" cdkDrag>{{item}}</div>
             </div>
-            <div  class="dropArea" id="dropArea_awaiting_feedback" ondrop="moveTo('awaiting_feedback')" ondragover="allowDrop(event, 'awaiting_feedback')" ondragleave="disableDrop('awaiting_feedback')">
-            <div class="drop-ground width" id="awaiting_feedback"></div>
+        </div>
+
+        <div class="example-container">
+            <h2>Done</h2>
+            <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+            </div>
         </div>
     </div>
-
-        <div class="splits width">
-            <div class="splits-head">
-                <h3>Done</h3>
-                <div class="add_plus" onclick="openAddTask('done')">+</div>
-            </div>
-            <div   class="dropArea" id="dropArea_done" ondrop="moveTo('done')" ondragover="allowDrop(event, 'done')" ondragleave="disableDrop('done')">              
-            <div class="drop-ground width" id="done"></div>
-        </div>
-    </div>  
-    </div>
-</div>
-<div class="board-bottom"></div>
-<div id="popUp">
 </div>

@@ -6,9 +6,16 @@
           "join-97787"
         ]
       }
+    },
+    "ap-join": {
+      "hosting": {
+        "join-angular": [
+          "ap-join"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "join-97787"
+    "default": "ap-join"
   }
 }

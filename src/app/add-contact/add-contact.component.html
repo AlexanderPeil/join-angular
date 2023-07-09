@@ -26,7 +26,7 @@
                     <!-- <label for="phone"></label> -->
                     <input class="input-phone-img"  type="text" placeholder="Phone"  formControlName="phone">
                     <div class="contact-popup-bottom">
-                        <input class="p-none" type="color" id="color" name="color" value="#000000" required>
+                        <input class="p-none" type="color" value="#000000" formControlName="color">
                         <button mat-raised-button class="disabled-conditions"
                             [disabled]="profileForm.get('firstName')?.value === '' || profileForm.get('lastName')?.value === '' || profileForm.get('email')?.value === '' || profileForm.get('phone')?.value === ''">Create
                             Contact <img src="../../assets/img/checkmark.png"></button>
