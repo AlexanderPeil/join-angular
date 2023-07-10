@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 interface Contact {
   id: string;
@@ -19,10 +20,10 @@ interface Contact {
 export class ContactsComponent implements OnInit {
   contacts$: Observable<Contact[]>;
   uniqueLetters: string[] = [];
-    selectedContact: Contact | null = null;
+  selectedContact: Contact | null = null;
 
   constructor(private firestore: AngularFirestore) {
-    this.contacts$ = this.firestore.collection<Contact>('contacts').valueChanges();
+    this.contacts$ = this.firestore.collection<Contact>('contacts').valueChanges({ idField: 'id' });
   }
 
   selectContact(contact: Contact) {
@@ -30,14 +31,12 @@ export class ContactsComponent implements OnInit {
   }
 
   deleteContact(contact: Contact) {
-    this.firestore.collection('contacts').doc(contact.id).delete()
-      .then(() => {
-        console.log('Kontakt erfolgreich gelöscht.');
-        this.selectedContact = null; // Zurücksetzen des ausgewählten Kontakts
-      })
-      .catch((error) => {
-        console.error('Fehler beim Löschen des Kontakts:', error);
-      });
+    this.firestore.collection('contacts').doc(contact.id).delete().then(() => {
+      console.log('Kontakt erfolgreich gelöscht.');
+      this.selectedContact = null;
+    }).catch((error) => {
+      console.error('Fehler beim Löschen des Kontakts:', error);
+    });
   }
 
   ngOnInit(): void {
@@ -49,6 +48,4 @@ export class ContactsComponent implements OnInit {
       this.uniqueLetters = Array.from(lettersSet);
     });
   }
-
 }
-
