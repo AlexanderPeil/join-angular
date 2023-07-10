@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
 interface Contact {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -17,13 +18,36 @@ interface Contact {
 })
 export class ContactsComponent implements OnInit {
   contacts$: Observable<Contact[]>;
+  uniqueLetters: string[] = [];
+    selectedContact: Contact | null = null;
 
   constructor(private firestore: AngularFirestore) {
     this.contacts$ = this.firestore.collection<Contact>('contacts').valueChanges();
   }
 
-  ngOnInit(): void {
+  selectContact(contact: Contact) {
+    this.selectedContact = contact;
+  }
 
+  deleteContact(contact: Contact) {
+    this.firestore.collection('contacts').doc(contact.id).delete()
+      .then(() => {
+        console.log('Kontakt erfolgreich gelöscht.');
+        this.selectedContact = null; // Zurücksetzen des ausgewählten Kontakts
+      })
+      .catch((error) => {
+        console.error('Fehler beim Löschen des Kontakts:', error);
+      });
+  }
+
+  ngOnInit(): void {
+    this.contacts$.subscribe(contacts => {
+      const lettersSet = new Set<string>();
+      contacts.forEach(contact => {
+        lettersSet.add(contact.lastName.charAt(0).toUpperCase());
+      });
+      this.uniqueLetters = Array.from(lettersSet);
+    });
   }
 
 }

@@ -7,18 +7,19 @@
         <section class="contact-list-container">
             <div>
                 <div class="contact-list">
-                    <ng-container *ngFor="let contact of contacts$ | async as contacts; let i = index">
-                        <ng-container *ngIf="i === 0 || contact.lastName.charAt(0) !== contacts[i-1].lastName.charAt(0)">
-                            <h2 class="contact-index">{{ contact.lastName.charAt(0).toUpperCase() }}</h2>
-                            <div class="contact-underline"></div>
-                            <div class="contact-list-box">
+                    <ng-container *ngFor="let letter of uniqueLetters">
+                        <h2 class="contact-index">{{ letter }}</h2>
+                        <div class="contact-underline"></div>
+                        <ng-container *ngFor="let contact of contacts$ | async">
+                            <div class="contact-list-box" *ngIf="contact.lastName.charAt(0).toUpperCase() === letter"
+                                (click)="selectContact(contact)">
                                 <div class="contact-letters small-letters" [style.background-color]="contact.color">
                                     {{ contact.lastName.charAt(0).toUpperCase() }}{{
                                     contact.firstName.charAt(0).toUpperCase()
                                     }}
                                 </div>
                                 <div class="contact-details">
-                                    <div class="contact-name">{{ contact.firstName }} {{ contact.lastName }}</div>
+                                    <div class="contact-name">{{ contact.lastName }} {{ contact.firstName }}</div>
                                     <div class="contact-email">{{ contact.email }}</div>
                                 </div>
                             </div>
@@ -28,14 +29,40 @@
             </div>
         </section>
         <!-- Content - right side -->
-        <section id="contactOverlay" class="contact-selection-container contact-selection-overlay edit-contact">
+
+        <section>
             <div class="contact-header-container">
                 <h1 class="contact-header">Contacts</h1>
                 <div class="contact-header-seperator"></div>
                 <h2 class="contact-header-slogan">Better with a team</h2>
             </div>
-            <div id="contactSelection"></div>
-            <div id="formContainer"></div>
+            <div class="contact-selected" *ngIf="selectedContact"
+                class="contact-selection-container contact-selection-overlay edit-contact">
+                <div class="contact-selection">
+                    <div class="contact-letters big-letters" [style.background-color]="selectedContact.color">
+                        {{ selectedContact.lastName.charAt(0).toUpperCase() }}{{
+                            selectedContact.firstName.charAt(0).toUpperCase()
+                        }}
+                    </div>
+                    <div>
+                        <div class="contact-information-name">{{ selectedContact.lastName }} {{
+                            selectedContact.firstName }}
+                        </div>
+                        <div class="contact-add-task">+ Add Task</div>
+                    </div>
+                </div>
+                <div class="contact-information-title">
+                    <p>Contact Information</p>
+                    <!-- <div class="contact-edit"> -->
+                    <img class="contact-edit" src="../../assets/img/edit_contact.png">
+                    <!-- </div> -->
+                </div>
+                <h4>Email</h4>
+                <a class="contact-email" [href]="'mailto:' + selectedContact.email ">{{ selectedContact.email }}</a>
+                <h4>Phone</h4>
+                <a class="contact-name" [href]="'tel:' + selectedContact.phone">{{ selectedContact.phone }}</a>
+                <img class="delete-contact" src="../../assets/img/delete.png" alt="bin" (click)="deleteContact(selectedContact)">
+            </div>
         </section>
         <button routerLink="/add-contact" class="contact-add-btn contact-btn-position">
             <p>New Contact</p>

@@ -11,6 +11,7 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { HelpPageComponent } from './help-page/help-page.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { AddTaskMenuComponent } from './add-task-menu/add-task-menu.component';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'legal-notice', component: LegalNoticeComponent},
   { path: 'help-page', component: HelpPageComponent},
   { path: 'add-contact', component: AddContactComponent},
+  { path: 'contact-detail', component: ContactDetailComponent},
   { path: '**', component: LoginComponent }
 ];
 

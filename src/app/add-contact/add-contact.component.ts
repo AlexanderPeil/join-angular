@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 
 interface Contact {
   firstName: string;
@@ -27,7 +28,7 @@ export class AddContactComponent implements OnInit {
   });
 
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -53,6 +54,11 @@ export class AddContactComponent implements OnInit {
         console.error('Fehler beim Speichern des Kontakts:', error);
         // Hier kannst du Fehlerbehandlung durchführen, z.B. Fehlermeldung anzeigen.
       });
+  }
+
+  onSubmitAndNavigate() {
+    this.onSubmit();
+    this.router.navigate(['/contacts']);
   }
 
   stopPropagation(event: Event) {

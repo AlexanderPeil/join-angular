@@ -25,6 +25,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NgFor } from '@angular/common';
     LegalNoticeComponent,
     HelpPageComponent,
     AddContactComponent,
-    AddTaskMenuComponent
+    AddTaskMenuComponent,
+    ContactDetailComponent
   ],
   imports: [
     BrowserModule,
