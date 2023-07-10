@@ -1,13 +1,30 @@
 <app-header></app-header>
 <app-nav-bar></app-nav-bar>
-<!-- <div class="overlay-container" *ngIf="overlayVisible">
-    <app-add-contact (closeContactForm)="showContactForm()"></app-add-contact>
-  </div> -->
+
+<div class="overflow">
     <main class="contacts-main-container">
         <!-- Content - left side -->
         <section class="contact-list-container">
             <div>
-                <div id="contactList"></div>
+                <div class="contact-list">
+                    <ng-container *ngFor="let contact of contacts$ | async as contacts; let i = index">
+                        <ng-container *ngIf="i === 0 || contact.lastName.charAt(0) !== contacts[i-1].lastName.charAt(0)">
+                            <h2 class="contact-index">{{ contact.lastName.charAt(0).toUpperCase() }}</h2>
+                            <div class="contact-underline"></div>
+                            <div class="contact-list-box">
+                                <div class="contact-letters small-letters" [style.background-color]="contact.color">
+                                    {{ contact.lastName.charAt(0).toUpperCase() }}{{
+                                    contact.firstName.charAt(0).toUpperCase()
+                                    }}
+                                </div>
+                                <div class="contact-details">
+                                    <div class="contact-name">{{ contact.firstName }} {{ contact.lastName }}</div>
+                                    <div class="contact-email">{{ contact.email }}</div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
             </div>
         </section>
         <!-- Content - right side -->
@@ -21,8 +38,8 @@
             <div id="formContainer"></div>
         </section>
         <button routerLink="/add-contact" class="contact-add-btn contact-btn-position">
-        <p>New Contact</p>
-        <img class="contact-btn-icon" src="./assets/img/add_contact.png">
-    </button>
+            <p>New Contact</p>
+            <img class="contact-btn-icon" src="./assets/img/add_contact.png">
+        </button>
     </main>
-      
+</div>

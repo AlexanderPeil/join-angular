@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-// import { Observable } from 'rxjs';
+
+interface Contact {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  color: string;
+}
+
 
 @Component({
   selector: 'app-add-contact',
@@ -26,12 +34,12 @@ export class AddContactComponent implements OnInit {
   }
 
   onSubmit() {
-    const newContact = {
-      firstName: this.profileForm.get('firstName')?.value,
-      lastName: this.profileForm.get('lastName')?.value,
-      email: this.profileForm.get('email')?.value,
-      phone: this.profileForm.get('phone')?.value,
-      color: this.profileForm.get('color')?.value
+    const newContact: Contact = {
+      firstName: this.profileForm.get('firstName')?.value ?? '',
+      lastName: this.profileForm.get('lastName')?.value ?? '',
+      email: this.profileForm.get('email')?.value ?? '',
+      phone: this.profileForm.get('phone')?.value ?? '',
+      color: this.profileForm.get('color')?.value ?? ''
     };
 
     this.firestore

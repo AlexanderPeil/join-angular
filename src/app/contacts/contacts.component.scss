@@ -13,6 +13,10 @@ h1 {
     margin: unset !important;
 }
 
+.overflow {
+    overflow: hidden;
+}
+
 .contact-add-btn {
     display: flex;
     justify-content: space-evenly;
@@ -44,7 +48,7 @@ h1 {
     scroll-behavior: smooth;
 }
 
-#contactList {
+.contact-list {
     margin: 110px 0 20px 0;
 }
 
