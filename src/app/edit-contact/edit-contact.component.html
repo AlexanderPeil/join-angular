@@ -16,7 +16,7 @@
                     <img class="close-popup-mobile" src="../../assets/img/x_ixon.png" routerLink="/contacts">
                     <img class="close" src="../../assets/img/xicon.svg" routerLink="/contacts"> 
                 </div>
-                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="editForm" (ngSubmit)="onSaveChanges()">
                     <!-- <label for="first-name"></label> -->
                     <input class="input-name-img" type="text" placeholder="First Name" formControlName="firstName">
                     <!-- <label for="last-name"></label> -->
@@ -26,8 +26,8 @@
                     <!-- <label for="phone"></label> -->
                     <input class="input-phone-img"  type="text" placeholder="Phone"  formControlName="phone">
                     <div class="contact-popup-bottom">
-                        <input class="p-none" type="color" formControlName="color">
-                        <button mat-raised-button class="disabled-conditions" [disabled]="profileForm.get('firstName')?.value === '' || profileForm.get('lastName')?.value === '' || profileForm.get('email')?.value === '' || profileForm.get('phone')?.value === ''" (click)="onSubmitAndNavigate()">
+                        <input class="p-none" type="color" [value]="editForm.get('color')?.value ?? '#000000'" formControlName="color">
+                        <button mat-raised-button class="disabled-conditions" [disabled]="editForm.get('firstName')?.value === '' || editForm.get('lastName')?.value === '' || editForm.get('email')?.value === '' || editForm.get('phone')?.value === ''" (click)="onSubmitAndNavigate()">
                             Create Contact <img src="../../assets/img/checkmark.png">
                           </button>                          
                     </div>

@@ -26,6 +26,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
+import { EditContactComponent } from './edit-contact/edit-contact.component';
+import { ContactService } from './contact-service.service';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +46,8 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
     HelpPageComponent,
     AddContactComponent,
     AddTaskMenuComponent,
-    ContactDetailComponent
+    ContactDetailComponent,
+    EditContactComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,9 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
     AngularFirestoreModule
 
   ],
-  providers: [],
+  providers: [
+    ContactService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

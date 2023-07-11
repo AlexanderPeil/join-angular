@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-interface Contact {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  color: string;
-}
+import { ContactInterface } from '../contact';
+import { ContactService } from '../contact-service.service';
 
 @Component({
   selector: 'app-contacts',
@@ -18,19 +10,23 @@ interface Contact {
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
-  contacts$: Observable<Contact[]>;
+  contacts$: Observable<ContactInterface[]>;
   uniqueLetters: string[] = [];
-  selectedContact: Contact | null = null;
+  selectedContact: ContactInterface | null = null;
 
-  constructor(private firestore: AngularFirestore) {
-    this.contacts$ = this.firestore.collection<Contact>('contacts').valueChanges({ idField: 'id' });
+  constructor(private firestore: AngularFirestore, private contactService: ContactService) {
+    this.contacts$ = this.firestore.collection<ContactInterface>('contacts').valueChanges({ idField: 'id' });
   }
 
-  selectContact(contact: Contact) {
-    this.selectedContact = contact;
+  selectContact(contact: ContactInterface) {
+  this.contactService.setSelectedContact(contact);
   }
 
-  deleteContact(contact: Contact) {
+  editContact(selectedContact: ContactInterface) {
+    
+  }
+
+  deleteContact(contact: ContactInterface) {
     this.firestore.collection('contacts').doc(contact.id).delete().then(() => {
       console.log('Kontakt erfolgreich gelöscht.');
       this.selectedContact = null;
@@ -40,6 +36,10 @@ export class ContactsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.contactService.selectedContact$.subscribe(contact => {
+      this.selectedContact = contact;
+    });
+
     this.contacts$.subscribe(contacts => {
       const lettersSet = new Set<string>();
       contacts.forEach(contact => {
@@ -47,5 +47,5 @@ export class ContactsComponent implements OnInit {
       });
       this.uniqueLetters = Array.from(lettersSet);
     });
-  }
+  } 
 }

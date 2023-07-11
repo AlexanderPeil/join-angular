@@ -30,7 +30,7 @@
         </section>
         <!-- Content - right side -->
 
-        <section>
+        <section class="right-section">
             <div class="contact-header-container">
                 <h1 class="contact-header">Contacts</h1>
                 <div class="contact-header-seperator"></div>
@@ -41,7 +41,7 @@
                 <div class="contact-selection">
                     <div class="contact-letters big-letters" [style.background-color]="selectedContact.color">
                         {{ selectedContact.lastName.charAt(0).toUpperCase() }}{{
-                            selectedContact.firstName.charAt(0).toUpperCase()
+                        selectedContact.firstName.charAt(0).toUpperCase()
                         }}
                     </div>
                     <div>
@@ -53,15 +53,19 @@
                 </div>
                 <div class="contact-information-title">
                     <p>Contact Information</p>
-                    <!-- <div class="contact-edit"> -->
-                    <img class="contact-edit" src="../../assets/img/edit_contact.png">
-                    <!-- </div> -->
+                    <div class="contact-edit" (click)="editContact(selectedContact)">
+                    </div>
                 </div>
-                <h4>Email</h4>
-                <a class="contact-email" [href]="'mailto:' + selectedContact.email ">{{ selectedContact.email }}</a>
-                <h4>Phone</h4>
-                <a class="contact-name" [href]="'tel:' + selectedContact.phone">{{ selectedContact.phone }}</a>
-                <img class="delete-contact" src="../../assets/img/delete.png" alt="bin" (click)="deleteContact(selectedContact)">
+                <div>
+                    <h4>Email</h4>
+                    <a class="contact-email" [href]="'mailto:' + selectedContact.email ">{{ selectedContact.email }}</a>
+                </div>
+                <div>
+                    <h4>Phone</h4>
+                    <a class="contact-phone" [href]="'tel:' + selectedContact.phone">{{ selectedContact.phone }}</a>
+                </div>
+                <div class="delete-contact" (click)="deleteContact(selectedContact)">
+                </div>
             </div>
         </section>
         <button routerLink="/add-contact" class="contact-add-btn contact-btn-position">
