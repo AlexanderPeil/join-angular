@@ -60,7 +60,7 @@ import { ContactService } from './contact-service.service';
     NgFor,
     CdkDrag,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
 
   ],
   providers: [

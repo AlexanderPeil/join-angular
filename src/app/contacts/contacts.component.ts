@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { ContactInterface } from '../contact';
 import { ContactService } from '../contact-service.service';
+// import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contacts',
@@ -23,7 +24,6 @@ export class ContactsComponent implements OnInit {
   }
 
   editContact(selectedContact: ContactInterface) {
-    
   }
 
   deleteContact(contact: ContactInterface) {
@@ -49,3 +49,4 @@ export class ContactsComponent implements OnInit {
     });
   } 
 }
+

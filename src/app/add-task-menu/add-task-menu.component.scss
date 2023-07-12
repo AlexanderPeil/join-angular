@@ -94,6 +94,15 @@ select,
     outline: none;
 }
 
+.color-pcicker {
+    padding: 0px !important;
+    border: none;
+    cursor: pointer;
+    width: 70px;
+    height: 45px;
+    outline: none;
+}
+
 .category-assigned-to {
     display: flex;
     flex-direction: column;

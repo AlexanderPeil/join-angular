@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { ContactInterface } from '../contact';
 import { ContactService } from '../contact-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-contact',
@@ -13,8 +14,9 @@ import { ContactService } from '../contact-service.service';
 export class EditContactComponent implements OnInit {
   editForm: FormGroup;
   selectedContact: ContactInterface | null = null;
+  contactId: any;
 
-  constructor(private contactService: ContactService, private router: Router, private firestore: AngularFirestore) {
+  constructor(private contactService: ContactService, private router: Router, private firestore: AngularFirestore, private _Activatedroute:ActivatedRoute) {
     this.editForm = new FormGroup({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
@@ -24,18 +26,19 @@ export class EditContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.contactService.selectedContact$.subscribe(contact => {
-      this.selectedContact = contact;
+    this.contactId=this._Activatedroute.snapshot.paramMap.get("contactId");
+    // this.contactService.selectedContact$.subscribe(contact => {
+    //   this.selectedContact = contact;
 
-      if (this.selectedContact) {
-        this.editForm.patchValue({
-          firstName: this.selectedContact.firstName,
-          lastName: this.selectedContact.lastName,
-          email: this.selectedContact.email,
-          phone: this.selectedContact.phone,
-        });
-      }
-    });
+    //   if (this.selectedContact) {
+    //     this.editForm.patchValue({
+    //       firstName: this.selectedContact.firstName,
+    //       lastName: this.selectedContact.lastName,
+    //       email: this.selectedContact.email,
+    //       phone: this.selectedContact.phone,
+    //     });
+    //   }
+    // });
   }
 
   onSaveChanges(): void {

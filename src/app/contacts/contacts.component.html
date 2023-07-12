@@ -53,7 +53,8 @@
                 </div>
                 <div class="contact-information-title">
                     <p>Contact Information</p>
-                    <div class="contact-edit" (click)="editContact(selectedContact)">
+                    <div class="contact-edit">
+                        <a [routerLink]="['/edit-contact', selectedContact]"></a>
                     </div>
                 </div>
                 <div>
