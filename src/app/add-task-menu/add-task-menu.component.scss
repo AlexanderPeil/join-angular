@@ -104,36 +104,37 @@ select,
     .color-picker {
         right: 89px;
         top: 2px;
-    }
-
-    img {
-        height: 40px;
-        position: absolute;
-        top: 5px;
+        padding: 0px !important;
+        border: none;
         cursor: pointer;
-
-        &:hover {
-            background-color: #29ABE2;
-            border-radius: 10px;
-        }
-    }
-
-    .category-accept {
-        right: 45px;
-    }
-
-    .category-cancel {
-        right: 5px;
+        width: 40px;
+        height: 45px;
+        outline: none;
     }
 }
 
-.color-picker {
-    padding: 0px !important;
-    border: none;
+.select-member {
+    position: relative;
+}
+
+.category-member-selection {
+    height: 40px;
+    position: absolute;
+    top: 5px;
     cursor: pointer;
-    width: 40px;
-    height: 45px;
-    outline: none;
+
+    &:hover {
+        background-color: #29ABE2;
+        border-radius: 10px;
+    }
+}
+
+.category-accept {
+    right: 45px;
+}
+
+.category-cancel {
+    right: 5px;
 }
 
 .category-assigned-to {
@@ -185,6 +186,10 @@ select::-ms-expand {
     height: 506px;
     gap: 10px;
     position: relative;
+}
+
+.right-container-mobile {
+    width: 100%;
 }
 
 .features-container {
@@ -285,7 +290,6 @@ select::-ms-expand {
 
 .plus-icon {
     cursor: pointer;
-    margin-right: -7px;
 }
 
 .subtask-icons {
@@ -350,10 +354,6 @@ select::-ms-expand {
         border: 2px solid #29ABE2;
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     }
-
-    // &:hover .clear-img {
-    //     content: url('../../assets/img/iconoir_cancel_hover.png');
-    // }
 }
 
 fieldset {
@@ -441,32 +441,6 @@ fieldset {
     }
 }
 
-.new-cat {
-    display: flex;
-    align-items: center;
-    border: 1px solid #d1d1d1;
-    border-radius: 10px;
-    padding: 7px 20px;
-}
-
-.input-new-cat input {
-    width: 100%;
-    border: none;
-    padding: 10px 0;
-}
-
-.new-category-icons {
-    display: flex;
-    align-items: center;
-}
-
-.new-category-icons img {
-    height: 30px;
-    margin-left: 10px;
-    margin-right: 5px;
-    cursor: pointer;
-}
-
 .assigned-to {
     display: flex;
     align-items: center;
@@ -490,20 +464,6 @@ fieldset {
 
 .assigned-to-wrapper {
     margin-bottom: 30px;
-}
-
-.new-category-img {
-    height: 20px;
-    padding-left: 15px;
-}
-
-#category-color {
-    padding: 5;
-    border-radius: 999px;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    padding: 4px;
 }
 
 .popup-task-added {

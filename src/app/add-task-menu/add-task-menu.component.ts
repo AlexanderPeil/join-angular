@@ -27,14 +27,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     trigger('openAssignedTo', [
       state('start', style({
         height: '0',
-        opacity: '0',
+        display: 'none',
         overflow: 'hidden',
       })),
       state('end', style({
         overflow: 'auto',
         height: '*',
         width: '100%',
-        opacity: '1',
+        display: 'block',
       })),
       transition('end <=> start', animate('200ms ease-in-out'))
     ]),
