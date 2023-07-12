@@ -9,8 +9,8 @@
         </div>
         <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
             <div class="content-container">
-                <div formGroupName="profileForm">
-                    <div class="left-container width-unset">
+                <div class="left-container width-unset">
+                    <div formGroupName="profileForm">
                         <div class="selection-container">
                             <label>Title</label>
                             <input type="text" placeholder="Enter a title" formControlName="title">
@@ -20,43 +20,47 @@
                             <textarea placeholder="Enter a description" formControlName="description"></textarea>
                         </div>
                     </div>
-                </div>
-                <div formGroupName="categoryForm">
-                    <div class="selection-container prevent-select">
-                        <label>Category</label>
-                        <div class="select-wrapper">
-                            <div class="sector-top" (click)="toggleCategoryMenu()">
-                                <p>Select your Category</p>
-                                <img src="../../assets/img/arrow_down.png">
-                                <div [@openCategories]="categoryMenu ? 'end' : 'start'">
-                                    <input type="text" placeholder="Category Name" formControlName="category"
-                                        (click)="stopPropagation($event)">
-                                    <input class="color-pcicker" type="color" formControlName="color" value="#ff0000"
-                                        (click)="stopPropagation($event)">
+                    <div formGroupName="categoryForm">
+                        <div class="selection-container prevent-select">
+                            <label>Category</label>
+                            <div class="select-wrapper">
+                                <div class="category-inputs" *ngIf="categoryMenu">
+                                    <input type="text" placeholder="Category Name" formControlName="category">
+                                    <input class="color-picker" type="color" formControlName="color" value="#ff0000">
+                                    <img class="category-accept" src="../../assets/img/icon_check_subtask.svg"
+                                        alt="category-accept">
+                                    <img class="category-cancel" src="../../assets/img/icon_cancel_subtask.svg"
+                                        alt="close-wrapper"  (click)="toggleCategoryMenu(); resetCategory()">
+                                    <div [@openCategories]="categoryMenu ? 'end' : 'start'"></div>
+                                </div>
+                                <div class="sector-top" *ngIf="!categoryMenu" (click)="toggleCategoryMenu()">
+                                    <p>Select your Category</p>
+                                    <img src="../../assets/img/arrow_down.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div formGroupName="profileForm">
+                        <div class="selection-container prevent-select">
+                            <label>Assigned To</label>
+                            <div class="category-added-cont d-none">Please select a member!</div>
+                            <div class="select-wrapper assigned-to-wrapper">
+                                <div class="sector-top" (click)="toggleAssignedToMenu()">
+                                    <img src="../../assets/img/arrow_down.png">
+                                    <div [@openAssignedTo]="assignedToMenu ? 'end' : 'start'">
+                                        <input type="text" placeholder="Select a member" formControlName="assignedTo"
+                                            (click)="stopPropagation($event)">
+                                    </div>
+                                </div>
+                                <div class="category-assigned-to d-none">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div formGroupName="profileForm">
-                    <div class="selection-container prevent-select">
-                        <label>Assigned To</label>
-                        <div class="category-added-cont d-none">Please select a member!</div>
-                        <div class="select-wrapper assigned-to-wrapper">
-                            <div class="sector-top" (click)="toggleAssignedToMenu()">
-                                <img src="../../assets/img/arrow_down.png">
-                                <div [@openAssignedTo]="assignedToMenu ? 'end' : 'start'">
-                                    <input type="text" placeholder="Select a member" formControlName="assignedTo"
-                                        (click)="stopPropagation($event)">
-                                </div>
-                            </div>
-                            <div class="category-assigned-to d-none">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="middle-gap"></div>
-                    <div class="right-container width-unset">
+                <div class="middle-gap"></div>
+                <div class="right-container width-unset">
+                    <div formGroupName="profileForm">
                         <div class="features-container">
                             <label for="date">Due Date</label>
                             <input class="date" type="date" [min]="minDate" formControlName="date">

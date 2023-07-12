@@ -94,11 +94,44 @@ select,
     outline: none;
 }
 
-.color-pcicker {
+.category-inputs {
+    position: relative;
+
+    input {
+        position: absolute;
+    }
+
+    .color-picker {
+        right: 89px;
+        top: 2px;
+    }
+
+    img {
+        height: 40px;
+        position: absolute;
+        top: 5px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #29ABE2;
+            border-radius: 10px;
+        }
+    }
+
+    .category-accept {
+        right: 45px;
+    }
+
+    .category-cancel {
+        right: 5px;
+    }
+}
+
+.color-picker {
     padding: 0px !important;
     border: none;
     cursor: pointer;
-    width: 70px;
+    width: 40px;
     height: 45px;
     outline: none;
 }
