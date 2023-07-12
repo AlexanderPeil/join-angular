@@ -12,12 +12,29 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   animations: [
     trigger('openCategories', [
       state('start', style({
-        height: '44px',
+        height: '0',
+        opacity: '0',
         overflow: 'hidden',
       })),
       state('end', style({
-        overflow: 'scroll',
+        overflow: 'auto',
         height: '*',
+        width: '100%',
+        opacity: '1',
+      })),
+      transition('end <=> start', animate('200ms ease-in-out'))
+    ]),
+    trigger('openAssignedTo', [
+      state('start', style({
+        height: '0',
+        opacity: '0',
+        overflow: 'hidden',
+      })),
+      state('end', style({
+        overflow: 'auto',
+        height: '*',
+        width: '100%',
+        opacity: '1',
       })),
       transition('end <=> start', animate('200ms ease-in-out'))
     ]),
@@ -30,14 +47,23 @@ export class AddTaskMenuComponent implements OnInit {
   prioMedium: boolean = false;
   prioLow: boolean = true;
   minDate: string;
-  public isMenuOpen = false;
+  categoryMenu = false;
+  assignedToMenu = false;
 
   constructor(private location: Location, private firestore: AngularFirestore) {
     this.minDate = new Date().toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  }
+
+  setPriority(priority: string) {
+    this.prioUrgent = priority === 'urgent';
+    this.prioMedium = priority === 'medium';
+    this.prioLow = priority === 'low';
+  
+    const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
+    profileForm.controls['prio'].setValue(priority);
   }
 
   taskForm = new FormGroup({
@@ -45,8 +71,8 @@ export class AddTaskMenuComponent implements OnInit {
       title: new FormControl(''),
       description: new FormControl(''),
       assignedTo: new FormControl(''),
-      dueDate: new FormControl(''),
-      prio: new FormControl(''),
+      date: new FormControl(''),
+      prio: new FormControl('low'),
       subtasks: new FormControl('')
     }),
     categoryForm: new FormGroup({
@@ -54,18 +80,21 @@ export class AddTaskMenuComponent implements OnInit {
       color: new FormControl('')
     })
   });
-  
+
 
   onSubmit() {
+    const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
+    const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
+
     const newTask = {
-      title: this.taskForm.controls.profileForm.get('title')?.value ?? '',
-      description: this.taskForm.controls.profileForm.get('description')?.value ?? '',
-      assignedTo: this.taskForm.controls.profileForm.get('assignedTo')?.value ?? '',
-      dueDate: this.taskForm.controls.profileForm.get('dueDate')?.value ?? '',
-      prio: this.taskForm.controls.profileForm.get('prio')?.value ?? '',
-      subtasks: this.taskForm.controls.profileForm.get('subtasks')?.value ?? '',
-      category: this.taskForm.controls.categoryForm.get('category')?.value ?? '',
-      color: this.taskForm.controls.categoryForm.get('color')?.value ?? '',
+      title: profileForm.controls['title'].value ?? '',
+      description: profileForm.controls['description'].value ?? '',
+      assignedTo: profileForm.controls['assignedTo'].value ?? '',
+      date: profileForm.controls['date'].value ?? '',
+      prio: profileForm.controls['prio'].value ?? '',
+      subtasks: profileForm.controls['subtasks'].value ?? '',
+      category: categoryForm.controls['category'].value ?? '',
+      color: categoryForm.controls['color'].value ?? '',
     };
 
     this.firestore
@@ -78,21 +107,24 @@ export class AddTaskMenuComponent implements OnInit {
       .catch((error) => {
         console.error('Fehler beim Speichern der Aufgabe:', error);
       });
-      this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
+    this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
   }
 
 
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
+
   goBack(): void {
     this.location.back();
   }
 
   toggleCategoryMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+    this.categoryMenu = !this.categoryMenu;
   }
 
-  
+  toggleAssignedToMenu() {
+    this.assignedToMenu = !this.assignedToMenu;
+  }
 
 }
