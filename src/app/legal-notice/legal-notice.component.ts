@@ -11,9 +11,7 @@ export class LegalNoticeComponent {
   constructor(private location: Location) { }
 
   goBack(): void {
-    this.location.back(); // Method 1: using Location service
-    // OR
-    // this.router.navigate(['/previous-component']); // Method 2: using Router service
+    this.location.back(); 
   }
 
 }

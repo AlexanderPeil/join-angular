@@ -1,11 +1,11 @@
 <app-header></app-header>
 <app-nav-bar></app-nav-bar>
 
-<div class="add-task-content" routerLink="/board">
+<div class="add-task-content" (click)="goBack()">
     <div class="add-task-menu" (click)="stopPropagation($event)">
         <div class="header-popup">
             <h2>Add Task</h2>
-            <img class="close-header-popup" src="../../assets/img/xicon.svg" routerLink="/board">
+            <img class="close-header-popup" src="../../assets/img/xicon.svg" (click)="goBack()">
         </div>
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
             <div class="content-container">

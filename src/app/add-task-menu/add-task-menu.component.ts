@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -9,6 +10,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AddTaskMenuComponent {
   public subtaskInput: boolean = false;
+
+  constructor(private location: Location) { }
 
   prioUrgent: boolean = false;
   prioMedium: boolean = false;
@@ -26,20 +29,7 @@ export class AddTaskMenuComponent {
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
-
-  // minDate: Date;
-  // maxDate: Date;
-  // subtask: string = '';
-  // public showInputSubtask: boolean = false;
-
-  // constructor(public dialogRef: MatDialogRef<AddTaskMenuComponent>) {
-  //   const currentYear = new Date().getFullYear();
-  //   this.minDate = new Date;
-  //   this.maxDate = new Date(currentYear + 1, 11, 31);
-  // }
-
-  // onNoClick() {
-  //   this.dialogRef.close();
-  // }
-
+    goBack(): void {
+      this.location.back(); 
+    }
 }
