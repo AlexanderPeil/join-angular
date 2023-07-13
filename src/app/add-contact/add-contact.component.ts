@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { ContactInterface } from '../contact';
+// import { ContactInterface } from '../contact';
 
 @Component({
   selector: 'app-add-contact',
@@ -11,7 +11,7 @@ import { ContactInterface } from '../contact';
 })
 
 export class AddContactComponent implements OnInit {
-  profileForm = new FormGroup({
+  contactForm = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     email: new FormControl(''),
@@ -27,13 +27,12 @@ export class AddContactComponent implements OnInit {
   }
 
   onSubmit() {
-    const newContact: ContactInterface = {
-      firstName: this.profileForm.get('firstName')?.value ?? '',
-      lastName: this.profileForm.get('lastName')?.value ?? '',
-      email: this.profileForm.get('email')?.value ?? '',
-      phone: this.profileForm.get('phone')?.value ?? '',
-      color: this.profileForm.get('color')?.value ?? '',
-      id: ''
+    const newContact = {
+      firstName: this.contactForm.get('firstName')?.value ?? '',
+      lastName: this.contactForm.get('lastName')?.value ?? '',
+      email: this.contactForm.get('email')?.value ?? '',
+      phone: this.contactForm.get('phone')?.value ?? '',
+      color: this.contactForm.get('color')?.value ?? '',
     };
 
     this.firestore

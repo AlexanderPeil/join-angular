@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { ContactInterface } from '../contact';
+// import { ContactInterface } from '../contact';
 import { ContactService } from '../contact-service.service';
 // import { Router } from '@angular/router';
 
@@ -11,22 +11,22 @@ import { ContactService } from '../contact-service.service';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
-  contacts$: Observable<ContactInterface[]>;
+  contacts$: Observable<any[]>;
   uniqueLetters: string[] = [];
-  selectedContact: ContactInterface | null = null;
+  selectedContact: any | null = null;
 
   constructor(private firestore: AngularFirestore, private contactService: ContactService) {
-    this.contacts$ = this.firestore.collection<ContactInterface>('contacts').valueChanges({ idField: 'id' });
+    this.contacts$ = this.firestore.collection('contacts').valueChanges({ idField: 'id' });
   }
 
-  selectContact(contact: ContactInterface) {
+  selectContact(contact: any) {
   this.contactService.setSelectedContact(contact);
   }
 
-  editContact(selectedContact: ContactInterface) {
+  editContact(selectedContact: any) {
   }
 
-  deleteContact(contact: ContactInterface) {
+  deleteContact(contact: any) {
     this.firestore.collection('contacts').doc(contact.id).delete().then(() => {
       console.log('Kontakt erfolgreich gelöscht.');
       this.selectedContact = null;
