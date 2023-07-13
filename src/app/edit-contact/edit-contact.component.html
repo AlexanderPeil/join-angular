@@ -14,22 +14,21 @@
             <div class="contact-input-container">
                 <div class="icon-top-right">
                     <img class="close-popup-mobile" src="../../assets/img/x_ixon.png" routerLink="/contacts">
-                    <img class="close" src="../../assets/img/xicon.svg" routerLink="/contacts"> 
+                    <img class="close" src="../../assets/img/xicon.svg" routerLink="/contacts">
                 </div>
                 <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-                    <!-- <label for="first-name"></label> -->
-                    <input class="input-name-img" type="text" placeholder="First Name" formControlName="firstName" value="">
-                    <!-- <label for="last-name"></label> -->
-                    <input class="input-name-img"  type="text" placeholder="Last Name"  formControlName="lastName">
-                    <!-- <label for="email"></label> -->
-                    <input class="input-email-img"  type="email" placeholder="Email"  formControlName="email">
-                    <!-- <label for="phone"></label> -->
-                    <input class="input-phone-img"  type="text" placeholder="Phone"  formControlName="phone">
+                    <input class="input-name-img" type="text" placeholder="First Name" formControlName="firstName">
+                    <input class="input-name-img" type="text" placeholder="Last Name" formControlName="lastName">
+                    <input class="input-email-img" type="email" placeholder="Email" formControlName="email">
+                    <input class="input-phone-img" type="text" placeholder="Phone" formControlName="phone">
                     <div class="contact-popup-bottom">
-                        <input class="p-none" type="color" [value]="editForm.get('color')?.value ?? '#000000'" formControlName="color">
-                        <button mat-raised-button class="disabled-conditions" [disabled]="editForm.get('firstName')?.value === '' || editForm.get('lastName')?.value === '' || editForm.get('email')?.value === '' || editForm.get('phone')?.value === ''" (click)="onSubmitAndNavigate()">
+                        <input class="p-none" type="color" [value]="editForm.get('color')?.value ?? '#000000'"
+                            formControlName="color">
+                        <button mat-raised-button class="disabled-conditions"
+                            [disabled]="editForm.get('firstName')?.value === '' || editForm.get('lastName')?.value === '' || editForm.get('email')?.value === '' || editForm.get('phone')?.value === ''"
+                            (click)="onSubmitAndNavigate()">
                             Save Contact <img src="../../assets/img/checkmark.png">
-                          </button>                          
+                        </button>
                     </div>
                 </form>
             </div>

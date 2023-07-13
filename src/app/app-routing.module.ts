@@ -12,6 +12,7 @@ import { HelpPageComponent } from './help-page/help-page.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { AddTaskMenuComponent } from './add-task-menu/add-task-menu.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
+import { EditTaskComponent } from './edit-task/edit-task.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'help-page', component: HelpPageComponent},
   { path: 'add-contact', component: AddContactComponent},
   { path: 'edit-contact/:id', component: EditContactComponent},
+  { path: 'edit-task/:id', component: EditTaskComponent},
   { path: '**', component: LoginComponent }
 ];
 

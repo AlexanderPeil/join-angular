@@ -6,6 +6,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -14,13 +15,17 @@ import { Observable } from 'rxjs';
 })
 export class BoardComponent implements OnInit {
   tasks!: Observable<any[]>;
+  editingTask: any = null;
 
   todo: any[] = [];
   in_progress: any[] = [];
   awaiting_feedback: any[] = [];
   done: any[] = [];
 
-  constructor(private firestore: AngularFirestore) { }
+  mousedownTime: number | undefined;
+
+
+  constructor(private firestore: AngularFirestore, private router: Router) { }
 
   ngOnInit() {
     this.firestore.collection('tasks').valueChanges({ idField: 'id' })
@@ -82,4 +87,22 @@ export class BoardComponent implements OnInit {
       default: return 'assets/img/default_logo.png';
     }
   }
+
+  onMousedown(event: MouseEvent) {
+    this.mousedownTime = event.timeStamp;
+  }
+
+  onMouseup(event: MouseEvent, taskId: string) {
+    const elapsed = event.timeStamp - (this.mousedownTime ?? 0);
+    if (elapsed < 200) {
+      this.navigateToEditTask(taskId);
+    }
+    this.mousedownTime = undefined;
+  }
+
+  navigateToEditTask(taskId: string) {
+    this.router.navigate(['/edit-task', taskId]);
+  }
+
+
 }

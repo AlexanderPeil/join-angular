@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-// import { ContactInterface } from '../contact';
 import { ContactService } from '../contact-service.service';
-// import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contacts',
