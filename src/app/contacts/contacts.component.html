@@ -53,9 +53,7 @@
                 </div>
                 <div class="contact-information-title">
                     <p>Contact Information</p>
-                    <div class="contact-edit">
-                        <a [routerLink]="['/edit-contact', selectedContact]"></a>
-                    </div>
+                    <a class="contact-edit" [routerLink]="['/edit-contact', selectedContact.id]"></a>
                 </div>
                 <div>
                     <h4>Email</h4>

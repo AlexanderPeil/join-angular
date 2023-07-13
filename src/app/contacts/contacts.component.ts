@@ -20,7 +20,7 @@ export class ContactsComponent implements OnInit {
   }
 
   selectContact(contact: any) {
-  this.contactService.setSelectedContact(contact);
+    this.contactService.setSelectedContact(contact);
   }
 
   editContact(selectedContact: any) {
@@ -39,6 +39,11 @@ export class ContactsComponent implements OnInit {
     this.contactService.selectedContact$.subscribe(contact => {
       this.selectedContact = contact;
     });
+    this.contactService.updatedContact$.subscribe(updatedContact => {
+      if (updatedContact && this.selectedContact && this.selectedContact.id === updatedContact.id) {
+        this.selectedContact = updatedContact;
+      }
+    });
 
     this.contacts$.subscribe(contacts => {
       const lettersSet = new Set<string>();
@@ -47,6 +52,6 @@ export class ContactsComponent implements OnInit {
       });
       this.uniqueLetters = Array.from(lettersSet);
     });
-  } 
+  }
 }
 

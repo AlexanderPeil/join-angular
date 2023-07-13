@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { ContactInterface } from '../contact';
 import { ContactService } from '../contact-service.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,58 +11,64 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-contact.component.scss']
 })
 export class EditContactComponent implements OnInit {
-  editForm: FormGroup;
-  selectedContact: ContactInterface | null = null;
-  contactId: any;
 
-  constructor(private contactService: ContactService, private router: Router, private firestore: AngularFirestore, private _Activatedroute:ActivatedRoute) {
-    this.editForm = new FormGroup({
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
-    });
-  }
+  contactId: string | null = null;
+
+  editForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    email: new FormControl(''),
+    phone: new FormControl(''),
+    color: new FormControl('#000000')
+  });
+
+  constructor(private firestore: AngularFirestore, private route: ActivatedRoute, private router: Router, private contactService: ContactService) { }
 
   ngOnInit(): void {
-    this.contactId=this._Activatedroute.snapshot.paramMap.get("contactId");
-    // this.contactService.selectedContact$.subscribe(contact => {
-    //   this.selectedContact = contact;
-
-    //   if (this.selectedContact) {
-    //     this.editForm.patchValue({
-    //       firstName: this.selectedContact.firstName,
-    //       lastName: this.selectedContact.lastName,
-    //       email: this.selectedContact.email,
-    //       phone: this.selectedContact.phone,
-    //     });
-    //   }
-    // });
-  }
-
-  onSaveChanges(): void {
-    if (this.selectedContact) {
-      const updatedContact = {
-        id: this.selectedContact.id,
-        firstName: this.editForm.value.firstName,
-        lastName: this.editForm.value.lastName,
-        email: this.editForm.value.email,
-        phone: this.editForm.value.phone,
-      };
-
-      this.firestore.collection('contacts').doc(updatedContact.id).update(updatedContact)
-        .then(() => {
-          console.log('Kontakt erfolgreich aktualisiert.');
-          this.router.navigate(['/contacts']);
-        })
-        .catch((error) => {
-          console.error('Fehler beim Aktualisieren des Kontakts:', error);
+    this.contactId = this.route.snapshot.paramMap.get('id');
+    if (this.contactId) {
+      this.firestore.collection('contacts').doc<any>(this.contactId).valueChanges().subscribe(contact => {
+        this.editForm.patchValue({
+          firstName: contact.firstName,
+          lastName: contact.lastName,
+          email: contact.email,
+          phone: contact.phone,
+          color: contact.color
         });
+      });
     }
   }
 
+  onSubmit() {
+    if (this.contactId) {
+      this.firestore.collection('contacts').doc<any>(this.contactId).update({
+        firstName: this.editForm.get('firstName')?.value ?? '',
+        lastName: this.editForm.get('lastName')?.value ?? '',
+        email: this.editForm.get('email')?.value ?? '',
+        phone: this.editForm.get('phone')?.value ?? '',
+        color: this.editForm.get('color')?.value ?? '',
+      }).then(() => {
+        if (this.contactId) { 
+          let updatedContact = {
+            id: this.contactId,
+            firstName: this.editForm.get('firstName')?.value ?? '',
+            lastName: this.editForm.get('lastName')?.value ?? '',
+            email: this.editForm.get('email')?.value ?? '',
+            phone: this.editForm.get('phone')?.value ?? '',
+            color: this.editForm.get('color')?.value ?? '',
+          };
+          this.contactService.updatedContact$.next(updatedContact);
+          console.log('Kontakt erfolgreich aktualisiert.');
+        }
+      }).catch((error) => {
+        console.error('Fehler beim Aktualisieren des Kontakts:', error);
+      });
+    }
+  }  
+  
   onSubmitAndNavigate() {
-    this.onSaveChanges();
+    this.onSubmit();
+    this.contactService.refreshContacts();
     this.router.navigate(['/contacts']);
   }
 

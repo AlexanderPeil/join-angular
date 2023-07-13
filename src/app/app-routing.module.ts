@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'legal-notice', component: LegalNoticeComponent},
   { path: 'help-page', component: HelpPageComponent},
   { path: 'add-contact', component: AddContactComponent},
-  { path: 'edit-contact', component: EditContactComponent},
+  { path: 'edit-contact/:id', component: EditContactComponent},
   { path: '**', component: LoginComponent }
 ];
 
