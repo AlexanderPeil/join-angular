@@ -18,21 +18,49 @@
     </div>
 
     <div cdkDropListGroup>
+        <!-- <div> -->
         <div class="example-container">
             <h2>To do</h2>
             <div cdkDropList id="todoList" [cdkDropListData]="todo"
                 [cdkDropListConnectedTo]="['inProgressList', 'awaitingFeedbackList', 'doneList']" class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+                <div class="example-box" *ngFor="let task of todo" cdkDrag>
+                    <div class="card-head" [style.background-color]="task.color">{{ task.category }}</div>
+                    <div class="card-body">
+                        <h4>{{ task.title }}</h4>
+                        <p>{{ task.description }}</p>
+                    </div>
+                    <div>{{ task.subtasks }}</div>
+                    <div class="priotity-users">
+                        <div class="users">
+                            <p class="circle"></p>
+                        </div>
+                        <div class="priority"><img [src]="getPriorityImage(task.prio)" alt="Priority"></div>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- </div> -->
 
         <div class="example-container">
             <h2>In Progress</h2>
             <div cdkDropList id="inProgressList" [cdkDropListData]="in_progress"
                 [cdkDropListConnectedTo]="['todoList', 'awaitingFeedbackList', 'doneList']" class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of in_progress" cdkDrag>{{item}}</div>
+                <div class="example-box" *ngFor="let task of in_progress" cdkDrag>
+                    <div class="card-head" [style.background-color]="task.color">{{ task.category }}</div>
+                    <div class="card-body">
+                        <h4>{{ task.title }}</h4>
+                        <p>{{ task.description }}</p>
+                    </div>
+                    <div>{{ task.subtasks }}</div>
+                    <div class="priotity-users">
+                        <div class="users">
+                            <p class="circle"></p>
+                        </div>
+                        <div class="priority"><img [src]="getPriorityImage(task.prio)" alt="Priority"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -41,7 +69,20 @@
             <div cdkDropList id="awaitingFeedbackList" [cdkDropListData]="awaiting_feedback"
                 [cdkDropListConnectedTo]="['todoList', 'inProgressList', 'doneList']" class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of awaiting_feedback" cdkDrag>{{item}}</div>
+                <div class="example-box" *ngFor="let task of awaiting_feedback" cdkDrag>
+                    <div class="card-head" [style.background-color]="task.color">{{ task.category }}</div>
+                    <div class="card-body">
+                        <h4>{{ task.title }}</h4>
+                        <p>{{ task.description }}</p>
+                    </div>
+                    <div>{{ task.subtasks }}</div>
+                    <div class="priotity-users">
+                        <div class="users">
+                            <p class="circle"></p>
+                        </div>
+                        <div class="priority"><img [src]="getPriorityImage(task.prio)" alt="Priority"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -50,7 +91,20 @@
             <div cdkDropList id="doneList" [cdkDropListData]="done"
                 [cdkDropListConnectedTo]="['todoList', 'inProgressList', 'awaitingFeedbackList']" class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+                <div class="example-box" *ngFor="let task of done" cdkDrag>
+                    <div class="card-head" [style.background-color]="task.color">{{ task.category }}</div>
+                    <div class="card-body">
+                        <h4>{{ task.title }}</h4>
+                        <p>{{ task.description }}</p>
+                    </div>
+                    <div>{{ task.subtasks }}</div>
+                    <div class="priotity-users">
+                        <div class="users">
+                            <p class="circle"></p>
+                        </div>
+                        <div class="priority"><img [src]="getPriorityImage(task.prio)" alt="Priority"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

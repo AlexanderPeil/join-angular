@@ -28,10 +28,10 @@
                                     <input type="text" placeholder="Category Name" formControlName="category">
                                     <input class="color-picker" type="color" formControlName="color" value="#ff0000">
                                     <img class="category-accept category-member-selection"
-                                        src="../../assets/img/icon_check_subtask.svg"
-                                        alt="category-accept">
-                                    <img class="category-cancel category-member-selection" src="../../assets/img/icon_cancel_subtask.svg"
-                                        alt="close-wrapper" (click)="toggleCategoryMenu(); resetCategory()">
+                                        src="../../assets/img/icon_check_subtask.svg" alt="category-accept">
+                                    <img class="category-cancel category-member-selection"
+                                        src="../../assets/img/icon_cancel_subtask.svg" alt="close-wrapper"
+                                        (click)="toggleCategoryMenu(); resetCategory()">
                                     <div [@openCategories]="categoryMenu ? 'end' : 'start'"></div>
                                 </div>
                                 <div class="sector-top" *ngIf="!categoryMenu" (click)="toggleCategoryMenu()">
@@ -101,9 +101,16 @@
                                     <img *ngIf="subtaskInput" class="subtask-icons"
                                         src="../../assets/img/icon_cancel_subtask.svg" (click)="subtaskInput = false">
                                 </div>
-                                <div>
-                                    <ul></ul>
-                                </div>
+                                <!-- <div *ngIf="subtaskInput">
+                                    <ul>
+                                        <li *ngFor="let subtaskControl of subtasks.controls; let i = index">
+                                          <ng-container *ngIf="subtaskControl instanceof FormControl">
+                                            <input type="text" [formControl]="subtaskControl">
+                                            <button (click)="removeSubtask(i)">Remove</button>
+                                          </ng-container>
+                                        </li>
+                                      </ul>
+                                </div> -->
                             </div>
                         </div>
                         <div class="submit-and-clear">

@@ -47,10 +47,6 @@ label {
     gap: 10px;
 }
 
-.date-picker {
-    width: 100%;
-}
-
 .input-content {
     background-color: white;
 }
@@ -67,7 +63,50 @@ select,
     outline: none;
 }
 
-.sector_top {
+.category-inputs {
+    position: relative;
+
+    input {
+        position: absolute;
+    }
+
+    .color-picker {
+        right: 89px;
+        top: 2px;
+        padding: 0px !important;
+        border: none;
+        cursor: pointer;
+        width: 40px;
+        height: 45px;
+        outline: none;
+    }
+}
+
+.select-member {
+    position: relative;
+}
+
+.category-member-selection {
+    height: 40px;
+    position: absolute;
+    top: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #29ABE2;
+        border-radius: 10px;
+    }
+}
+
+.category-accept {
+    right: 45px;
+}
+
+.category-cancel {
+    right: 5px;
+}
+
+.sector-top {
     display: flex;
     justify-content: space-between;
     line-height: 0;
@@ -75,10 +114,10 @@ select,
     font-size: 18px;
     padding: 5px 20px;
     cursor: pointer;
-}
 
-.sector_top img {
-    height: 8px;
+    img {
+        height: 8px;
+    }
 }
 
 .select-wrapper {
@@ -147,6 +186,10 @@ select::-ms-expand {
     flex-direction: column;
     width: 100%;
     gap: 10px
+}
+
+.right-container-mobile {
+    width: 100%;
 }
 
 .date {

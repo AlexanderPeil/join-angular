@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -43,44 +43,46 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 export class AddTaskMenuComponent implements OnInit {
   public subtaskInput: boolean = false;
+
   prioUrgent: boolean = false;
   prioMedium: boolean = false;
   prioLow: boolean = true;
+
   minDate: string;
   categoryMenu = false;
   assignedToMenu = false;
+
+  taskForm!: FormGroup;
 
   constructor(private location: Location, private firestore: AngularFirestore) {
     this.minDate = new Date().toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
+    this.taskForm = new FormGroup({
+      profileForm: new FormGroup({
+        title: new FormControl(''),
+        description: new FormControl(''),
+        assignedTo: new FormControl(''),
+        date: new FormControl(''),
+        prio: new FormControl('low'),
+        subtasks: new FormArray([])
+      }),
+      categoryForm: new FormGroup({
+        category: new FormControl(''),
+        color: new FormControl('')
+      })
+    });
   }
 
   setPriority(priority: string) {
     this.prioUrgent = priority === 'urgent';
     this.prioMedium = priority === 'medium';
     this.prioLow = priority === 'low';
-  
+
     const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
     profileForm.controls['prio'].setValue(priority);
   }
-
-  taskForm = new FormGroup({
-    profileForm: new FormGroup({
-      title: new FormControl(''),
-      description: new FormControl(''),
-      assignedTo: new FormControl(''),
-      date: new FormControl(''),
-      prio: new FormControl('low'),
-      subtasks: new FormControl('')
-    }),
-    categoryForm: new FormGroup({
-      category: new FormControl(''),
-      color: new FormControl('')
-    })
-  });
-
 
   onSubmit() {
     const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
@@ -95,21 +97,37 @@ export class AddTaskMenuComponent implements OnInit {
       subtasks: profileForm.controls['subtasks'].value ?? '',
       category: categoryForm.controls['category'].value ?? '',
       color: categoryForm.controls['color'].value ?? '',
+      status: 'todo',
     };
 
     this.firestore
       .collection('tasks')
       .add(newTask)
-      .then(() => {
+      .then((docRef) => {
         console.log('Aufgabe erfolgreich in Firestore gespeichert.');
         this.location.back();
       })
       .catch((error) => {
         console.error('Fehler beim Speichern der Aufgabe:', error);
       });
-    this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
+    this.taskForm.controls['categoryForm'].reset({ color: '#ff0000' });
   }
 
+  // addSubtask() {
+  //   this.subtasks.push(new FormControl(''));
+  // }
+
+  // get profileForm(): FormGroup {
+  //   return this.taskForm.get('profileForm') as FormGroup;
+  // }  
+
+  // get subtasks(): FormArray {
+  //   return this.profileForm.get('subtasks') as FormArray;
+  // }  
+
+  // removeSubtask(index: number) {
+  //   this.subtasks.removeAt(index);
+  // }
 
   stopPropagation(event: Event) {
     event.stopPropagation();
@@ -130,7 +148,4 @@ export class AddTaskMenuComponent implements OnInit {
   resetCategory() {
     this.taskForm.get('categoryForm')?.get('category')?.setValue('');
   }
-  
-  
-
 }
