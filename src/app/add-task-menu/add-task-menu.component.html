@@ -46,18 +46,23 @@
                             <label>Assigned To</label>
                             <div class="select-wrapper assigned-to-wrapper">
                                 <div class="select-member" *ngIf="assignedToMenu">
-                                    <input type="text" placeholder="Select a member" formControlName="assignedTo"
-                                        (click)="stopPropagation($event)">
                                     <img class="category-accept category-member-selection"
-                                        src="../../assets/img/icon_check_subtask.svg" alt="category-accept">
+                                        src="../../assets/img/icon_check_subtask.svg" alt="category-accept"
+                                        (click)="membersSelected()">
                                     <img class="category-cancel category-member-selection"
                                         src="../../assets/img/icon_cancel_subtask.svg" alt="close-wrapper"
-                                        (click)="toggleAssignedToMenu()">
-                                    <div [@openAssignedTo]="assignedToMenu ? 'end' : 'start'">
+                                        (click)="cancelSelection()">
+                                    <div class="member-wrapper" [@openAssignedTo]="assignedToMenu ? 'end' : 'start'">
+                                        <p *ngIf="">Select your members</p>
+                                        <div class="each-member" *ngFor="let contact of contacts$ | async"
+                                            (click)="selectContact(contact)"
+                                            [ngClass]="{'selected-contact': isSelected(contact)}">
+                                            {{contact.firstName}} {{contact.lastName}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="sector-top" *ngIf="!assignedToMenu" (click)="toggleAssignedToMenu()">
-                                    <p>Select your Members</p><img src="../../assets/img/arrow_down.png">
+                                    <p>{{ feedbackMessage }}</p><img src="../../assets/img/arrow_down.png">
                                 </div>
                             </div>
                         </div>
@@ -101,16 +106,6 @@
                                     <img *ngIf="subtaskInput" class="subtask-icons"
                                         src="../../assets/img/icon_cancel_subtask.svg" (click)="subtaskInput = false">
                                 </div>
-                                <!-- <div *ngIf="subtaskInput">
-                                    <ul>
-                                        <li *ngFor="let subtaskControl of subtasks.controls; let i = index">
-                                          <ng-container *ngIf="subtaskControl instanceof FormControl">
-                                            <input type="text" [formControl]="subtaskControl">
-                                            <button (click)="removeSubtask(i)">Remove</button>
-                                          </ng-container>
-                                        </li>
-                                      </ul>
-                                </div> -->
                             </div>
                         </div>
                         <div class="submit-and-clear">

@@ -94,6 +94,25 @@ select,
     outline: none;
 }
 
+.member-wrapper {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+
+    .each-member {
+        cursor: pointer;
+
+        &:hover {
+            color: #29ABE2;
+        }
+    }
+}
+
+.selected-contact {
+    background-color: #abcdef;
+    margin-right: 10px;
+}
+
 .category-inputs {
     position: relative;
 

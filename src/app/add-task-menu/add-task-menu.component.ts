@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -34,7 +35,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         overflow: 'auto',
         height: '*',
         width: '100%',
-        display: 'block',
+        display: 'flex',
       })),
       transition('end <=> start', animate('200ms ease-in-out'))
     ]),
@@ -43,6 +44,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 export class AddTaskMenuComponent implements OnInit {
   public subtaskInput: boolean = false;
+  contacts$: Observable<any[]>;
 
   prioUrgent: boolean = false;
   prioMedium: boolean = false;
@@ -53,9 +55,11 @@ export class AddTaskMenuComponent implements OnInit {
   assignedToMenu = false;
 
   taskForm!: FormGroup;
+  feedbackMessage = 'Select your Members';
 
   constructor(private location: Location, private firestore: AngularFirestore) {
     this.minDate = new Date().toISOString().split('T')[0];
+    this.contacts$ = this.firestore.collection('contacts').valueChanges();
   }
 
   ngOnInit(): void {
@@ -63,7 +67,7 @@ export class AddTaskMenuComponent implements OnInit {
       profileForm: new FormGroup({
         title: new FormControl(''),
         description: new FormControl(''),
-        assignedTo: new FormControl(''),
+        assignedTo: new FormArray([]),
         date: new FormControl(''),
         prio: new FormControl('low'),
         subtasks: new FormArray([])
@@ -113,6 +117,25 @@ export class AddTaskMenuComponent implements OnInit {
     this.taskForm.controls['categoryForm'].reset({ color: '#ff0000' });
   }
 
+  selectContact(contact: any) {
+    const assignedTo = this.taskForm.get('profileForm.assignedTo') as FormArray;
+    const fullName = `${contact.firstName} ${contact.lastName}`;
+
+    if (assignedTo.controls.some(control => control.value === fullName)) {
+      const index = assignedTo.controls.findIndex(control => control.value === fullName);
+      assignedTo.removeAt(index);
+    } else {
+      assignedTo.push(new FormControl(fullName));
+    }
+  }
+
+
+  isSelected(contact: any) {
+    const assignedTo = this.taskForm.get('profileForm.assignedTo') as FormArray;
+    const fullName = `${contact.firstName} ${contact.lastName}`;
+    return assignedTo.controls.some(control => control.value === fullName);
+  }
+
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
@@ -131,5 +154,22 @@ export class AddTaskMenuComponent implements OnInit {
 
   resetCategory() {
     this.taskForm.get('categoryForm')?.get('category')?.setValue('');
+  }
+
+  membersSelected() {
+    this.toggleAssignedToMenu();
+    this.feedbackMessage = 'Members selected';
+    setTimeout(() => {
+      this.feedbackMessage = 'Select your Members';
+    }, 2000);
+  }
+
+
+  cancelSelection() {
+    const assignedTo = this.taskForm.get('profileForm.assignedTo') as FormArray;
+    while (assignedTo.length !== 0) {
+      assignedTo.removeAt(0)
+    }
+    this.toggleAssignedToMenu();
   }
 }

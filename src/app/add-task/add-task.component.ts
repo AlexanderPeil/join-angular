@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom  } from 'rxjs';
 
 
 @Component({
@@ -44,8 +44,9 @@ import { Observable } from 'rxjs';
 
 
 export class AddTaskComponent {
-  public subtaskInput: boolean = false;
+  subtaskInput: boolean = false;
   contacts$: Observable<any[]>;
+  categories$: Observable<any[]>;
 
   prioUrgent: boolean = false;
   prioMedium: boolean = false;
@@ -55,8 +56,8 @@ export class AddTaskComponent {
   categoryMenu = false;
   assignedToMenu = false;
 
-  feedbackMessage = 'Select your Members';
-
+  feedbackMessageMembers = 'Select your Members';
+  feedbackMessageCategories = 'Select your Category';
 
 
   /**
@@ -66,6 +67,7 @@ export class AddTaskComponent {
   constructor(private location: Location, private firestore: AngularFirestore) {
     this.minDate = new Date().toISOString().split('T')[0];
     this.contacts$ = this.firestore.collection('contacts').valueChanges();
+    this.categories$ = this.firestore.collection('categories').valueChanges();
   }
 
 
@@ -95,7 +97,7 @@ export class AddTaskComponent {
       assignedTo: new FormArray([]),
       date: new FormControl(''),
       prio: new FormControl('low'),
-      subtasks: new FormControl('')
+      subtasks: new FormArray([])
     }),
     categoryForm: new FormGroup({
       category: new FormControl(''),
@@ -133,8 +135,39 @@ export class AddTaskComponent {
       .catch((error) => {
         console.error('Fehler beim Speichern der Aufgabe:', error);
       });
+    this.addCategory(categoryForm.controls['category'].value, categoryForm.controls['color'].value);
     this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
   }
+
+  selectCategory(cat: any) {
+    const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
+    categoryForm.controls['category'].setValue(cat.category);
+    categoryForm.controls['color'].setValue(cat.color);
+    this.categoryMenu = false;
+  }
+
+
+  async addCategory(category: string, color: string) {
+    const docSnapshot = this.firestore.collection('categories').doc(category).get();
+  
+    const doc = await firstValueFrom(docSnapshot);
+  
+    if (!doc.data()) {
+      this.firestore.collection('categories').doc(category).set({
+        category: category,
+        color: color
+      }).then(() => {
+        console.log('Kategorie erfolgreich in Firestore gespeichert.');
+      }).catch((error) => {
+        console.error('Fehler beim Speichern der Kategorie:', error);
+      });
+    } else {
+      console.log('Kategorie existiert bereits.');
+    }
+  }
+
+
+
 
   selectContact(contact: any) {
     const assignedTo = this.taskForm.get('profileForm.assignedTo') as FormArray;
@@ -193,9 +226,9 @@ export class AddTaskComponent {
 
   membersSelected() {
     this.toggleAssignedToMenu();
-    this.feedbackMessage = 'Members selected';
+    this.feedbackMessageMembers = 'Members selected';
     setTimeout(() => {
-      this.feedbackMessage = 'Select your Members';
+      this.feedbackMessageMembers = 'Select your Members';
     }, 2000);
   }
 
@@ -207,5 +240,38 @@ export class AddTaskComponent {
     }
     this.toggleAssignedToMenu();
   }
-  
+
+  categorySelected() {
+    this.toggleAssignedToMenu();
+    this.feedbackMessageCategories = 'Members selected';
+    setTimeout(() => {
+      this.feedbackMessageCategories = 'Select your Members';
+    }, 2000);
+  }
+
+
+
+  addSubtask() {
+    const control = new FormControl(null);
+    (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
+    this.subtaskInput = true;
+  }
+
+  cancelSubtask() {
+    (this.taskForm.get('profileForm.subtasks') as FormArray).removeAt((this.taskForm.get('profileForm.subtasks') as FormArray).length - 1);
+    this.subtaskInput = false;
+  }
+
+
+  removeSubtask(index: number) {
+    const subtasks = this.taskForm.get('profileForm.subtasks') as FormArray;
+    subtasks.removeAt(index);
+  }
+
+
+
+  getSubtasks() {
+    return (this.taskForm.get('profileForm.subtasks') as FormArray).controls as FormControl[];
+  }
+
 }
