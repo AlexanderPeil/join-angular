@@ -1,8 +1,11 @@
-<div class="add-task-content">
-    <div class="add-task-menu" (click)="stopPropagation($event)">
-        <div class="header-popup">
-            <h2>Add Task</h2>
-            <img class="close-header-popup" src="../../assets/img/xicon.svg">
+<app-header></app-header>
+<app-nav-bar></app-nav-bar>
+
+<div class="edit-task-content" routerLink="/board">
+    <div class="edit-task-menu" (click)="stopPropagation($event)">
+        <div class="header">
+            <h2>Edit Task</h2>
+            <img class="close-header-popup" src="../../assets/img/xicon.svg" routerLink="/board">
         </div>
         <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
             <div class="content-container">

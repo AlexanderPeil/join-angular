@@ -70,7 +70,7 @@ export class AddTaskMenuComponent implements OnInit {
       }),
       categoryForm: new FormGroup({
         category: new FormControl(''),
-        color: new FormControl('')
+        color: new FormControl('#ff0000')
       })
     });
   }
@@ -112,22 +112,6 @@ export class AddTaskMenuComponent implements OnInit {
       });
     this.taskForm.controls['categoryForm'].reset({ color: '#ff0000' });
   }
-
-  // addSubtask() {
-  //   this.subtasks.push(new FormControl(''));
-  // }
-
-  // get profileForm(): FormGroup {
-  //   return this.taskForm.get('profileForm') as FormGroup;
-  // }  
-
-  // get subtasks(): FormArray {
-  //   return this.profileForm.get('subtasks') as FormArray;
-  // }  
-
-  // removeSubtask(index: number) {
-  //   this.subtasks.removeAt(index);
-  // }
 
   stopPropagation(event: Event) {
     event.stopPropagation();

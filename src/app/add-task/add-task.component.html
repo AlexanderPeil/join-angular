@@ -27,10 +27,10 @@
                                 <input type="text" placeholder="Category Name" formControlName="category">
                                 <input class="color-picker" type="color" formControlName="color" value="#ff0000">
                                 <img class="category-accept category-member-selection"
-                                    src="../../assets/img/icon_check_subtask.svg"
-                                    alt="category-accept">
-                                <img class="category-cancel category-member-selection" src="../../assets/img/icon_cancel_subtask.svg"
-                                    alt="close-wrapper" (click)="toggleCategoryMenu(); resetCategory()">
+                                    src="../../assets/img/icon_check_subtask.svg" alt="category-accept">
+                                <img class="category-cancel category-member-selection"
+                                    src="../../assets/img/icon_cancel_subtask.svg" alt="close-wrapper"
+                                    (click)="toggleCategoryMenu(); resetCategory()">
                                 <div [@openCategories]="categoryMenu ? 'end' : 'start'"></div>
                             </div>
                             <div class="sector-top" *ngIf="!categoryMenu" (click)="toggleCategoryMenu()">
@@ -45,18 +45,25 @@
                         <label>Assigned To</label>
                         <div class="select-wrapper assigned-to-wrapper">
                             <div class="select-member" *ngIf="assignedToMenu">
-                                <input type="text" placeholder="Select a member" formControlName="assignedTo"
-                                    (click)="stopPropagation($event)">
+                                <!-- <input type="text" placeholder="Select a member" formControlName="assignedTo"
+                                    (click)="stopPropagation($event)"> -->
                                 <img class="category-accept category-member-selection"
-                                    src="../../assets/img/icon_check_subtask.svg" alt="category-accept">
+                                    src="../../assets/img/icon_check_subtask.svg" alt="category-accept"
+                                    (click)="membersSelected()">
                                 <img class="category-cancel category-member-selection"
                                     src="../../assets/img/icon_cancel_subtask.svg" alt="close-wrapper"
-                                    (click)="toggleAssignedToMenu()">
-                                <div [@openAssignedTo]="assignedToMenu ? 'end' : 'start'">
+                                    (click)="cancelSelection()">
+                                <div class="member-wrapper" [@openAssignedTo]="assignedToMenu ? 'end' : 'start'">
+                                    <p *ngIf="">Select your members</p>
+                                    <div class="each-member" *ngFor="let contact of contacts$ | async"
+                                        (click)="selectContact(contact)"
+                                        [ngClass]="{'selected-contact': isSelected(contact)}">
+                                        {{contact.firstName}} {{contact.lastName}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="sector-top" *ngIf="!assignedToMenu" (click)="toggleAssignedToMenu()">
-                                <p>Select your Members</p><img src="../../assets/img/arrow_down.png">
+                                <p>{{ feedbackMessage }}</p><img src="../../assets/img/arrow_down.png">
                             </div>
                         </div>
                     </div>
@@ -108,8 +115,7 @@
                     <div class="submit-and-clear">
                         <div class="btn-clear">Clear<img class="clear-img" src="assets/img/iconoir_cancel.png">
                         </div>
-                        <div><Button class="btn-createTask">Create Task<img
-                                    src="assets/img/icons_check.png"></Button>
+                        <div><Button class="btn-createTask">Create Task<img src="assets/img/icons_check.png"></Button>
                         </div>
                     </div>
                 </div>
