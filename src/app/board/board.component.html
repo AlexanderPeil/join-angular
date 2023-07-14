@@ -34,7 +34,11 @@
                     <div>{{ task.subtasks }}</div>
                     <div class="priotity-users">
                         <div class="users">
-                            <p class="circle"></p>
+                            <div *ngFor="let name  of task.assignedTo">
+                                <p class="circle">
+                                    {{ getInitials(name) }}
+                                </p>
+                            </div>
                         </div>
                         <div class="priority"><img [src]="getPriorityImage(task.prio)" alt="Priority"></div>
                     </div>
@@ -58,7 +62,11 @@
                     <div>{{ task.subtasks }}</div>
                     <div class="priotity-users">
                         <div class="users">
-                            <p class="circle"></p>
+                            <div *ngFor="let name  of task.assignedTo">
+                                <p class="circle">
+                                    {{ getInitials(name) }}
+                                </p>
+                            </div>
                         </div>
                         <div class="priority"><img [src]="getPriorityImage(task.prio)" alt="Priority"></div>
                     </div>
@@ -81,7 +89,11 @@
                     <div>{{ task.subtasks }}</div>
                     <div class="priotity-users">
                         <div class="users">
-                            <p class="circle"></p>
+                            <div *ngFor="let name  of task.assignedTo">
+                                <p class="circle">
+                                    {{ getInitials(name) }}
+                                </p>
+                            </div>
                         </div>
                         <div class="priority"><img [src]="getPriorityImage(task.prio)" alt="Priority"></div>
                     </div>
@@ -104,7 +116,11 @@
                     <div>{{ task.subtasks }}</div>
                     <div class="priotity-users">
                         <div class="users">
-                            <p class="circle"></p>
+                            <div *ngFor="let name  of task.assignedTo">
+                                <p class="circle">
+                                    {{ getInitials(name) }}
+                                </p>
+                            </div>
                         </div>
                         <div class="priority"><img [src]="getPriorityImage(task.prio)" alt="Priority"></div>
                     </div>

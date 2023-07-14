@@ -36,6 +36,9 @@ export class BoardComponent implements OnInit {
         this.done = [];
 
         tasks.forEach((task: any) => {
+          if (typeof task.assignedTo === 'string') {
+            task.assignedTo = [task.assignedTo];
+          }
           switch (task.status) {
             case 'todo': this.todo.push(task); break;
             case 'in_progress': this.in_progress.push(task); break;
@@ -89,20 +92,30 @@ export class BoardComponent implements OnInit {
   }
 
   onMousedown(event: MouseEvent) {
-    this.mousedownTime = event.timeStamp;
+    if (event.button === 0) {
+      this.mousedownTime = event.timeStamp;
+    }
   }
 
   onMouseup(event: MouseEvent, taskId: string) {
-    const elapsed = event.timeStamp - (this.mousedownTime ?? 0);
-    if (elapsed < 200) {
-      this.navigateToEditTask(taskId);
+    if (event.button === 0) {
+      const elapsed = event.timeStamp - (this.mousedownTime ?? 0);
+      if (elapsed < 200) {
+        this.navigateToEditTask(taskId);
+      }
+      this.mousedownTime = undefined;
     }
-    this.mousedownTime = undefined;
   }
 
   navigateToEditTask(taskId: string) {
     this.router.navigate(['/edit-task', taskId]);
   }
 
+
+  getInitials(name: string): string {
+    let parts = name.split(' ');
+    let initials = parts[0][0] + parts[1][0];
+    return initials.toUpperCase();
+  }
 
 }
