@@ -308,4 +308,25 @@ export class AddTaskComponent {
     return (this.taskForm.get('profileForm.subtasks') as FormArray).controls as FormControl[];
   }
 
+  onClear(event: Event) {
+    event.stopPropagation();  
+    this.resetAllSelections();
+  }
+
+  
+    /**
+   * Resets all selections and forms.
+   */
+    resetAllSelections() {
+      this.taskForm.reset();
+      this.feedbackMessageMembers = 'Select your Members';
+      this.selectedCategory = null;
+      this.categoryMenu = false;
+      this.assignedToMenu = false;
+      this.createdSubtasks = [];
+      this.prioUrgent = false;
+      this.prioMedium = false;
+      this.prioLow = true;
+      this.subtaskInput = false;
+    }
 }
