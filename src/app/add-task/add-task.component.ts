@@ -21,7 +21,7 @@ import { Observable, firstValueFrom  } from 'rxjs';
         overflow: 'auto',
         height: '*',
         width: '100%',
-        display: 'block',
+        display: 'flex',
       })),
       transition('end <=> start', animate('200ms ease-in-out'))
     ]),
@@ -47,6 +47,8 @@ export class AddTaskComponent {
   subtaskInput: boolean = false;
   contacts$: Observable<any[]>;
   categories$: Observable<any[]>;
+  selectedCategory: any;
+
 
   prioUrgent: boolean = false;
   prioMedium: boolean = false;
@@ -57,7 +59,7 @@ export class AddTaskComponent {
   assignedToMenu = false;
 
   feedbackMessageMembers = 'Select your Members';
-  feedbackMessageCategories = 'Select your Category';
+  createdSubtasks: string[] = [];
 
 
   /**
@@ -165,8 +167,35 @@ export class AddTaskComponent {
       console.log('Kategorie existiert bereits.');
     }
   }
+  
 
-
+  categorySelected() {
+    let categoryValue = this.taskForm.get('categoryForm.category')?.value;
+    let colorValue = this.taskForm.get('categoryForm.color')?.value;
+  
+    if (categoryValue && colorValue) {
+      let newCategory = {
+        category: categoryValue,
+        color: colorValue
+      };
+      this.saveCategory(newCategory);
+      this.selectedCategory = newCategory;
+      this.toggleCategoryMenu();
+    } else {
+      console.error('Fehler: Kategorie und/oder Farbe fehlen.');
+    }
+  }
+  
+  saveCategory(category: { category: string, color: string }) {
+    this.firestore.collection('categories').doc(category.category).set(category)
+      .then(() => {
+        console.log('Kategorie erfolgreich gespeichert.');
+      })
+      .catch((error) => {
+        console.error('Fehler beim Speichern der Kategorie:', error);
+      });
+  }
+  
 
 
   selectContact(contact: any) {
@@ -241,20 +270,26 @@ export class AddTaskComponent {
     this.toggleAssignedToMenu();
   }
 
-  categorySelected() {
-    this.toggleAssignedToMenu();
-    this.feedbackMessageCategories = 'Members selected';
-    setTimeout(() => {
-      this.feedbackMessageCategories = 'Select your Members';
-    }, 2000);
-  }
 
+  clickOnCategory(category: any) {
+    this.selectedCategory = category;
+    this.toggleCategoryMenu();
+}
 
 
   addSubtask() {
     const control = new FormControl(null);
     (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
     this.subtaskInput = true;
+  }
+
+
+  confirmSubtask(index: number) {
+    const subtasks = this.taskForm.get('profileForm.subtasks') as FormArray;
+    const confirmedSubtask = subtasks.at(index).value;
+    this.createdSubtasks.push(confirmedSubtask);
+    subtasks.removeAt(index);
+    this.subtaskInput = false;
   }
 
   cancelSubtask() {
@@ -264,8 +299,7 @@ export class AddTaskComponent {
 
 
   removeSubtask(index: number) {
-    const subtasks = this.taskForm.get('profileForm.subtasks') as FormArray;
-    subtasks.removeAt(index);
+    this.createdSubtasks.splice(index, 1);
   }
 
 
