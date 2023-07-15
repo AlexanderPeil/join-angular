@@ -27,7 +27,7 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
-import { ContactService } from './contact-service.service';
+import { ContactService } from './data-service';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
-import { ContactService } from '../contact-service.service';
+import { Observable, map } from 'rxjs';
+import { DataService  } from '../data-service';
+import { TaskInterface, ContactInterface } from '../modellInterface';
 
 @Component({
   selector: 'app-contacts',
@@ -9,22 +10,29 @@ import { ContactService } from '../contact-service.service';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
-  contacts$: Observable<any[]>;
+  contacts$: Observable<ContactInterface[]>;
   uniqueLetters: string[] = [];
-  selectedContact: any | null = null;
+  selectedContact: ContactInterface | null = null;
 
-  constructor(private firestore: AngularFirestore, private contactService: ContactService) {
-    this.contacts$ = this.firestore.collection('contacts').valueChanges({ idField: 'id' });
+  constructor(private firestore: AngularFirestore, private contactService: DataService ) {
+    this.contacts$ = this.firestore.collection('contacts').snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as ContactInterface;
+        const id = a.payload.doc.id;
+        return { ...data, id };
+      }))
+    );
+    
   }
 
-  selectContact(contact: any) {
+  selectContact(contact: ContactInterface) {
     this.contactService.setSelectedContact(contact);
   }
 
-  editContact(selectedContact: any) {
+  editContact(selectedContact: ContactInterface) {
   }
 
-  deleteContact(contact: any) {
+  deleteContact(contact: ContactInterface) {
     this.firestore.collection('contacts').doc(contact.id).delete().then(() => {
       console.log('Kontakt erfolgreich gelöscht.');
       this.selectedContact = null;
@@ -43,7 +51,7 @@ export class ContactsComponent implements OnInit {
       }
     });
 
-    this.contacts$.subscribe(contacts => {
+    this.contacts$.subscribe((contacts: ContactInterface[]) => {
       const lettersSet = new Set<string>();
       contacts.forEach(contact => {
         lettersSet.add(contact.lastName.charAt(0).toUpperCase());

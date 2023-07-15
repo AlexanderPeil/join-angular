@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ContactInterface } from './contact';
+import { ContactInterface, TaskInterface  } from './modellInterface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContactService {
-  private selectedContactSubject: BehaviorSubject<ContactInterface | null> = new BehaviorSubject<ContactInterface | null>(null);
+export class DataService  {
+  private selectedContactSubject: BehaviorSubject<ContactInterface  | null> = new BehaviorSubject<ContactInterface  | null>(null);
   selectedContact$ = this.selectedContactSubject.asObservable();
 
-  updatedContact$ = new BehaviorSubject<ContactInterface | null>(null);
+  updatedContact$ = new BehaviorSubject<ContactInterface  | null>(null);
 
-  setSelectedContact(contact: ContactInterface | null) {
+  setSelectedContact(contact: ContactInterface  | null) {
     this.selectedContactSubject.next(contact);
   }
 
-  setUpdatedContact(contact: ContactInterface | null) {
+  setUpdatedContact(contact: ContactInterface  | null) {
     this.updatedContact$.next(contact);
   }
 

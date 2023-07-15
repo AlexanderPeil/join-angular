@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Observable, firstValueFrom  } from 'rxjs';
+import { TaskInterface, ContactInterface } from '../modellInterface';
+import { DataService  } from '../data-service';
 
 
 @Component({
@@ -115,7 +117,7 @@ export class AddTaskComponent {
     const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
     const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
 
-    const newTask = {
+    const newTask: TaskInterface  = {
       title: profileForm.controls['title'].value ?? '',
       description: profileForm.controls['description'].value ?? '',
       assignedTo: profileForm.controls['assignedTo'].value ?? '',
@@ -124,7 +126,7 @@ export class AddTaskComponent {
       subtasks: profileForm.controls['subtasks'].value ?? '',
       category: categoryForm.controls['category'].value ?? '',
       color: categoryForm.controls['color'].value ?? '',
-      status: 'todo'
+      status: 'todo',
     };
 
     this.firestore

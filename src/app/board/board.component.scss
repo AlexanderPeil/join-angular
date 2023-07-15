@@ -1,21 +1,20 @@
 .example-container {
-    width: 400px;
+    width: 330px;
     max-width: 100%;
     margin: 0 25px 25px 0;
     display: inline-block;
     vertical-align: top;
-  }
-  
-  .example-list {
+}
+
+.example-list {
     border: solid 0.5px #ccc;
     min-height: 200px;
-    // background: white;
     border-radius: 4px;
     overflow: hidden;
     display: block;
-  }
-  
-  .example-box {
+}
+
+.example-box {
     background-color: white;
     border-radius: 20px;
     padding: 18px 19px;
@@ -28,32 +27,32 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  }
-  
-  .cdk-drag-preview {
+}
+
+.cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-                0 8px 10px 1px rgba(0, 0, 0, 0.14),
-                0 3px 14px 2px rgba(0, 0, 0, 0.12);
-  }
-  
-  .cdk-drag-placeholder {
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
     opacity: 0;
-  }
-  
-  .cdk-drag-animating {
+}
+
+.cdk-drag-animating {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-  
-  .example-box:last-child {
+}
+
+.example-box:last-child {
     border: none;
-  }
-  
-  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-  
+}
+
 
 :root {
     --design: #ff7a00;
@@ -73,7 +72,7 @@ a {
 }
 
 .board-section {
-    margin-left: 232px;
+    margin-left: 300px;
     margin-top: 90px;
 }
 
@@ -153,21 +152,6 @@ a {
     gap: 50px;
 }
 
-.splits-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2rem;
-    width: 260px;
-}
-
-.splits {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 260px;
-}
-
 .add_plus {
     border: solid 2px black;
     border-radius: 10px;
@@ -187,26 +171,12 @@ a {
     }
 }
 
-.card {
+.board-content {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 260px;
-}
-
-.card-content {
-    background-color: white;
-    border-radius: 20px;
-    padding: 18px 19px;
-    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-    margin: 25px 0;
-    width: 90%;
-    min-height: 180px;
-    cursor: pointer;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 50px;
 }
 
 .trash-icon {
@@ -470,7 +440,7 @@ a {
 }
 
 .filter {
-    backdrop-filter: brightness(0.4);   
+    backdrop-filter: brightness(0.4);
 }
 
 @media(max-width: 1500px) {
@@ -526,6 +496,7 @@ a {
     .splits-head {
         width: 100%;
     }
+
     .add-task {
         display: none !important;
     }
@@ -560,7 +531,7 @@ a {
     .card {
         margin-right: 0 !important;
     }
-    
+
     .drop-ground {
         width: 360px;
     }

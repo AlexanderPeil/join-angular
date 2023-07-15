@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class BoardComponent implements OnInit {
   tasks!: Observable<any[]>;
+  contacts: any[] = [];
   editingTask: any = null;
 
   todo: any[] = [];
@@ -47,6 +48,15 @@ export class BoardComponent implements OnInit {
           }
         });
       });
+
+    this.firestore.collection('contacts').valueChanges().subscribe(contacts => {
+      this.contacts = contacts;
+    });
+  }
+
+  getColorForContact(name: string): string {
+    const contact = this.contacts.find(contact => `${contact.firstName} ${contact.lastName}` === name);
+    return contact ? contact.color : 'defaultColor';  
   }
 
   drop(event: CdkDragDrop<any[]>) {
