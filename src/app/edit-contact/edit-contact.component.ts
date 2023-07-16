@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { ContactService } from '../data-service';
+import { DataService } from '../data-service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,7 +22,7 @@ export class EditContactComponent implements OnInit {
     color: new FormControl('#000000')
   });
 
-  constructor(private firestore: AngularFirestore, private route: ActivatedRoute, private router: Router, private contactService: ContactService) { }
+  constructor(private firestore: AngularFirestore, private route: ActivatedRoute, private router: Router,private dataService: DataService) { }
 
   ngOnInit(): void {
     this.contactId = this.route.snapshot.paramMap.get('id');
@@ -57,7 +57,7 @@ export class EditContactComponent implements OnInit {
             phone: this.editForm.get('phone')?.value ?? '',
             color: this.editForm.get('color')?.value ?? '',
           };
-          this.contactService.updatedContact$.next(updatedContact);
+          this.dataService.updatedContact$.next(updatedContact);
           console.log('Kontakt erfolgreich aktualisiert.');
         }
       }).catch((error) => {
@@ -68,7 +68,7 @@ export class EditContactComponent implements OnInit {
   
   onSubmitAndNavigate() {
     this.onSubmit();
-    this.contactService.refreshContacts();
+    this.dataService.refreshContacts();
     this.router.navigate(['/contacts']);
   }
 

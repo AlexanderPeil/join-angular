@@ -15,8 +15,8 @@ export interface TaskInterface {
     description: string;
     assignedTo: string;
     date: string;
-    prio: string
-    subtasks: string
-    category: string
+    prio: string;
+    subtasks: string[];
+    category: string;
     color: string;
 }

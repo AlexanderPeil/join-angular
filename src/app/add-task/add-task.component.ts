@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Observable, firstValueFrom  } from 'rxjs';
+import { Observable  } from 'rxjs';
 import { TaskInterface, ContactInterface } from '../modellInterface';
 import { DataService  } from '../data-service';
 
@@ -68,10 +68,10 @@ export class AddTaskComponent {
    * @param {Location} location - Location instance. 
    * @param {AngularFirestore} firestore - Firestore instance. 
    */
-  constructor(private location: Location, private firestore: AngularFirestore) {
+  constructor(private location: Location, private firestore: AngularFirestore, private dataService: DataService) {
     this.minDate = new Date().toISOString().split('T')[0];
-    this.contacts$ = this.firestore.collection('contacts').valueChanges();
-    this.categories$ = this.firestore.collection('categories').valueChanges();
+    this.contacts$ = this.dataService.getContacts();
+    this.categories$ = this.dataService.getCategories();    
   }
 
 
@@ -113,64 +113,58 @@ export class AddTaskComponent {
   /**
    * Method to submit the form and create a new task.
    */
-  onSubmit() {
+  async onSubmit() {
     const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
     const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
-
+  
     const newTask: TaskInterface  = {
       title: profileForm.controls['title'].value ?? '',
       description: profileForm.controls['description'].value ?? '',
       assignedTo: profileForm.controls['assignedTo'].value ?? '',
       date: profileForm.controls['date'].value ?? '',
       prio: profileForm.controls['prio'].value ?? '',
-      subtasks: profileForm.controls['subtasks'].value ?? '',
+      subtasks: this.createdSubtasks,
       category: categoryForm.controls['category'].value ?? '',
       color: categoryForm.controls['color'].value ?? '',
       status: 'todo',
     };
-
-    this.firestore
-      .collection('tasks')
-      .add(newTask)
-      .then(() => {
-        console.log('Aufgabe erfolgreich in Firestore gespeichert.');
-        this.location.back();
-      })
-      .catch((error) => {
-        console.error('Fehler beim Speichern der Aufgabe:', error);
-      });
+  
+    try { 
+      await this.dataService.addTask(newTask);
+      console.log('Aufgabe erfolgreich in Firestore gespeichert.');
+    } catch (error) {
+      console.error('Fehler beim Speichern der Aufgabe oder Kategorie:', error);
+      return;
+    }
+  
     this.addCategory(categoryForm.controls['category'].value, categoryForm.controls['color'].value);
     this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
   }
+  
+  
 
   selectCategory(cat: any) {
     const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
     categoryForm.controls['category'].setValue(cat.category);
     categoryForm.controls['color'].setValue(cat.color);
     this.categoryMenu = false;
+
+    const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
+    profileForm.controls['category'].setValue(cat.category);
   }
+  
 
 
   async addCategory(category: string, color: string) {
-    const docSnapshot = this.firestore.collection('categories').doc(category).get();
-  
-    const doc = await firstValueFrom(docSnapshot);
-  
-    if (!doc.data()) {
-      this.firestore.collection('categories').doc(category).set({
-        category: category,
-        color: color
-      }).then(() => {
-        console.log('Kategorie erfolgreich in Firestore gespeichert.');
-      }).catch((error) => {
-        console.error('Fehler beim Speichern der Kategorie:', error);
-      });
-    } else {
-      console.log('Kategorie existiert bereits.');
+    try {
+      await this.dataService.addCategoryFromService(category, color);
+      console.log('Kategorie erfolgreich in Firestore gespeichert.');
+    } catch (error) {
+      console.error('Fehler beim Speichern der Kategorie:', error);
     }
   }
   
-
+  
   categorySelected() {
     let categoryValue = this.taskForm.get('categoryForm.category')?.value;
     let colorValue = this.taskForm.get('categoryForm.color')?.value;
@@ -279,25 +273,26 @@ export class AddTaskComponent {
 }
 
 
-  addSubtask() {
-    const control = new FormControl(null);
-    (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
-    this.subtaskInput = true;
-  }
+addSubtask() {
+  const control = new FormControl(null);
+  (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
+  this.subtaskInput = true;
+}
 
 
-  confirmSubtask(index: number) {
-    const subtasks = this.taskForm.get('profileForm.subtasks') as FormArray;
-    const confirmedSubtask = subtasks.at(index).value;
-    this.createdSubtasks.push(confirmedSubtask);
-    subtasks.removeAt(index);
-    this.subtaskInput = false;
-  }
+confirmSubtask(index: number) {
+  const subtasks = this.taskForm.get('profileForm.subtasks') as FormArray;
+  const confirmedSubtask = subtasks.at(index).value;
+  this.createdSubtasks.push(confirmedSubtask);
+  subtasks.removeAt(index);
+  this.subtaskInput = false;
+}
 
-  cancelSubtask() {
-    (this.taskForm.get('profileForm.subtasks') as FormArray).removeAt((this.taskForm.get('profileForm.subtasks') as FormArray).length - 1);
-    this.subtaskInput = false;
-  }
+
+cancelSubtask() {
+  (this.taskForm.get('profileForm.subtasks') as FormArray).removeAt((this.taskForm.get('profileForm.subtasks') as FormArray).length - 1);
+  this.subtaskInput = false;
+}
 
 
   removeSubtask(index: number) {

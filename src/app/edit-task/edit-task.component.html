@@ -2,127 +2,17 @@
 <app-nav-bar></app-nav-bar>
 
 <div class="edit-task-content" routerLink="/board">
-    <div class="edit-task-menu" (click)="stopPropagation($event)">
-        <div class="header">
-            <h2>Edit Task</h2>
-            <img class="close-header-popup" src="../../assets/img/xicon.svg" routerLink="/board">
+    <div class="edit-task-container" (click)="stopPropagation($event)">
+    <div class="edit-task-header"><h2>Eidt Task</h2><img src="../../assets/img/xicon.svg" routerLink="/board"></div>
+        <div class="edit-task-title"></div>
+        <span></span>
+        <div class="d-flex"></div>
+        <div class="d-flex"></div>
+        <div class="d-flex"></div>
+        <div class="d-flex"></div>
+        <div class="edit-taslk-bottom">
+            <img src="../../assets/img/edit_contact.png" alt="edit-task">
+            <img src="../../assets/img/delete.png" alt="delete-task">
         </div>
-        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-            <div class="content-container">
-                <div class="left-container width-unset">
-                    <div formGroupName="profileForm">
-                        <div class="selection-container">
-                            <label>Title</label>
-                            <input type="text" placeholder="Enter a title" formControlName="title">
-                        </div>
-                        <div class="selection-container">
-                            <label>Description</label>
-                            <textarea placeholder="Enter a description" formControlName="description"></textarea>
-                        </div>
-                    </div>
-                    <div formGroupName="categoryForm">
-                        <div class="selection-container prevent-select">
-                            <label>Category</label>
-                            <div class="select-wrapper">
-                                <div class="category-inputs" *ngIf="categoryMenu">
-                                    <input type="text" placeholder="Category Name" formControlName="category">
-                                    <input class="color-picker" type="color" formControlName="color" value="#ff0000">
-                                    <img class="category-accept category-member-selection"
-                                        src="../../assets/img/icon_check_subtask.svg" alt="category-accept">
-                                    <img class="category-cancel category-member-selection"
-                                        src="../../assets/img/icon_cancel_subtask.svg" alt="close-wrapper"
-                                        (click)="toggleCategoryMenu(); resetCategory()">
-                                    <div [@openCategories]="categoryMenu ? 'end' : 'start'"></div>
-                                </div>
-                                <div class="sector-top" *ngIf="!categoryMenu" (click)="toggleCategoryMenu()">
-                                    <p>Select your Category</p>
-                                    <img src="../../assets/img/arrow_down.png">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div formGroupName="profileForm">
-                        <div class="selection-container prevent-select">
-                            <label>Assigned To</label>
-                            <div class="select-wrapper assigned-to-wrapper">
-                                <div class="select-member" *ngIf="assignedToMenu">
-                                    <input type="text" placeholder="Select a member" formControlName="assignedTo"
-                                        (click)="stopPropagation($event)">
-                                    <img class="category-accept category-member-selection"
-                                        src="../../assets/img/icon_check_subtask.svg" alt="category-accept">
-                                    <img class="category-cancel category-member-selection"
-                                        src="../../assets/img/icon_cancel_subtask.svg" alt="close-wrapper"
-                                        (click)="toggleAssignedToMenu()">
-                                    <div [@openAssignedTo]="assignedToMenu ? 'end' : 'start'">
-                                    </div>
-                                </div>
-                                <div class="sector-top" *ngIf="!assignedToMenu" (click)="toggleAssignedToMenu()">
-                                    <p>Select your Members</p><img src="../../assets/img/arrow_down.png">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="middle-gap"></div>
-                <div class="right-container width-unset">
-                    <div formGroupName="profileForm" class="right-container-mobile">
-                        <div class="features-container">
-                            <label for="date">Due Date</label>
-                            <input class="date" type="date" [min]="minDate" formControlName="date">
-                        </div>
-                        <div class="features-container">
-                            <label>Prio</label>
-                            <div class="prio-btn-container">
-                                <button class="prio-btn" *ngIf="!prioUrgent" (click)="setPriority('urgent')">Urgent <img
-                                        src="../../assets/img/prio_urgent.png"></button>
-                                <img class="prio-urgent urgentSection" *ngIf="prioUrgent"
-                                    src="../../assets/img/prio_urgent_btn.png">
-                                <button class="prio-btn" *ngIf="!prioMedium" (click)="setPriority('medium')">Medium <img
-                                        src="../../assets/img/prio_medium.png"></button>
-                                <img class="prio-urgent urgentSection" *ngIf="prioMedium"
-                                    src="../../assets/img/prio_medium_btn.png">
-                                <button class="prio-btn" *ngIf="!prioLow" (click)="setPriority('low')">Low <img
-                                        src="../../assets/img/prio_low_white.png"></button>
-                                <img class="prio-urgent urgentSection" *ngIf="prioLow"
-                                    src="../../assets/img/prio_low_btn.png">
-
-                            </div>
-                            <div class="features-container">
-                                <label>Subtasks</label>
-                                <div class="subtask-container">
-                                    <input *ngIf="!subtaskInput" class="subtask-input" placeholder="Add new subtask"
-                                        (click)="subtaskInput = true"><img *ngIf="!subtaskInput" class="plus-icon"
-                                        src="assets/img/plus_icon.png" (click)="subtaskInput = true">
-                                    <input *ngIf="subtaskInput" class="subtask-input" type="text"
-                                        placeholder="Enter a title" formControlName="subtasks">
-                                    <img *ngIf="subtaskInput" class="subtask-icons"
-                                        src="../../assets/img/icon_check_subtask.svg">
-                                    <div *ngIf="subtaskInput" class="gap-img-subtask"></div>
-                                    <img *ngIf="subtaskInput" class="subtask-icons"
-                                        src="../../assets/img/icon_cancel_subtask.svg" (click)="subtaskInput = false">
-                                </div>
-                                <!-- <div *ngIf="subtaskInput">
-                                    <ul>
-                                        <li *ngFor="let subtaskControl of subtasks.controls; let i = index">
-                                          <ng-container *ngIf="subtaskControl instanceof FormControl">
-                                            <input type="text" [formControl]="subtaskControl">
-                                            <button (click)="removeSubtask(i)">Remove</button>
-                                          </ng-container>
-                                        </li>
-                                      </ul>
-                                </div> -->
-                            </div>
-                        </div>
-                        <div class="submit-and-clear">
-                            <div class="btn-clear">Clear<img class="clear-img" src="assets/img/iconoir_cancel.png">
-                            </div>
-                            <div><Button class="btn-createTask">Create Task<img
-                                        src="assets/img/icons_check.png"></Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+</div>
 </div>
