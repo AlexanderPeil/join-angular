@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, from, Observable } from 'rxjs';
 import { ContactInterface, TaskInterface } from './modellInterface';
 
 @Injectable({
@@ -22,23 +22,12 @@ export class DataService {
   updatedContact$ = new BehaviorSubject<ContactInterface | null>(null);
   updatedTask$ = new BehaviorSubject<TaskInterface | null>(null);
 
-  setSelectedContact(contact: ContactInterface | null) {
-    this.selectedContactSubject.next(contact);
-  }
-
-  setUpdatedContact(contact: ContactInterface | null) {
-    this.updatedContact$.next(contact);
-  }
-
-  addTask(task: TaskInterface): Promise<void> {
-    return this.firestore.collection('tasks').doc(task.id).set(task);
-  }
 
   async addCategoryFromService(category: string, color: string) {
     const docSnapshot = this.firestore.collection('categories').doc(category).get();
-  
+
     const doc = await firstValueFrom(docSnapshot);
-  
+
     if (!doc.data()) {
       this.firestore.collection('categories').doc(category).set({
         category: category,
@@ -52,27 +41,57 @@ export class DataService {
       console.log('Kategorie existiert bereits.');
     }
   }
-  
+
+
+  setSelectedContact(contact: ContactInterface | null) {
+    this.selectedContactSubject.next(contact);
+  }
+
+
+  setUpdatedContact(contact: ContactInterface | null) {
+    this.updatedContact$.next(contact);
+  }
+
+
+  addTask(task: TaskInterface): Promise<void> {
+    return this.firestore.collection('tasks').doc(task.id).set(task);
+  }
+
+
+  getTaskById(id: string): Observable<TaskInterface | undefined> {
+    return this.firestore.collection('tasks').doc<TaskInterface>(id).valueChanges();
+  }
+
 
   refreshContacts() {
     this._refreshNeeded$.next();
   }
 
+
+  getContacts(): Observable<any[]> {
+    return this.firestore.collection('contacts').valueChanges();
+  }
+
+
   setSelectedTask(task: TaskInterface | null) {
     this.selectedTaskSubject.next(task);
   }
+
 
   setUpdatedTask(task: TaskInterface | null) {
     this.updatedTask$.next(task);
   }
 
+
   refreshTasks() {
     this._refreshNeeded$.next();
   }
 
-  getContacts(): Observable<any[]> {
-    return this.firestore.collection('contacts').valueChanges();
+
+  deleteTask(taskId: string): Observable<void> {
+    return from(this.firestore.collection('tasks').doc(taskId).delete());
   }
+
 
   getCategories(): Observable<any[]> {
     return this.firestore.collection('categories').valueChanges();

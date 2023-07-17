@@ -29,6 +29,7 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { DataService } from './data-service';
 import { EditTaskComponent } from './edit-task/edit-task.component';
+import { CardTaskComponent } from './card-task/card-task.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
     AddTaskMenuComponent,
     ContactDetailComponent,
     EditContactComponent,
-    EditTaskComponent
+    EditTaskComponent,
+    CardTaskComponent
   ],
   imports: [
     BrowserModule,

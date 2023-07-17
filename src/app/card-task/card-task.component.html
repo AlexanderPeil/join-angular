@@ -1,0 +1,21 @@
+<div *ngIf="task">
+    <h2>{{ task.title }}</h2>
+    <p>{{ task.description }}</p>
+    <p>Status: {{ task.status }}</p>
+    <p>Assigned to: {{ task.assignedTo.join(', ') }}</p>
+    <p>Date: {{ task.date }}</p>
+    <p>Priority: {{ task.prio }}</p>
+    <div *ngIf="task?.subtasks?.length">
+        Subtasks: {{ task.subtasks.join(', ') }}
+    </div>
+    <p>Category: {{ task.category }}</p>
+    <p>Color: {{ task.color }}</p>
+    <div class="users">
+        <div *ngFor="let name  of task.assignedTo">
+            <p class="circle" [style.background-color]="getColorForContact(name)">
+                {{ getInitials(name) }}
+            </p>
+        </div>
+        <img src="../../assets/img/delete.png" alt="Delete-Task" (click)="deleteTask()">
+    </div>    
+</div>

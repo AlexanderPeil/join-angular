@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -6,7 +6,9 @@ import {
 } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TaskInterface } from '../modellInterface';
+
 
 @Component({
   selector: 'app-board',
@@ -14,6 +16,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
+  selectedTask: TaskInterface | null = null;
+
+  @Input() task: TaskInterface | undefined;
+  @Output() close = new EventEmitter<void>();
+
+  closeMenu(): void {
+    this.close.emit();
+  }
+
+
   tasks!: Observable<any[]>;
   contacts: any[] = [];
   editingTask: any = null;
@@ -26,7 +38,8 @@ export class BoardComponent implements OnInit {
   mousedownTime: number | undefined;
 
 
-  constructor(private firestore: AngularFirestore, private router: Router) { }
+  constructor(private firestore: AngularFirestore, private router: Router, private route: ActivatedRoute) { }
+
 
   ngOnInit() {
     this.firestore.collection('tasks').valueChanges({ idField: 'id' })
@@ -52,12 +65,10 @@ export class BoardComponent implements OnInit {
     this.firestore.collection('contacts').valueChanges().subscribe(contacts => {
       this.contacts = contacts;
     });
+
+    const taskId = this.route.snapshot.paramMap.get('id');
   }
 
-  getColorForContact(name: string): string {
-    const contact = this.contacts.find(contact => `${contact.firstName} ${contact.lastName}` === name);
-    return contact ? contact.color : 'defaultColor';  
-  }
 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
@@ -118,14 +129,34 @@ export class BoardComponent implements OnInit {
   }
 
   navigateToEditTask(taskId: string) {
-    this.router.navigate(['/edit-task', taskId]);
+    this.router.navigate(['/card-task', taskId]);
   }
 
 
+  getColorForContact(name: string): string {
+    const contact = this.contacts.find(contact => `${contact.firstName} ${contact.lastName}` === name);
+    return contact ? contact.color : 'defaultColor';
+  }
+  
+
   getInitials(name: string): string {
     let parts = name.split(' ');
-    let initials = parts[0][0] + parts[1][0];
-    return initials.toUpperCase();
+    if (parts.length === 2) {
+      let initials = parts[0][0] + parts[1][0];
+      return initials.toUpperCase();
+    } else {
+      return name[0].toUpperCase();
+    }
+  }
+
+
+  openEditMenu(task: TaskInterface): void {
+    this.selectedTask = task;
+  }
+
+
+  closeEditMenu(): void {
+    this.selectedTask = null;
   }
 
 }

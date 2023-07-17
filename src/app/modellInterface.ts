@@ -13,7 +13,7 @@ export interface TaskInterface {
     status: 'todo' | 'in_progress' | 'awaiting_feedback' | 'done';
     title: string;
     description: string;
-    assignedTo: string;
+    assignedTo: string[];
     date: string;
     prio: string;
     subtasks: string[];

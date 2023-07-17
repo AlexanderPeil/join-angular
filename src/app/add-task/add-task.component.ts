@@ -116,6 +116,17 @@ export class AddTaskComponent {
   async onSubmit() {
     const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
     const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
+
+    let category = categoryForm.controls['category'].value;
+    if (!category) {
+      category = this.selectedCategory.category;
+
+    }
+
+    let color = categoryForm.controls['color'].value;
+    if (!color) {
+      color = this.selectedCategory.color; 
+    }
   
     const newTask: TaskInterface  = {
       title: profileForm.controls['title'].value ?? '',
@@ -124,8 +135,8 @@ export class AddTaskComponent {
       date: profileForm.controls['date'].value ?? '',
       prio: profileForm.controls['prio'].value ?? '',
       subtasks: this.createdSubtasks,
-      category: categoryForm.controls['category'].value ?? '',
-      color: categoryForm.controls['color'].value ?? '',
+      category: category,
+      color: color,
       status: 'todo',
     };
   
@@ -137,7 +148,7 @@ export class AddTaskComponent {
       return;
     }
   
-    this.addCategory(categoryForm.controls['category'].value, categoryForm.controls['color'].value);
+    // this.addCategory(categoryForm.controls['category'].value, categoryForm.controls['color'].value);
     this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
   }
   
@@ -147,10 +158,8 @@ export class AddTaskComponent {
     const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
     categoryForm.controls['category'].setValue(cat.category);
     categoryForm.controls['color'].setValue(cat.color);
+    this.selectedCategory = cat; 
     this.categoryMenu = false;
-
-    const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
-    profileForm.controls['category'].setValue(cat.category);
   }
   
 
@@ -267,10 +276,14 @@ export class AddTaskComponent {
   }
 
 
-  clickOnCategory(category: any) {
-    this.selectedCategory = category;
-    this.toggleCategoryMenu();
-}
+  clickOnCategory(cat: any) {
+    const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
+    categoryForm.controls['category'].setValue(cat.category);
+    categoryForm.controls['color'].setValue(cat.color);
+    this.selectedCategory = cat; 
+    this.categoryMenu = false;
+  }
+  
 
 
 addSubtask() {
