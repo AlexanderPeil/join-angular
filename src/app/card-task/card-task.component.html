@@ -1,21 +1,37 @@
-<div *ngIf="task">
-    <h2>{{ task.title }}</h2>
-    <p>{{ task.description }}</p>
-    <p>Status: {{ task.status }}</p>
-    <p>Assigned to: {{ task.assignedTo.join(', ') }}</p>
-    <p>Date: {{ task.date }}</p>
-    <p>Priority: {{ task.prio }}</p>
-    <div *ngIf="task?.subtasks?.length">
-        Subtasks: {{ task.subtasks.join(', ') }}
-    </div>
-    <p>Category: {{ task.category }}</p>
-    <p>Color: {{ task.color }}</p>
-    <div class="users">
-        <div *ngFor="let name  of task.assignedTo">
-            <p class="circle" [style.background-color]="getColorForContact(name)">
-                {{ getInitials(name) }}
-            </p>
+<app-header></app-header>
+<app-nav-bar></app-nav-bar>
+
+<div class="card-task-content" routerLink="/board">
+    <div class="card-task-container" (click)="stopPropagation($event)">
+        <div *ngIf="task">
+            <div class="card-task-close">
+                <img src="../../assets/img/xicon.svg" alt="Close Card-Task" routerLink="/board">
+            </div>
+            <div class="card-task-category" [style.background-color]="task.color">{{ task.category }}</div>
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.description }}</p>
+            <!-- <p>Status: {{ task.status }}</p> -->
+            <p><strong>Due Date:</strong> {{ task.date }}</p>
+            <p><strong>Priority:</strong> {{ task.prio }}</p>
+            <div *ngIf="task?.subtasks?.length">
+                Subtasks: {{ task.subtasks.join(', ') }}
+            </div>
+            <div class="users">
+                <div>
+                    <div class="assigned-contact" *ngFor="let name of task.assignedTo">
+                        <p class="circle" [style.background-color]="getColorForContact(name)">
+                            {{ getInitials(name) }}
+                        </p>
+                        <p>
+                            {{ getFullNameForContact(name) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-task-bottom">
+                <a class="edit-task"></a>
+                <div class="delete-task"  (click)="deleteTask()"></div>
+            </div>
         </div>
-        <img src="../../assets/img/delete.png" alt="Delete-Task" (click)="deleteTask()">
-    </div>    
+    </div>
 </div>

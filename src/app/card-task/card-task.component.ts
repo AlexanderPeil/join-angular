@@ -70,4 +70,14 @@ export class CardTaskComponent implements OnInit {
   }
   
 
+  stopPropagation(event: Event) {
+    event.stopPropagation();
+  }
+
+  getFullNameForContact(name: string): string {
+    const contact = this.contacts.find(contact => `${contact.firstName} ${contact.lastName}` === name);
+    return contact ? `${contact.firstName} ${contact.lastName}` : 'Unnamed';
+  }
+  
+
 }
