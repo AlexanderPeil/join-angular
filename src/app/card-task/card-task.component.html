@@ -3,18 +3,17 @@
 
 <div class="card-task-content" routerLink="/board">
     <div class="card-task-container" (click)="stopPropagation($event)">
-        <div *ngIf="task">
+        <div class="task-column" *ngIf="task">
             <div class="card-task-close">
+                <div class="card-task-category" [style.background-color]="task.color">{{ task.category }}</div>
                 <img src="../../assets/img/xicon.svg" alt="Close Card-Task" routerLink="/board">
             </div>
-            <div class="card-task-category" [style.background-color]="task.color">{{ task.category }}</div>
             <h2>{{ task.title }}</h2>
             <p>{{ task.description }}</p>
-            <!-- <p>Status: {{ task.status }}</p> -->
-            <p><strong>Due Date:</strong> {{ task.date }}</p>
-            <p><strong>Priority:</strong> {{ task.prio }}</p>
+            <div><strong>Due Date:</strong> {{ task.date }}</div>
+            <div><strong>Priority:</strong> {{ task.prio }}</div>
             <div *ngIf="task?.subtasks?.length">
-                Subtasks: {{ task.subtasks.join(', ') }}
+                <strong>Subtasks:</strong> {{ task.subtasks.join(', ') }}
             </div>
             <div class="users">
                 <div>
@@ -30,7 +29,7 @@
             </div>
             <div class="card-task-bottom">
                 <a class="edit-task"></a>
-                <div class="delete-task"  (click)="deleteTask()"></div>
+                <div class="delete-task" (click)="deleteTask()"></div>
             </div>
         </div>
     </div>

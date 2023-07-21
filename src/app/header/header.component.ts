@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthService } from "../shared/services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -7,21 +7,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
+  constructor(public  authService: AuthService) { }
 
   isDropdownOpen = false;
+
 
   showLogout() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  logOut() {
-    this.router.navigateByUrl('login.html');
+
+  onLogout() {
+    this.authService.signOut();
   }
 
-  dontClose() {
-
-  }
 
   stopPropagation(event: Event) {
     event.stopPropagation();

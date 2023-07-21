@@ -10,7 +10,7 @@
         <ul class="logout-menu" [hidden]="!isDropdownOpen">
             <li class="hide-content" routerLink="/help-page"><span>Help</span></li>
             <li class="hide-content" routerLink="/legal-notice"><span>Legal notice</span></li>
-            <li routerLink="/login"><span>Log out</span></li>
+            <li  *ngIf="authService.isLoggedIn" (click)="onLogout()"><span>Log out</span></li>
         </ul>
     </div>
 </header>

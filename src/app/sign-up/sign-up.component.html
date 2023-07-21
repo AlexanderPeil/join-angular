@@ -1,21 +1,21 @@
-<img class="join-logo logo-animation" src="assets/img/join-logo.png" alt="joing-logo">
+<img class="join-logo logo-animation" src="assets/img/join_logo.png" alt="joing-logo">
 <!-- Sign-up page! -->
 <div class="start-bg">
     <div class="content">
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
             <img routerLink="/login" class="back-img back-img-web" src="assets/img/arrow_left.png" alt="back-img">
             <img routerLink="/login" class="back-img d-none back-img-sign-up-mobile"
                 src="assets/img/arrow_left_mobile.png" alt="back-img_mob">
             <span class="heading-span">Sign up</span>
             <img src="assets/img/underline.png" alt="underline" class="underline" id="hide-underline">
-            <img src="assets/img/log-in-underline-mob.png" alt="underline" class="underline-mobile d-none">
+            <img src="assets/img/log_in_underline_mob.png" alt="underline" class="underline-mobile d-none">
             <span class="d-none msg-box"></span>
-            <input class="input-name-img input-email-pw" type="text" placeholder="Name" formControlName="name">
+            <input class="input-name-img input-email-pw" type="text" placeholder="Name" formControlName="displayName">
             <input class="input-email-img input-email-pw" type="email" placeholder="Email" formControlName="email">
             <input class="input-password-img input-email-pw" type="password" placeholder="Password"
                 formControlName="password">
             <button
-                [disabled]="profileForm.get('name')?.value === '' || profileForm.get('email')?.value === '' || profileForm.get('password')?.value === '' "
+                [disabled]="signUpForm.get('name')?.value === '' || signUpForm.get('email')?.value === '' || signUpForm.get('password')?.value === '' "
                 class="sign-up-btn btn-font">Sign up</button>
         </form>
     </div>

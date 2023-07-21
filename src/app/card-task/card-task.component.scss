@@ -22,9 +22,15 @@
     overflow-y: scroll;
 }
 
+.task-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .card-task-close {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
 
     img {
@@ -40,6 +46,9 @@
 }
 
 .card-task-category {
+    display: flex;
+    align-items: center;
+    height: 25px;
     width: fit-content;
     padding: 5px 30px;
     border-radius: 10px;
