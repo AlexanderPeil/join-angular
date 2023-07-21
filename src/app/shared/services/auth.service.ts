@@ -52,6 +52,18 @@ export class AuthService {
       });
   }
 
+
+  signInAnonymously() {
+    return this.afAuth.signInAnonymously()
+      .then((result) => {
+        this.setUserData(result.user);
+        this.router.navigate(['summary']);
+      })
+      .catch((error) => {
+        window.alert(error.message);
+      });
+  }
+
   // Sign up with email/password
   signUp(displayName: string, email: string, password: string) {
     return this.afAuth

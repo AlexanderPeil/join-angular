@@ -48,4 +48,9 @@ export class LoginComponent implements OnInit {
     // this.checked = this.checkboxControl.value;
     console.log('Checkbox checked', this.checked);
   }
+
+
+  onGuestLogin() {
+    this.authService.signInAnonymously();
+  }  
 }
