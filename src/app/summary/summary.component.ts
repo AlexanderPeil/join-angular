@@ -1,7 +1,9 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AuthService } from "../shared/services/auth.service";
 import { DataService } from '../data-service';
 import { TaskInterface } from '../modellInterface';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-summary',
@@ -14,32 +16,65 @@ export class SummaryComponent implements OnInit {
   tasks: TaskInterface[] = [];
   isMobile: boolean = false;
   showMobileGreet = false;
+  urgentTasks: TaskInterface[] = [];
+  nearestUrgentTaskDate: Date | undefined;
 
-  constructor(private authService: AuthService, private dataService: DataService) { }
+
+  constructor(private authService: AuthService, private dataService: DataService, @Inject(LOCALE_ID) private locale: string) { }
 
 
 /**
  * Initializes the component and sets up initial values.
- * It checks the window width and sets the greeting and username.
- * If it's in mobile view, it displays a mobile greet container for a few seconds.
- * Retrieves tasks data from the dataService.
+ * It checks the window width, sets the greeting and username, and determines if the user is on a mobile device
+ * to show a mobile greet container for a few seconds. Retrieves tasks data from the dataService and calculates
+ * the nearest urgent task date.
  */
-  ngOnInit(): void {
-    this.checkWindowWidth();
-    this.setUsername();
-    this.setGreeting();
+ngOnInit(): void {
+  this.checkWindowWidth();
+  this.setUsername();
+  this.setGreeting();
 
-    if (this.isMobile) {
-      this.showMobileGreet = true;
-      setTimeout(() => {
-        this.showMobileGreet = false;
-      }, 3000);
-    }
-
-    this.dataService.getTasks().subscribe(tasks => {
-      this.tasks = tasks;
-    });
+  if (this.isMobile) {
+    this.showMobileGreet = true;
+    setTimeout(() => this.showMobileGreet = false, 3000);
   }
+
+  this.dataService.getTasks().subscribe(tasks => {
+    this.tasks = tasks;
+    this.urgentTasks = this.tasks.filter(task => task.prio === 'urgent');
+    this.nearestUrgentTaskDate = this.calculateNearestUrgentTaskDate();
+  });
+}
+
+
+/**
+ * Calculates and returns the nearest urgent task date based on the urgent tasks' due dates.
+ * If no urgent tasks exist, it returns `undefined`.
+ * @returns The nearest urgent task date or `undefined` if no urgent tasks are present. 
+ */
+calculateNearestUrgentTaskDate(): Date | undefined {
+  const urgentDates: Date[] = this.urgentTasks.map(task => new Date(task.date));
+  if (urgentDates.length > 0) {
+    const nearestTimestamp: number = Math.min(...urgentDates.map(date => date.getTime()));
+    return new Date(nearestTimestamp);
+  }
+  return undefined;
+}
+
+
+/**
+ * Formats the nearest urgent task date in the format 'MMMM d, y' (e.g., 'July 22, 2023').
+ * f the nearest urgent task date is not available, it returns `undefined`.
+ * @returns The formatted nearest urgent task date or `undefined` if the date is not available.
+ */
+formatNearestUrgentTaskDate(): string | undefined {
+  if (this.nearestUrgentTaskDate) {
+    const datePipe = new DatePipe(this.locale);
+    return datePipe.transform(this.nearestUrgentTaskDate, 'MMMM d, y')!;
+  }
+  return undefined;
+}
+
 
 
 /**
@@ -87,6 +122,24 @@ export class SummaryComponent implements OnInit {
    */
   getTasksAwaitingFeedback(): number {
     return this.tasks.filter(task => task.status === 'awaiting_feedback').length;
+  }
+
+
+  /**
+   * Gets the number of tasks todo.
+   * @returns The number of tasks todo.
+   */
+  getTasksTodo(): number {
+    return this.tasks.filter(task => task.status === 'todo').length;
+  }
+
+
+  /**
+   * Gets the number of tasks done.
+   * @returns The number of tasks done.
+   */
+  getTasksDone(): number {
+    return this.tasks.filter(task => task.status === 'done').length;
   }
 
 

@@ -34,21 +34,24 @@
             <!--Urgent Content-->
             <div class="urgent-container">
                 <a class="urgent" routerLink="/board">
-                    <div class="urg-cont">
-                        <img class="urgency-img" src="assets/img/urgency.png">
-                        <img class="urgency-img-mob d-none" src="assets/img/urgency_mob.svg" alt="urgency-image">
-                        <div class="cont-containter">
-                            <span class="counter-urg"></span>
-                            <span class="counter-title-urg">Urgent</span>
-                        </div>
+                  <div class="urg-cont">
+                    <!-- Display the number of urgent tasks -->
+                    <img class="urgency-img" src="assets/img/urgency.png">
+                    <img class="urgency-img-mob d-none" src="assets/img/urgency_mob.svg" alt="urgency-image">
+                    <div class="cont-containter">
+                      <span class="counter-urg">{{ urgentTasks.length }}</span>
+                      <span class="counter-title-urg">Urgent</span>
                     </div>
-                    <div class="vl-urg"></div>
-                    <div class="dl-containter">
-                        <span class="dl-date"></span>
-                        <span class="dl-text">Upcoming Deadline</span>
-                    </div>
+                  </div>
+                  <div class="vl-urg"></div>
+                  <div class="dl-containter">
+                    <!-- Display the date of the nearest urgent task -->
+                    <span class="dl-date">{{ formatNearestUrgentTaskDate() }}</span>
+                    <span class="dl-text">Upcoming Deadline</span>
+                  </div>
                 </a>
-            </div>
+              </div>
+              
 
             <!--To-do-done-Content-->
             <div class="nav-to-container">
@@ -58,7 +61,7 @@
                             <img class="pencil-check-img" src="assets/img/pencil.png">
                             <img class="d-none hover-img" src="assets/img/check-white.png">
                             <div class="cont-containter">
-                                <span class="counter-todo counter-mob"></span>
+                                <span class="counter-todo counter-mob">{{ getTasksTodo() }}</span>
                                 <span class="counter-title-todo counter-text-mob">To-do</span>
                             </div>
                         </div>
@@ -70,7 +73,7 @@
                             <img class="pencil-check-img" src="assets/img/check.png">
                             <img class="d-none hover-img" src="assets/img/check-white.png">
                             <div class="cont-containter">
-                                <span class="counter-done counter-mob"></span>
+                                <span class="counter-done counter-mob">{{ getTasksDone() }}</span>
                                 <span class="counter-title-done counter-text-mob">Done</span>
                             </div>
                         </div>
