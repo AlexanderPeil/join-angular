@@ -64,16 +64,17 @@ export class AuthService {
       });
   }
 
-  // Sign up with email/password
+
   signUp(displayName: string, email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        if (result.user) { 
+        if (result.user) {
           result.user.updateProfile({
             displayName: displayName
           }).then(() => {
             this.setUserData(result.user);
+            this.router.navigate(['summary']); 
           });
         }
       })
@@ -82,9 +83,11 @@ export class AuthService {
       });
   }
   
+   
+  
 
   // Send email verfificaiton when new user sign up
-  // SendVerificationMail() {
+  // sendVerificationMail() {
   //   return this.afAuth.currentUser
   //     .then((u: any) => u.sendEmailVerification())
   //     .then(() => {

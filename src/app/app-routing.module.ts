@@ -13,7 +13,7 @@ import { AddContactComponent } from './add-contact/add-contact.component';
 import { AddTaskMenuComponent } from './add-task-menu/add-task-menu.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
-import { CardTaskComponent } from './card-task/card-task.component'
+import { CardTaskComponent } from './card-task/card-task.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
