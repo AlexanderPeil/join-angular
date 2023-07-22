@@ -35,7 +35,7 @@ export class AuthService {
     });
   }
 
-  // Sign in with email/password
+
   signIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
@@ -48,7 +48,8 @@ export class AuthService {
         });
       })
       .catch((error) => {
-        window.alert(error.message);
+        console.error(error); // Log the error for debugging
+        return Promise.reject(error.message); // Pass the error message to the calling function
       });
   }
 
@@ -74,7 +75,7 @@ export class AuthService {
             displayName: displayName
           }).then(() => {
             this.setUserData(result.user);
-            this.router.navigate(['summary']); 
+            this.router.navigate(['summary']);
           });
         }
       })
@@ -82,9 +83,9 @@ export class AuthService {
         window.alert(error.message);
       });
   }
-  
-   
-  
+
+
+
 
   // Send email verfificaiton when new user sign up
   // sendVerificationMail() {
@@ -95,17 +96,11 @@ export class AuthService {
   //     });
   // }
 
-  // Reset Forggot password
+
   forgotPassword(passwordResetEmail: string) {
-    return this.afAuth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
+    return this.afAuth.sendPasswordResetEmail(passwordResetEmail);
   }
+
 
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {

@@ -12,8 +12,7 @@
         </div>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <span class="heading-span">Log in</span>
-            <span class="msg-box d-none">Invalid email or password!</span>
-            <span class="msg-box d-none">Logged-In as guest!</span>
+            <span class="msg-box" [class.d-none]="!isEmailPasswordInvalid">Invalid email or password!</span>
             <img src="assets/img/underline.png" alt="underline" class="underline">
             <img src="assets/img/log_in_underline_mob.png" alt="underline-mobile" class="underline-mobile d-none">
             

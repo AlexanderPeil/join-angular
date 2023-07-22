@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   animationStopped = false;
   checked = false;
+  isEmailPasswordInvalid = false;
 
 
   constructor(private authService: AuthService) { }
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
+    this.isEmailPasswordInvalid = false;
     if (!this.loginForm.valid) {
       return;
     }
@@ -40,7 +42,10 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.get('email')!.value;
     const password = this.loginForm.get('password')!.value;
 
-    this.authService.signIn(email, password);
+    this.authService.signIn(email, password)
+      .catch(() => {
+        this.isEmailPasswordInvalid = true; 
+      });
   }
 
 
@@ -52,5 +57,5 @@ export class LoginComponent implements OnInit {
 
   onGuestLogin() {
     this.authService.signInAnonymously();
-  }  
+  }
 }
