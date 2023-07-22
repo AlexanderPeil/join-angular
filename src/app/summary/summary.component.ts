@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../shared/services/auth.service";
+import { DataService } from '../data-service';
+import { TaskInterface } from '../modellInterface';
 
 @Component({
   selector: 'app-summary',
@@ -9,15 +11,35 @@ import { AuthService } from "../shared/services/auth.service";
 export class SummaryComponent implements OnInit {
   greeting = '';
   username = '';
+  tasks: TaskInterface[] = [];
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private dataService: DataService) { }
 
 
   ngOnInit(): void {
     this.setUsername();
     this.setGreeting();
+
+    this.dataService.getTasks().subscribe(tasks => {
+      this.tasks = tasks;
+    });
   }
 
+
+  getTotalTasks(): number {
+    return this.tasks.length;
+  }
+  
+
+
+  getTasksInProgress(): number {
+    return this.tasks.filter(task => task.status === 'in_progress').length;
+  }
+
+
+  getTasksAwaitingFeedback(): number {
+    return this.tasks.filter(task => task.status === 'awaiting_feedback').length;
+  }  
 
   
   setUsername() {

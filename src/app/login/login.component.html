@@ -1,8 +1,6 @@
 <img class="join-logo logo-animation" src="assets/img/join_logo.png" alt="join-logo">
-<img class="d-none bg-mobile-animation" src="assets/img/bg_mobile.png" alt="mobile-background">
 <img class="d-none" [class.animation-stop]="animationStopped" id="animation-mobile"
     src="assets/img/animation-mobile.png" alt="animation mobile">
-
 
 <div class="start-bg start-bg-mobile">
     <div class="content">
@@ -15,23 +13,26 @@
             <span class="msg-box" [class.d-none]="!isEmailPasswordInvalid">Invalid email or password!</span>
             <img src="assets/img/underline.png" alt="underline" class="underline">
             <img src="assets/img/log_in_underline_mob.png" alt="underline-mobile" class="underline-mobile d-none">
-            
+
             <input class="input-email-pw input-email-img" type="email" placeholder="Email" formControlName="email">
-            <input class="input-email-pw input-password-img" type="password" placeholder="Password" formControlName="password">
-            
+            <input class="input-email-pw input-password-img" type="password" placeholder="Password"
+                formControlName="password">
+
             <div class="login-bottom">
                 <section class="example-section">
-                    <input type="checkbox" class="example-margin" (change)="handleCheckboxChange()">
+                    <input type="checkbox" [formControl]="rememberMeControl">
                     <span class="login-bottom-font">Remember me</span>
                 </section>
                 <a routerLink="/forgot-password" class="login-bottom-font">Forgot my password</a>
             </div>
-            
+
             <div class="login-buttons">
-                <button [disabled]="!loginForm.valid" type="submit" class="login-btn btn-font login-btn-mob">Log in</button>
-                <button routerLink="/summary" type="button" class="guest-login-btn btn-font login-btn-mob" (click)="onGuestLogin()">Guest Log in</button>
+                <button [disabled]="!loginForm.valid" type="submit" class="login-btn btn-font login-btn-mob">Log
+                    in</button>
+                <button routerLink="/summary" type="button" class="guest-login-btn btn-font login-btn-mob"
+                    (click)="onGuestLogin()">Guest Log in</button>
             </div>
         </form>
-        
+
     </div>
 </div>

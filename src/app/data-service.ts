@@ -53,6 +53,16 @@ export class DataService {
   }
 
 
+  refreshContacts() {
+    this._refreshNeeded$.next();
+  }
+
+
+  getContacts(): Observable<any[]> {
+    return this.firestore.collection('contacts').valueChanges();
+  }
+
+
   addTask(task: TaskInterface): Promise<void> {
     return this.firestore.collection('tasks').doc(task.id).set(task);
   }
@@ -63,14 +73,9 @@ export class DataService {
   }
 
 
-  refreshContacts() {
-    this._refreshNeeded$.next();
-  }
-
-
-  getContacts(): Observable<any[]> {
-    return this.firestore.collection('contacts').valueChanges();
-  }
+  getTasks(): Observable<TaskInterface[]> {
+    return this.firestore.collection<TaskInterface>('tasks').valueChanges();
+  }  
 
 
   setSelectedTask(task: TaskInterface | null) {

@@ -25,19 +25,19 @@
 
             <div class="summary-contant-container">
                 <div class="nav-to-container">
-                    <a class=" nav-to-content" routerLink="/board">
-                        <span class="counter"></span>
-                        <span class="counter-title">Tasks in Board</span>
+                    <a class="nav-to-content" routerLink="/board">
+                      <span class="counter">{{ getTotalTasks() }}</span>
+                      <span class="counter-title">Tasks in Board</span>
                     </a>
-                    <a class="nav-to-content" routerLink="/board" onclick="highlightTask('in-progress')">
-                        <span class="counter"></span>
-                        <span class="counter-title">Tasks in Progress</span>
+                    <a class="nav-to-content" routerLink="/board">
+                      <span class="counter">{{ getTasksInProgress() }}</span>
+                      <span class="counter-title">Tasks in Progress</span>
                     </a>
-                    <a class="nav-to-content" routerLink="/board" onclick="highlightTask('awaiting-feedback')">
-                        <span class="counter"></span>
-                        <span class="counter-title">Awaiting Feedback</span>
+                    <a class="nav-to-content" routerLink="/board">
+                      <span class="counter">{{ getTasksAwaitingFeedback() }}</span>
+                      <span class="counter-title">Awaiting Feedback</span>
                     </a>
-                </div>
+                  </div>
 
                 <!--Urgent Content-->
                 <div class="urgent-container">
@@ -61,7 +61,7 @@
                 <!--To-do-done-Content-->
                 <div class="nav-to-container">
                     <div class="todo-done-container">
-                        <a class="todo-done center" routerLink="/board" onclick="highlightTask('to-do')">
+                        <a class="todo-done center" routerLink="/board">
                             <div class="todo-cont no-gap">
                                 <img class="pencil-check-img" src="assets/img/pencil.png">
                                 <img class="d-none hover-img" src="assets/img/check-white.png">
@@ -73,7 +73,7 @@
                         </a>
                     </div>
                     <div class="todo-done-container">
-                        <a class="todo-done center" routerLink="/board" onclick="highlightTask('done')">
+                        <a class="todo-done center" routerLink="/board">
                             <div class="done-cont no-gap">
                                 <img class="pencil-check-img" src="assets/img/check.png">
                                 <img class="d-none hover-img" src="assets/img/check-white.png">
