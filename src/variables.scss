@@ -19,6 +19,12 @@
     align-items: center;
 }
 
+@mixin flex_center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @mixin column_center {
     display: flex;
     flex-direction: column;
@@ -35,6 +41,13 @@
     display: flex;
     flex-direction: column;
 }
+
+@mixin space_between_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 @mixin flex_column_center {
     display: flex;
     flex-direction: column;
@@ -58,7 +71,13 @@
     height: $height;
 }
 
+@mixin margin_left_right($ml, $mr) {
+    margin-left: $ml;
+    margin-right: $mr;
+}
+
 
 $main_color_bright: #29ABE2;
+$main_color_dark: #2A3647;
 $color_black: #000000;
 $main_bg_color: #f5f5f5;
