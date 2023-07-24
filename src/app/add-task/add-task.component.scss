@@ -1,11 +1,16 @@
+@import '../../variables.scss';
+
 .main-container {
     padding: 120px 10px 0 320px;
 }
 
+.add-task-btn-mobile {
+    display: none;
+}
+
 h1 {
+    @include font(61px, 700, 73.2px);
     width: 315px;
-    font-weight: 700;
-    font-size: 61px;
     margin-top: 0px;
 }
 
@@ -27,16 +32,13 @@ button {
 }
 
 .left-container {
-    display: flex;
-    flex-direction: column;
-    width: 452px;
-    height: 506px;
+    @include flex_direction_column;
+    @include width_height(452px, 506px);
     gap: 10px;
 }
 
 .gap-img-subtask {
-    width: 2px;
-    height: 24px;
+    @include width_height(2px, 24px);
     background-color: #D1D1D1;
 }
 
@@ -46,8 +48,7 @@ label {
 }
 
 .selection-container {
-    display: flex;
-    flex-direction: column;
+    @include flex_direction_column;
     gap: 10px;
 }
 
@@ -75,19 +76,14 @@ select,
     }
 
     .color-picker {
+        @include width_height(40px, 45px);
         right: 89px;
         top: 2px;
         padding: 0px !important;
         border: none;
         cursor: pointer;
-        width: 40px;
-        height: 45px;
         outline: none;
     }
-}
-
-.select-member {
-    position: relative;
 }
 
 .category-member-selection {
@@ -97,7 +93,7 @@ select,
     cursor: pointer;
 
     &:hover {
-        background-color: #29ABE2;
+        background-color: $main_color_bright;
         border-radius: 10px;
     }
 }
@@ -111,10 +107,8 @@ select,
 }
 
 .sector-top {
-    display: flex;
-    justify-content: space-between;
+    @include space_between_center;
     line-height: 0;
-    align-items: center;
     font-size: 18px;
     padding: 5px 20px;
     cursor: pointer;
@@ -125,23 +119,8 @@ select,
 }
 
 .select-wrapper {
-    display: flex;
-    flex-direction: column;
+    @include flex_direction_column;
     padding: 0;
-}
-
-.category-choices {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-}
-
-.assigned-to-choices {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    height: 200px;
-    overflow-y: scroll;
 }
 
 .postion-reltaive {
@@ -162,7 +141,7 @@ select,
     cursor: pointer;
 
     &:hover {
-        color: #29ABE2;
+        color: $main_color_bright;
     }
 }
 
@@ -171,12 +150,10 @@ select,
     margin-top: 50px;
 
     .each-category {
-        display: flex;
-        align-items: center;
+        @include align_items_center;
 
         .category-color {
-            height: 15px;
-            width: 15px;
+            @include width_height(15px, 15px);
             border-radius: 100%;
             margin-left: 8%;
         }
@@ -207,7 +184,6 @@ textarea {
 
 select::-ms-expand {
     display: none;
-    /* Standardpfeil im IE 10 und 11 entfernen */
 }
 
 .middle-gap {
@@ -216,10 +192,8 @@ select::-ms-expand {
 }
 
 .right-container {
-    display: flex;
-    flex-direction: column;
-    width: 452px;
-    height: 506px;
+    @include flex_direction_column;
+    @include width_height(452px, 506px);
     gap: 10px;
     position: relative;
 
@@ -230,8 +204,7 @@ select::-ms-expand {
 }
 
 .features-container {
-    display: flex;
-    flex-direction: column;
+    @include flex_direction_column;
     width: 100%;
     gap: 10px
 }
@@ -251,22 +224,18 @@ select::-ms-expand {
 }
 
 .prio-btn {
-    display: flex;
+    @include flex_center;
+    @include width_height(100%, 51px);
+    @include button_styles;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 10px;
     gap: 10px;
+    padding: 10px 10px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     font-size: 21px;
     font-weight: 400;
     background-color: rgb(255, 255, 255);
-    width: 100%;
-    height: 51px;
     position: relative;
-    transition: all 100ms ease-in-out;
-    cursor: pointer;
 
     &:hover {
         box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
@@ -274,47 +243,21 @@ select::-ms-expand {
     }
 }
 
-.prio-btn-red,
-.prio-btn-orange,
-.prio-btn-green {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 18px 10px;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
-    background-color: rgb(255, 61, 0);
-    color: white;
-    width: 100%;
-    height: 51px;
-    gap: 10px;
-    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
-}
-
-.prio-btn-orange {
-    background-color: rgb(255, 168, 0);
-}
-
-.prio-btn-green {
-    background-color: #7AE229;
-}
-
 .subtask-container {
+    @include align_items_center;
+    flex-direction: row;
+    gap: 10px;
     width: 100%;
     background-color: white;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     font-size: 21px;
     font-weight: 400;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
     isolation: isolate;
+}
+
+.flex-center {
+    @include align_items_center;
 }
 
 .subtask-input {
@@ -343,9 +286,12 @@ select::-ms-expand {
     background-color: #D1D1D1;
 }
 
+.button-container {
+    display: flex
+}
+
 .submit-and-clear {
-    display: flex;
-    justify-content: center;
+    @include justify_content_center;
     padding-top: 85px;
 
     button {
@@ -358,127 +304,43 @@ select::-ms-expand {
 }
 
 .btn-createTask {
-    background: #2A3647;
+    background: $main_color_dark;
+    @include flex_center;
     color: white;
     border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 10px;
     font-weight: 700;
     transition: all 100ms ease-in-out;
 
     &:hover {
-        background-color: #29ABE2;
-        border: 2px solid #29ABE2;
+        background-color: $main_color_bright;
+        border: 2px solid $main_color_bright;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 }
 
 .btn-clear {
-    border: solid 1px #2A3647;
+    @include button_styles;
+    @include flex_center;
+    gap: 10px;
+    border: solid 1px $main_color_dark;
     font-size: 1.5rem;
     border-radius: 10px;
     padding: 18px 10px;
     margin-left: 25px;
     transition: background 255ms ease-in-out;
-    color: #2A3647;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: $main_color_dark;
     width: 136px;
-    gap: 10px;
-    transition: all 100ms ease-in-out;
-    cursor: pointer;
 
     &:hover {
-        color: #29ABE2;
-        border: 2px solid #29ABE2;
+        color: $main_color_bright;
+        border: 2px solid $main_color_bright;
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-        // .clear-img {
-        //     content: url('../../assets/img/iconoir_cancel_hover.png');
-        // }
     }
 }
 
-fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-
-.checkbox_urgen,
-.checkbox_medium,
-.checkbox_low {
-    display: none;
-}
-
-.checkbox_urgen[type="radio"]:checked+label {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
-    background-color: rgb(255, 61, 0);
-    color: white;
-    width: 100%;
-    gap: 10px;
-    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
-}
-
-.checkbox_medium[type="radio"]:checked+label {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
-    background-color: rgb(255, 168, 0);
-    color: white;
-    width: 100%;
-    gap: 10px;
-    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
-}
-
-.checkbox_low[type="radio"]:checked+label {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
-    background-color: #7AE229;
-    color: white;
-    width: 100%;
-    gap: 10px;
-    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
-}
-
-.circle {
-    height: 12px;
-    width: 12px;
-    border-radius: 100%;
-    margin-left: 15px;
-    border: white;
-}
-
 .category {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
     padding: 7px 20px;
     cursor: pointer;
 
@@ -488,8 +350,7 @@ fieldset {
 }
 
 .assigned-to {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
     padding: 7px 20px;
 }
 
@@ -502,111 +363,17 @@ fieldset {
     /* Standard syntax */
 }
 
-.assigned-to-line {
-    display: flex;
-    justify-content: space-between;
-    padding: 7px 20px;
-}
-
 .assigned-to-wrapper {
     margin-bottom: 30px;
 }
 
-.new-cat {
-    background-color: white;
-    display: flex;
-    align-items: center;
-    border: 1px solid #d1d1d1;
-    border-radius: 10px;
-    padding: 7px 20px;
-}
-
-.input-new-cat {
-
-    input {
-        width: 100%;
-        border: none;
-        padding: 10px 0;
-    }
-
-}
-
-.new-category-icons {
-    display: flex;
-    align-items: center;
-
-    img {
-        height: 30px;
-        margin-left: 10px;
-        margin-right: 5px;
-        cursor: pointer;
-    }
-}
-
-.new-category-img {
-    height: 20px;
-    padding-left: 15px;
-}
-
-#category-color {
-    padding: 5;
-    border-radius: 999px;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    padding: 4px;
-}
-
-.popup-task-added {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 5px 10px;
-    color: white;
-    background-color: #2A3647;
-    border: none;
-    border-radius: 10px;
-}
-
-#category-added-cont {
-    width: 300px;
-    z-index: 21;
-    font-size: 16px;
-    background-color: #2a3647;
-    color: white;
-    padding: 5px;
-    border-radius: 10px;
-}
-
-.cursor-pointer {
-    cursor: pointer;
+.task-added-img {
+    height: 75px;
+    object-fit: contain; 
 }
 
 .delete-subtask {
-    height: 15px;
     padding-left: 15px;
-}
-
-.del-newCat {
-    margin-left: auto;
-
-    img {
-        cursor: pointer;
-        height: 15px;
-        width: 15px;
-    }
-}
-
-.category-added-cont {
-    text-align: center;
-    width: 250px;
-    z-index: 21;
-    font-size: 16px;
-    background-color: #2a3647;
-    color: white;
-    padding: 5px;
-    border-radius: 10px;
 }
 
 @media(max-width:1200px) {
@@ -625,10 +392,7 @@ fieldset {
     }
 
     .main-container {
-        // margin-left: 300px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @include column_center;
     }
 
     .middle-gap {
@@ -643,7 +407,7 @@ fieldset {
     .right-container {
         align-items: center;
         height: unset;
-        margin-bottom: 75px;
+        margin-bottom: 100px;
     }
 
     .submit-and-clear {
@@ -658,23 +422,21 @@ fieldset {
 }
 
 @media(max-width: 1000px) {
+    .add-task-btn-mobile {
+        display: block;
+        position: fixed;
+        top: 14px;
+        right: 15px;
+        z-index: 11;
+        cursor: pointer;
+    }
+
     .right-container {
         margin-top: 30px;
     }
 
     .left-container {
         height: auto;
-    }
-
-    .add-task-mobile {
-        background-color: white;
-        border: none;
-        z-index: 11;
-        display: block !important;
-        position: fixed;
-        top: 18px;
-        right: 27px;
-        cursor: pointer;
     }
 
     h1 {
@@ -724,9 +486,9 @@ fieldset {
         font-size: 16px;
     }
 
-    // .submit-and-clear {
-    //     display: none;
-    // }
+    .submit-and-clear {
+        display: none;
+    }
 
     .left-container {
         margin-bottom: -50px;

@@ -6,6 +6,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Observable  } from 'rxjs';
 import { TaskInterface } from '../modellInterface';
 import { DataService  } from '../data-service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -50,6 +51,7 @@ export class AddTaskComponent {
   contacts$: Observable<any[]>;
   categories$: Observable<any[]>;
   selectedCategory: any;
+  taskAdded: boolean = false;
 
 
   prioUrgent: boolean = false;
@@ -68,7 +70,10 @@ export class AddTaskComponent {
    * @param {Location} location - Location instance. 
    * @param {AngularFirestore} firestore - Firestore instance. 
    */
-  constructor(private firestore: AngularFirestore, private dataService: DataService) {
+  constructor(
+    private firestore: AngularFirestore, 
+    private dataService: DataService, 
+    private router: Router) {
     this.minDate = new Date().toISOString().split('T')[0];
     this.contacts$ = this.dataService.getContacts();
     this.categories$ = this.dataService.getCategories();    
@@ -150,6 +155,19 @@ export class AddTaskComponent {
   
     // this.addCategory(categoryForm.controls['category'].value, categoryForm.controls['color'].value);
     this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
+  }
+
+
+  async onSubmitAndNavigate() {
+    if (this.taskForm.valid) {
+      this.onSubmit();
+      this.taskAdded = true;
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      this.taskAdded = false;  
+      this.router.navigate(['/board']);
+    } else {
+      console.log('Was machst du da????');
+    }
   }
   
   

@@ -8,6 +8,7 @@
     </div>
     <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
         <div class="content-container">
+            <img class="add-task-btn-mobile" src="../../assets/img/create_task_btn_mobile.png" alt="Create tassk button" (click)="onSubmitAndNavigate()">
             <div class="left-container width-unset">
                 <div formGroupName="profileForm">
                     <div class="selection-container">
@@ -32,10 +33,13 @@
                                 <img class="category-cancel category-member-selection"
                                     src="../../assets/img/icon_cancel_subtask.svg" alt="close-wrapper"
                                     (click)="toggleCategoryMenu(); resetCategory()">
-                                <div class="member-category-wrapper category-wrapper" [@openCategories]="categoryMenu ? 'end' : 'start'">
-                                    <div class="each-member-category each-category" *ngFor="let category of categories$ | async" (click)="clickOnCategory(category)">
+                                <div class="member-category-wrapper category-wrapper"
+                                    [@openCategories]="categoryMenu ? 'end' : 'start'">
+                                    <div class="each-member-category each-category"
+                                        *ngFor="let category of categories$ | async"
+                                        (click)="clickOnCategory(category)">
                                         <p>{{ category.category }}</p>
-                                         <div class="category-color" [style.background]="category.color"></div>
+                                        <div class="category-color" [style.background]="category.color"></div>
                                     </div>
                                 </div>
                             </div>
@@ -97,39 +101,49 @@
                                 src="../../assets/img/prio_low_btn.png">
 
                         </div>
-                        <div class="features-container"><div class="features-container">
-                            <label>Subtasks</label>
-                            <div class="subtask-container">
-                                <div class="width" *ngIf="!subtaskInput">
-                                    <input class="subtask-input" placeholder="Add new subtask" (click)="addSubtask()" />
-                                    <img class="plus-icon" src="assets/img/plus_icon.png" (click)="addSubtask()" />
+                        <div class="features-container">
+                            <div class="features-container">
+                                <label>Subtasks</label>
+                                <div class="subtask-container">
+                                    <div class="width flex-center" *ngIf="!subtaskInput">
+                                        <input class="subtask-input" placeholder="Add new subtask"
+                                            (click)="addSubtask()" />
+                                        <img class="plus-icon" src="assets/img/plus_icon.png" (click)="addSubtask()" />
+                                    </div>
+                                    <div class="subtask-container" *ngFor="let control of getSubtasks(); index as i">
+                                        <input class="subtask-input" type="text" placeholder="Add new subtask"
+                                            [formControl]="control">
+                                        <img *ngIf="subtaskInput" class="subtask-icons"
+                                            src="../../assets/img/icon_check_subtask.svg" (click)="confirmSubtask(i)">
+                                        <div *ngIf="subtaskInput" class="gap-img-subtask"></div>
+                                        <img *ngIf="subtaskInput" class="subtask-icons"
+                                            src="../../assets/img/icon_cancel_subtask.svg" (click)="cancelSubtask()">
+                                    </div>
                                 </div>
-                                <div class="subtask-container" *ngFor="let control of getSubtasks(); index as i">
-                                    <input class="subtask-input" type="text" placeholder="Add new subtask" [formControl]="control">
-                                    <img *ngIf="subtaskInput" class="subtask-icons" src="../../assets/img/icon_check_subtask.svg"
-                                        (click)="confirmSubtask(i)">
-                                    <div *ngIf="subtaskInput"  class="gap-img-subtask"></div>
-                                    <img *ngIf="subtaskInput" class="subtask-icons" src="../../assets/img/icon_cancel_subtask.svg"
-                                        (click)="cancelSubtask()">
+
+                                <div>
+                                    <ul>
+                                        <li *ngFor="let subtask of createdSubtasks;  index as i">
+                                            {{ subtask }}
+                                            <img class="delete-subtask" src="../../assets/img/icon_cancel_subtask.svg"
+                                                (click)="removeSubtask(i)">
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            
-                            <div>
-                                <ul>
-                                    <li *ngFor="let subtask of createdSubtasks;  index as i">
-                                        {{ subtask }}
-                                        <img src="../../assets/img/icon_cancel_subtask.svg" (click)="removeSubtask(i)">
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        
+
                         </div>
                     </div>
                     <div class="submit-and-clear">
-                        <div class="btn-clear" (click)="onClear($event)">Clear<img class="clear-img" src="assets/img/iconoir_cancel.png">
-                        </div>
-                        <div><Button class="btn-createTask">Create Task<img src="assets/img/icons_check.png"></Button>
+                        <img class="task-added-img" *ngIf="taskAdded"  src="../../assets/img/task_added_info.png"
+                            alt="task-added">
+                        <div class="button-container" *ngIf="!taskAdded">
+                            <div class="btn-clear" (click)="onClear($event)">Clear<img class="clear-img"
+                                    src="assets/img/iconoir_cancel.png">
+                            </div>
+                            <div><Button class="btn-createTask" (click)="onSubmitAndNavigate()">Create Task<img
+                                        src="assets/img/icons_check.png"></Button>
+                            </div>
                         </div>
                     </div>
                 </div>
