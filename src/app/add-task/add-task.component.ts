@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Observable  } from 'rxjs';
-import { TaskInterface, ContactInterface } from '../modellInterface';
+import { TaskInterface } from '../modellInterface';
 import { DataService  } from '../data-service';
 
 
@@ -68,7 +68,7 @@ export class AddTaskComponent {
    * @param {Location} location - Location instance. 
    * @param {AngularFirestore} firestore - Firestore instance. 
    */
-  constructor(private location: Location, private firestore: AngularFirestore, private dataService: DataService) {
+  constructor(private firestore: AngularFirestore, private dataService: DataService) {
     this.minDate = new Date().toISOString().split('T')[0];
     this.contacts$ = this.dataService.getContacts();
     this.categories$ = this.dataService.getCategories();    

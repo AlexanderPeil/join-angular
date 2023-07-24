@@ -200,6 +200,15 @@ a {
     display: none !important;
 }
 
+.status {
+    @include space_between_center;
+
+    button {
+        @include width_height(40px, 40px);
+        font-size: 35px !important;
+    }
+}
+
 @media(max-width: 1500px) {
     .board {
         flex-wrap: wrap;

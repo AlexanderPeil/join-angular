@@ -22,14 +22,14 @@ const routes: Routes = [
   { path: 'summary', component: SummaryComponent},
   { path: 'board', component: BoardComponent},
   { path: 'add-task', component: AddTaskComponent},
-  { path: 'add-task-menu', component: AddTaskMenuComponent},
-  { path: 'contacts', component: ContactsComponent},
-  { path: 'legal-notice', component: LegalNoticeComponent},
-  { path: 'help-page', component: HelpPageComponent},
-  { path: 'add-contact', component: AddContactComponent},
-  { path: 'edit-contact/:id', component: EditContactComponent},
+  { path: 'add-task-menu/:status', component: AddTaskMenuComponent},
   { path: 'edit-task/:id', component: EditTaskComponent},
   { path: 'card-task/:id', component: CardTaskComponent},
+  { path: 'contacts', component: ContactsComponent},
+  { path: 'add-contact', component: AddContactComponent},
+  { path: 'edit-contact/:id', component: EditContactComponent},
+  { path: 'legal-notice', component: LegalNoticeComponent},
+  { path: 'help-page', component: HelpPageComponent},
   { path: '**', component: LoginComponent }
 ];
 

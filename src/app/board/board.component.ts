@@ -145,14 +145,14 @@ export class BoardComponent implements OnInit {
       let initials = parts[0][0] + parts[1][0];
       return initials.toUpperCase();
     } else {
-      if (name.length > 1) {
+      if(name.length > 1) {
         return name.substring(0, 2).toUpperCase();
       } else {
         return name[0].toUpperCase();
       }
     }
   }
-
+  
 
 
 

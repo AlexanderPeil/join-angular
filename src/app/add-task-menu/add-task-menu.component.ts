@@ -3,9 +3,11 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Observable  } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TaskInterface } from '../modellInterface';
-import { DataService  } from '../data-service';
+import { DataService } from '../data-service';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -61,26 +63,39 @@ export class AddTaskMenuComponent implements OnInit {
 
   feedbackMessageMembers = 'Select your Members';
   createdSubtasks: string[] = [];
+  status!: "todo" | "in_progress" | "awaiting_feedback" | "done";
 
 
   /**
    * @param {Location} location - Location instance. 
    * @param {AngularFirestore} firestore - Firestore instance. 
    */
-  constructor(private location: Location, private firestore: AngularFirestore, private dataService: DataService) {
+  constructor(
+    private location: Location,
+    private firestore: AngularFirestore,
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.minDate = new Date().toISOString().split('T')[0];
     this.contacts$ = this.dataService.getContacts();
-    this.categories$ = this.dataService.getCategories();    
-  }
-
-
-  ngOnInit(): void {
-
+    this.categories$ = this.dataService.getCategories();
   }
 
 
   /**
-   * Method to set priority of task.
+   * Angular lifecycle hook. It initializes the task's status with the 'status' 
+   * parameter retrieved from the current route's snapshot parameters. If the 'status' 
+   * parameter is null, or not one of the expected task statuses, it sets the status to 'todo'.
+     */
+  ngOnInit(): void {
+    const statusFromRoute = this.route.snapshot.paramMap.get('status');
+    this.status = statusFromRoute ? statusFromRoute as "todo" | "in_progress" | "awaiting_feedback" | "done" : 'todo';
+  }
+
+
+
+  /**
+   * Method to set priority of task.      
    * 
    * @param {string} priority - The priority of the task. 
    */
@@ -124,10 +139,10 @@ export class AddTaskMenuComponent implements OnInit {
 
     let color = categoryForm.controls['color'].value;
     if (!color) {
-      color = this.selectedCategory.color; 
+      color = this.selectedCategory.color;
     }
-  
-    const newTask: TaskInterface  = {
+
+    const newTask: TaskInterface = {
       title: profileForm.controls['title'].value ?? '',
       description: profileForm.controls['description'].value ?? '',
       assignedTo: profileForm.controls['assignedTo'].value ?? '',
@@ -136,31 +151,41 @@ export class AddTaskMenuComponent implements OnInit {
       subtasks: this.createdSubtasks,
       category: category,
       color: color,
-      status: 'todo',
+      status: this.status,
     };
-  
-    try { 
+
+    try {
       await this.dataService.addTask(newTask);
       console.log('Aufgabe erfolgreich in Firestore gespeichert.');
     } catch (error) {
       console.error('Fehler beim Speichern der Aufgabe oder Kategorie:', error);
       return;
     }
-  
+
     // this.addCategory(categoryForm.controls['category'].value, categoryForm.controls['color'].value);
     this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
   }
-  
-  
+
+
+  onSubmitAndNavigate() {
+    if (this.taskForm.valid) {
+      this.onSubmit();
+      this.router.navigate(['/board']);
+    } else {
+      console.log('Was machst du da????');
+    }
+  }
+
+
 
   selectCategory(cat: any) {
     const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
     categoryForm.controls['category'].setValue(cat.category);
     categoryForm.controls['color'].setValue(cat.color);
-    this.selectedCategory = cat; 
+    this.selectedCategory = cat;
     this.categoryMenu = false;
   }
-  
+
 
 
   async addCategory(category: string, color: string) {
@@ -171,12 +196,12 @@ export class AddTaskMenuComponent implements OnInit {
       console.error('Fehler beim Speichern der Kategorie:', error);
     }
   }
-  
-  
+
+
   categorySelected() {
     let categoryValue = this.taskForm.get('categoryForm.category')?.value;
     let colorValue = this.taskForm.get('categoryForm.color')?.value;
-  
+
     if (categoryValue && colorValue) {
       let newCategory = {
         category: categoryValue,
@@ -189,7 +214,7 @@ export class AddTaskMenuComponent implements OnInit {
       console.error('Fehler: Kategorie und/oder Farbe fehlen.');
     }
   }
-  
+
   saveCategory(category: { category: string, color: string }) {
     this.firestore.collection('categories').doc(category.category).set(category)
       .then(() => {
@@ -199,7 +224,7 @@ export class AddTaskMenuComponent implements OnInit {
         console.error('Fehler beim Speichern der Kategorie:', error);
       });
   }
-  
+
 
 
   selectContact(contact: any) {
@@ -279,32 +304,32 @@ export class AddTaskMenuComponent implements OnInit {
     const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
     categoryForm.controls['category'].setValue(cat.category);
     categoryForm.controls['color'].setValue(cat.color);
-    this.selectedCategory = cat; 
+    this.selectedCategory = cat;
     this.categoryMenu = false;
   }
-  
 
 
-addSubtask() {
-  const control = new FormControl(null);
-  (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
-  this.subtaskInput = true;
-}
+
+  addSubtask() {
+    const control = new FormControl(null);
+    (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
+    this.subtaskInput = true;
+  }
 
 
-confirmSubtask(index: number) {
-  const subtasks = this.taskForm.get('profileForm.subtasks') as FormArray;
-  const confirmedSubtask = subtasks.at(index).value;
-  this.createdSubtasks.push(confirmedSubtask);
-  subtasks.removeAt(index);
-  this.subtaskInput = false;
-}
+  confirmSubtask(index: number) {
+    const subtasks = this.taskForm.get('profileForm.subtasks') as FormArray;
+    const confirmedSubtask = subtasks.at(index).value;
+    this.createdSubtasks.push(confirmedSubtask);
+    subtasks.removeAt(index);
+    this.subtaskInput = false;
+  }
 
 
-cancelSubtask() {
-  (this.taskForm.get('profileForm.subtasks') as FormArray).removeAt((this.taskForm.get('profileForm.subtasks') as FormArray).length - 1);
-  this.subtaskInput = false;
-}
+  cancelSubtask() {
+    (this.taskForm.get('profileForm.subtasks') as FormArray).removeAt((this.taskForm.get('profileForm.subtasks') as FormArray).length - 1);
+    this.subtaskInput = false;
+  }
 
 
   removeSubtask(index: number) {
@@ -318,29 +343,29 @@ cancelSubtask() {
   }
 
   onClear(event: Event) {
-    event.stopPropagation();  
+    event.stopPropagation();
     this.resetAllSelections();
   }
 
-  
-    /**
-   * Resets all selections and forms.
-   */
-    resetAllSelections() {
-      this.taskForm.reset();
-      this.feedbackMessageMembers = 'Select your Members';
-      this.selectedCategory = null;
-      this.categoryMenu = false;
-      this.assignedToMenu = false;
-      this.createdSubtasks = [];
-      this.prioUrgent = false;
-      this.prioMedium = false;
-      this.prioLow = true;
-      this.subtaskInput = false;
-    }
+
+  /**
+ * Resets all selections and forms.
+ */
+  resetAllSelections() {
+    this.taskForm.reset();
+    this.feedbackMessageMembers = 'Select your Members';
+    this.selectedCategory = null;
+    this.categoryMenu = false;
+    this.assignedToMenu = false;
+    this.createdSubtasks = [];
+    this.prioUrgent = false;
+    this.prioMedium = false;
+    this.prioLow = true;
+    this.subtaskInput = false;
+  }
 
 
-    goBack(): void {
-      this.location.back();
-    }
+  goBack(): void {
+    this.location.back();
+  }
 }

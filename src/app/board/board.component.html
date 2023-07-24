@@ -6,21 +6,24 @@
         <div class="headline-mobile d-none">Kanban Project Management Tool</div>
         <div class="board-add-task width">
             <h2>Board</h2>
-            <button class="add-task-btn-mobile d-none" routerLink="/add-task-menu">+</button>
+            <button class="add-task-btn-mobile d-none" [routerLink]="['/add-task-menu', 'todo']">+</button>
         </div>
         <div class="search-container">
             <div class="search-box"><input type="text" placeholder="Find Task" onkeyup="findTasks()" id="findTask">
                 <div class="dividing-line"></div>
                 <div class="search-icon"><img src="assets/img/magnifier.png"></div>
             </div>
-            <button class="add-task" routerLink="/add-task-menu">Add task +</button>
+            <button class="add-task" [routerLink]="['/add-task-menu', 'todo']">Add Task +</button>
         </div>
     </div>
 
     <div cdkDropListGroup>
         <div class="board-content">
             <div class="example-container">
-                <h2>To do</h2>
+                <div class="status">
+                    <h2>To do</h2>
+                    <button class="add-task" [routerLink]="['/add-task-menu', 'todo']">+</button>
+                </div>
                 <div cdkDropList id="todoList" [cdkDropListData]="todo"
                     [cdkDropListConnectedTo]="['inProgressList', 'awaitingFeedbackList', 'doneList']"
                     class="example-list" (cdkDropListDropped)="drop($event)">
@@ -48,7 +51,10 @@
 
 
             <div class="example-container">
-                <h2>In Progress</h2>
+                <div class="status">
+                    <h2>In Progress</h2>
+                    <button class="add-task" [routerLink]="['/add-task-menu', 'in_progress']">+</button>
+                </div>
                 <div cdkDropList id="inProgressList" [cdkDropListData]="in_progress"
                     [cdkDropListConnectedTo]="['todoList', 'awaitingFeedbackList', 'doneList']" class="example-list"
                     (cdkDropListDropped)="drop($event)">
@@ -75,7 +81,10 @@
             </div>
 
             <div class="example-container">
-                <h2>Awaitng Feedback</h2>
+                <div class="status">
+                    <h2>Awaitng Feedback</h2>
+                    <button class="add-task" [routerLink]="['/add-task-menu', 'awaiting_feedback']">+</button>
+                </div>
                 <div cdkDropList id="awaitingFeedbackList" [cdkDropListData]="awaiting_feedback"
                     [cdkDropListConnectedTo]="['todoList', 'inProgressList', 'doneList']" class="example-list"
                     (cdkDropListDropped)="drop($event)">
@@ -102,7 +111,10 @@
             </div>
 
             <div class="example-container">
-                <h2>Done</h2>
+                <div class="status">
+                    <h2>Done</h2>
+                    <button class="add-task" [routerLink]="['/add-task-menu', 'done']">+</button>
+                </div>
                 <div cdkDropList id="doneList" [cdkDropListData]="done"
                     [cdkDropListConnectedTo]="['todoList', 'inProgressList', 'awaitingFeedbackList']"
                     class="example-list" (cdkDropListDropped)="drop($event)">
