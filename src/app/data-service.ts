@@ -98,6 +98,11 @@ export class DataService {
   }
 
 
+  // updateTaskStatus(taskId: string, newStatus: 'todo' | 'in_progress' | 'awaiting_feedback' | 'done'): Promise<void> {
+  //   return this.firestore.collection('tasks').doc(taskId).update({ status: newStatus });
+  // }
+
+
   getCategories(): Observable<any[]> {
     return this.firestore.collection('categories').valueChanges();
   }

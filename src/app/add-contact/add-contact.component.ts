@@ -18,8 +18,8 @@ import { Router } from '@angular/router';
  */
 export class AddContactComponent implements OnInit {
   contactForm = this.fb.group({
-    firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-    lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+    firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z-]*$')]],
+    lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z-]*$')]],
     email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     color: ['#000000']

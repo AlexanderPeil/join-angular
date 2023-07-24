@@ -137,17 +137,23 @@ export class BoardComponent implements OnInit {
     const contact = this.contacts.find(contact => `${contact.firstName} ${contact.lastName}` === name);
     return contact ? contact.color : 'defaultColor';
   }
-  
+
 
   getInitials(name: string): string {
-    let parts = name.split(' ');
+    let parts = name.trim().split(' ');
     if (parts.length === 2) {
       let initials = parts[0][0] + parts[1][0];
       return initials.toUpperCase();
     } else {
-      return name[0].toUpperCase();
+      if (name.length > 1) {
+        return name.substring(0, 2).toUpperCase();
+      } else {
+        return name[0].toUpperCase();
+      }
     }
   }
+
+
 
 
   openEditMenu(task: TaskInterface): void {
