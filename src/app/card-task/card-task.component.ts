@@ -14,6 +14,8 @@ export class CardTaskComponent implements OnInit {
   task: TaskInterface | null = null;
   assignedContacts$?: Observable<ContactInterface[]>;
   contacts: ContactInterface[] = [];
+  statuses: string[] = ['todo', 'in_progress', 'awaiting_feedback', 'done'];
+
 
 
   constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) { }
@@ -30,11 +32,8 @@ export class CardTaskComponent implements OnInit {
               contacts.filter(contact => this.task?.assignedTo?.includes(contact.id))
             )
           );
-        } else {
-          console.log('Task not found');
         }
       });
-
     }
     this.dataService.getContacts().subscribe((contacts: ContactInterface[]) => {
       this.contacts = contacts;
@@ -88,7 +87,21 @@ export class CardTaskComponent implements OnInit {
         return '../../assets/img/prio_medium.png';
       case 'urgent':
         return '../../assets/img/prio_urgent.png';
-        default: return '';
+      default: return '';
+    }
+  }
+
+
+  updateTaskStatus = (newStatus: 'todo' | 'in_progress' | 'awaiting_feedback' | 'done'): void => {
+    if (this.task && this.statuses.includes(newStatus)) {
+      const updatedTask = { ...this.task, status: newStatus, id: this.task.id };
+      if (this.task && this.task.id) {
+        this.dataService.updateTask(this.task.id, updatedTask).then(() => {
+          console.log('Task status updated successfully');
+        }).catch(error => {
+          console.error('Error updating task status:', error);
+        });
+      }
     }
   }
 }

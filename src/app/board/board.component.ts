@@ -166,17 +166,6 @@ export class BoardComponent implements OnInit {
   }
 
 
-
-  openEditMenu(task: TaskInterface): void {
-    this.selectedTask = task;
-  }
-
-
-  closeEditMenu(): void {
-    this.selectedTask = null;
-  }
-
-
   filterTasks() {
     if (!this.searchTerm) {
       this.filteredTodoTasks = this.todo;

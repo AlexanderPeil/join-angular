@@ -12,6 +12,9 @@
             <p>{{ task.description }}</p>
             <div><strong>Due Date:</strong> {{ task.date }}</div>
             <div><strong>Priority:</strong><img class="prio-img" [src]="getPriorityImage(task.prio)"></div>
+            <select [(ngModel)]="task.status" (change)="updateTaskStatus(task.status)">
+                <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+            </select>
             <div *ngIf="task?.subtasks?.length">
                 <strong>Subtasks:</strong> {{ task.subtasks.join(', ') }}
             </div>

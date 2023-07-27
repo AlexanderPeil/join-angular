@@ -249,7 +249,7 @@ a {
         padding: unset;
     }
 
-    .add-task {
+    .hide-add-task {
         display: none !important;
     }
 
@@ -272,7 +272,7 @@ a {
 
     .board-add-task {
         @include space_between_center;
-        width: 360px;
+        width: 335px;
         margin: 25px 0;
     }
 

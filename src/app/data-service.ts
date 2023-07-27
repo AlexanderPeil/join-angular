@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { BehaviorSubject, firstValueFrom, from, Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, from, map, Observable } from 'rxjs';
 import { ContactInterface, TaskInterface } from './modellInterface';
 
 @Injectable({
@@ -69,13 +69,24 @@ export class DataService {
 
 
   getTaskById(id: string): Observable<TaskInterface | undefined> {
-    return this.firestore.collection('tasks').doc<TaskInterface>(id).valueChanges();
-  }
+    return this.firestore.collection('tasks').doc<TaskInterface>(id).snapshotChanges()
+      .pipe(
+        map(doc => {
+          if (!doc.payload.exists) {
+            return undefined;
+          } else {
+            const data = doc.payload.data() as TaskInterface;
+            const docId = doc.payload.id;
+            return { id: docId, ...data };
+          }
+        })
+      );
+  }  
 
 
   getTasks(): Observable<TaskInterface[]> {
     return this.firestore.collection<TaskInterface>('tasks').valueChanges();
-  }  
+  }
 
 
   setSelectedTask(task: TaskInterface | null) {
@@ -98,9 +109,9 @@ export class DataService {
   }
 
 
-  // updateTaskStatus(taskId: string, newStatus: 'todo' | 'in_progress' | 'awaiting_feedback' | 'done'): Promise<void> {
-  //   return this.firestore.collection('tasks').doc(taskId).update({ status: newStatus });
-  // }
+  updateTask(id: string, task: TaskInterface): Promise<void> {
+    return this.firestore.collection('tasks').doc(id).update(task);
+  }  
 
 
   getCategories(): Observable<any[]> {

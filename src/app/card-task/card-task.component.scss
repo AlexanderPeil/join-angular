@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .card-task-content {
     display: flex;
     justify-content: center;
@@ -85,19 +87,16 @@
     align-items: center;
 
     a {
-        padding: 20px;
-        cursor: pointer;
+        @include width_height(47px, 47px);
+        @include button_styles;
         border-radius: 10px;
-        transition: all 225ms ease-in-out;
         object-fit: contain;
-        background-image: url(../../assets/img/edit_contact.png);
+        background-image: url(../../assets/img/edit.png);
         background-repeat: no-repeat;
         background-position: center;
-        width: 160px;
-        margin-left: -37px;
 
         &:hover {
-            background-image: url(../../assets/img/edit_contact_hover.png);
+            background-image: url(../../assets/img/edit_hover.png);
         }
     }
 
