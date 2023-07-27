@@ -113,7 +113,7 @@
                                         <div class="subtask-container"
                                             *ngFor="let control of getSubtasks(); index as i">
                                             <input class="subtask-input" type="text" placeholder="Add new subtask"
-                                                [formControl]="control">
+                                                [formControl]="control" #subtaskInput>
                                             <img *ngIf="subtaskInput" class="subtask-icons"
                                                 src="../../assets/img/icon_check_subtask.svg"
                                                 (click)="confirmSubtask(i)">

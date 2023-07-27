@@ -77,8 +77,8 @@ a {
 }
 
 .board-header {
-    @include margin_left_right(70px, 70px);
     @include space_between_center;
+    margin-right: 70px;
     padding-top: 82px;
 
     h2 {

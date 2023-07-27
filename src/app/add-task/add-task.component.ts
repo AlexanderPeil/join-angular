@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Observable  } from 'rxjs';
 import { TaskInterface } from '../modellInterface';
 import { DataService  } from '../data-service';
@@ -34,6 +32,9 @@ export class AddTaskComponent {
 
   feedbackMessageMembers = 'Select your Members';
   createdSubtasks: string[] = [];
+  @ViewChildren('subtaskInput') subtaskInputs!: QueryList<ElementRef>;
+
+
 
 
   /**
@@ -274,11 +275,19 @@ export class AddTaskComponent {
   
 
 
-addSubtask() {
-  const control = new FormControl(null);
-  (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
-  this.subtaskInput = true;
-}
+  addSubtask() {
+    const control = new FormControl(null);
+    (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
+    this.subtaskInput = true;
+  
+    setTimeout(() => {
+      const lastInput = this.subtaskInputs.last;
+      if (lastInput) {
+        lastInput.nativeElement.focus();
+      }
+    });
+  }
+  
 
 
 confirmSubtask(index: number) {

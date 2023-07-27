@@ -106,20 +106,17 @@
                                 <label>Subtasks</label>
                                 <div class="subtask-container">
                                     <div class="width flex-center" *ngIf="!subtaskInput">
-                                        <input class="subtask-input" placeholder="Add new subtask"
-                                            (click)="addSubtask()" />
-                                        <img class="plus-icon" src="assets/img/plus_icon.png" (click)="addSubtask()" />
+                                        <input class="subtask-input" placeholder="Add new subtask" (click)="addSubtask()" #subtaskInput>
+                                        <img class="plus-icon" src="assets/img/plus_icon.png" (click)="addSubtask()">
                                     </div>
                                     <div class="subtask-container" *ngFor="let control of getSubtasks(); index as i">
-                                        <input class="subtask-input" type="text" placeholder="Add new subtask"
-                                            [formControl]="control">
-                                        <img *ngIf="subtaskInput" class="subtask-icons"
-                                            src="../../assets/img/icon_check_subtask.svg" (click)="confirmSubtask(i)">
+                                        <input class="subtask-input" type="text" placeholder="Add new subtask" [formControl]="control" #subtaskInput>
+                                        <img *ngIf="subtaskInput" class="subtask-icons" src="../../assets/img/icon_check_subtask.svg" (click)="confirmSubtask(i)">
                                         <div *ngIf="subtaskInput" class="gap-img-subtask"></div>
-                                        <img *ngIf="subtaskInput" class="subtask-icons"
-                                            src="../../assets/img/icon_cancel_subtask.svg" (click)="cancelSubtask()">
+                                        <img *ngIf="subtaskInput" class="subtask-icons" src="../../assets/img/icon_cancel_subtask.svg" (click)="cancelSubtask()">
                                     </div>
                                 </div>
+                                
 
                                 <div>
                                     <ul>

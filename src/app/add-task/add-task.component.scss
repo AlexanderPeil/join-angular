@@ -380,6 +380,10 @@ select::-ms-expand {
     padding-left: 15px;
 }
 
+li {
+    @include align_items_center;
+}
+
 @media(max-width:1200px) {
     .right-container {
         margin-top: -20px;

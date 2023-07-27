@@ -68,7 +68,7 @@ export class CardTaskComponent implements OnInit {
       this.router.navigate(['/board']);
     });
   }
-  
+
 
   stopPropagation(event: Event) {
     event.stopPropagation();
@@ -78,6 +78,17 @@ export class CardTaskComponent implements OnInit {
     const contact = this.contacts.find(contact => `${contact.firstName} ${contact.lastName}` === name);
     return contact ? `${contact.firstName} ${contact.lastName}` : 'Unnamed';
   }
-  
 
+
+  getPriorityImage(prio: string) {
+    switch (prio) {
+      case 'low':
+        return '../../assets/img/prio_low_white.png';
+      case 'medium':
+        return '../../assets/img/prio_medium.png';
+      case 'urgent':
+        return '../../assets/img/prio_urgent.png';
+        default: return '';
+    }
+  }
 }

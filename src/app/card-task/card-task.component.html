@@ -11,7 +11,7 @@
             <h2>{{ task.title }}</h2>
             <p>{{ task.description }}</p>
             <div><strong>Due Date:</strong> {{ task.date }}</div>
-            <div><strong>Priority:</strong> {{ task.prio }}</div>
+            <div><strong>Priority:</strong><img class="prio-img" [src]="getPriorityImage(task.prio)"></div>
             <div *ngIf="task?.subtasks?.length">
                 <strong>Subtasks:</strong> {{ task.subtasks.join(', ') }}
             </div>

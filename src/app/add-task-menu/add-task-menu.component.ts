@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Observable } from 'rxjs';
 import { TaskInterface } from '../modellInterface';
 import { DataService } from '../data-service';
@@ -14,36 +13,6 @@ import { Router } from '@angular/router';
   selector: 'app-add-task-menu',
   templateUrl: './add-task-menu.component.html',
   styleUrls: ['./add-task-menu.component.scss'],
-  animations: [
-    trigger('openCategories', [
-      state('start', style({
-        height: '0',
-        display: 'none',
-        overflow: 'hidden',
-      })),
-      state('end', style({
-        overflow: 'auto',
-        height: '*',
-        width: '100%',
-        display: 'block',
-      })),
-      transition('end <=> start', animate('200ms ease-in-out'))
-    ]),
-    trigger('openAssignedTo', [
-      state('start', style({
-        height: '0',
-        display: 'none',
-        overflow: 'hidden',
-      })),
-      state('end', style({
-        overflow: 'auto',
-        height: '*',
-        width: '100%',
-        display: 'flex',
-      })),
-      transition('end <=> start', animate('200ms ease-in-out'))
-    ]),
-  ]
 })
 
 export class AddTaskMenuComponent implements OnInit {
@@ -64,6 +33,7 @@ export class AddTaskMenuComponent implements OnInit {
   feedbackMessageMembers = 'Select your Members';
   createdSubtasks: string[] = [];
   status!: "todo" | "in_progress" | "awaiting_feedback" | "done";
+  @ViewChildren('subtaskInput') subtaskInputs!: QueryList<ElementRef>;
 
 
   /**
@@ -314,6 +284,13 @@ export class AddTaskMenuComponent implements OnInit {
     const control = new FormControl(null);
     (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
     this.subtaskInput = true;
+  
+    setTimeout(() => {
+      const lastInput = this.subtaskInputs.last;
+      if (lastInput) {
+        lastInput.nativeElement.focus();
+      }
+    });
   }
 
 

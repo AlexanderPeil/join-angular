@@ -381,6 +381,10 @@ fieldset {
     margin-bottom: 30px;
 }
 
+li {
+    @include align_items_center;
+}
+
 @media(max-width:1200px) {
     .add-task-menu {
         height: 77%;
