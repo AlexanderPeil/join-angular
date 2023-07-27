@@ -31,7 +31,9 @@ export class ForgotPasswordComponent implements OnInit {
       this.authService.forgotPassword(email)
       .then(() => {
         this.isEmailSent = true;
-        this.router.navigate(['login']); 
+        setTimeout(() => {
+          this.router.navigate(['login']); 
+        }, 2000); 
       })
       .catch((error) => {
         if (error.code === "auth/user-not-found") {
@@ -40,4 +42,5 @@ export class ForgotPasswordComponent implements OnInit {
       });
     }
   }
+  
 }
