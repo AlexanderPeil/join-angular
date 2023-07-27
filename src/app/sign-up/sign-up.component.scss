@@ -1,19 +1,16 @@
+@import '../../variables.scss';
+
 .d-none {
     display: none;
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
+    @include flex_column_center;
+    @include width_height(100%, 100vh);
 }
 
 .join-logo {
-    width: 100px;
-    height: 120px;
+    @include width_height(100px, 120px);
     position: absolute;
     top: 67px;
     left: 77px;    
@@ -47,16 +44,14 @@
 
     @keyframes start-logo-animation {
         0% {
-            width: 274px;
-            height: 334px;
+            @include width_height(274px, 334px);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
 
         20% {
-            width: 274px;
-            height: 334px;
+            @include width_height(274px, 334px);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -71,30 +66,25 @@
 }
 
 .heading-span {
+    @include font(61px, 700, 73.2px);
     margin-top: -50px;
-    font-size: 61px;
-    font-weight: 700;
     letter-spacing: 0em;
     text-align: center;
 }
 
 ::placeholder {
+    @include font(18px, 400, 25.2px);
     color: #D1D1D1;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 25.2px;
 }
 
 .input-email-pw {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
+    @include width_height(422px, 51px);
     gap: 10px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
     padding: 13px 21px;
     box-sizing: border-box;
-    width: 422px;
-    height: 51px;
 }
 
 .input-name-img {
@@ -123,28 +113,25 @@
 }
 
 form {
+    @include column_center;
+    gap: 35px;
     position: relative;
     padding: 70px 0 35px 0;
     width: 652px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: white;
     box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
     border-radius: 30px;
-    gap: 35px;
 }
 
 .sign-up-btn {
-    height: 51px;
-    width: 145px;
+    @include width_height(145px, 51px);
+    @include button_styles;
     border-radius: 8px;
     padding: 4px 0;
     gap: 10px;
     background-color: #2A3647;
     color: white;
     border: none;
-    cursor: pointer;
 
     &:not([disabled]):hover {
         background: #29ABE2;
@@ -160,18 +147,10 @@ form {
 }
 
 .msg-box {
-    font-weight: 700;
+    font-size: 22px;
     font-weight: 700;
     text-align: center;
-    font-size: 700;
-    font-weight: 700;
-    font-weight: 700;
-    font-size: 22px;
-    color: #29ABE2;
-}
-
-.opacity {
-    opacity: 0;
+    color: $main_color_bright;
 }
 
 @media(max-width:700px) {
@@ -182,12 +161,6 @@ form {
 
     .underline {
         display: none;
-    }
-
-    .sign-up {
-        top: unset;
-        bottom: 55px;
-        right: unset;
     }
 
     .input-email-pw {
@@ -258,18 +231,13 @@ form {
 
     @media(max-width: 400px) {
         .join-logo {
+            @include width_height(40px, 104px);
             top: 10px;
             left: 41px;
-            width: 40px;
-            height: 104px;
         }
 
         .content {
             height: 90vh;
         }
-
-        // .form {
-        //     bottom: 1825px;
-        // }
     }
 }

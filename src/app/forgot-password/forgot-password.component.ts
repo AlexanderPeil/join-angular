@@ -15,6 +15,11 @@ export class ForgotPasswordComponent implements OnInit {
   isEmailSent: boolean = false;
 
 
+/**
+ * @param {AuthService} authService - An instance of AuthService for authentication services.
+ * @param {Router} router - An instance of Router for routing.
+ * @property {FormGroup} forgotPasswordForm - Form group for the forgot password form. 
+ */
   constructor(private authService: AuthService, public router: Router) {
     this.forgotPasswordForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email])
@@ -25,6 +30,12 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void { }
 
 
+/**
+ * Submits the form. 
+ * If the email is valid, a forgot password email will be sent by authService. 
+ * If the email sending is successful, the user is redirected to the login page after 2 seconds. 
+ * If the user is not found, an error flag is set.
+ */
   onSubmit() {
     const email = this.forgotPasswordForm.get('email')?.value;
     if (email) {
@@ -41,6 +52,5 @@ export class ForgotPasswordComponent implements OnInit {
         }
       });
     }
-  }
-  
+  }  
 }

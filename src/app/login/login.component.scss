@@ -1,22 +1,19 @@
+@import '../../variables.scss';
+
 .d-none {
     display: none;
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
+    @include flex_column_center;
+    @include width_height(100%, 100vh);
 }
 
 .join-logo {
-    width: 100px;
-    height: 120px;
+    @include width_height(100px, 120px);
     position: absolute;
     top: 67px;
-    left: 77px;
+    left: 77px;    
     object-fit: contain;
 }
 
@@ -71,34 +68,30 @@
 }
 
 .sign-up {
-    display: flex;
+    @include align_items_center;
+    gap: 35px;
     flex-direction: row;
-    align-items: center;
     position: absolute;
     top: 67px;
     right: 114px;
-    gap: 35px;
 
     span {
-        font-weight: 400;
-        font-size: 21px;
-        line-height: 25.2px;
+        @include font(21px, 400, 25.2px);
         text-align: center;
     }
 
     button {
-        cursor: pointer;
-        background-color: #2A3647;
+        @include button_styles;
+        @include width_height(91px, 51px);
+        background-color: $main_color_dark;
         color: white;
         padding: 4px 16px;
         border-radius: 8px;
         border: none;
-        width: 91px;
-        height: 51px;
         font-size: 16px;
 
         &:hover {
-            background: #29ABE2;
+            background: $main_color_bright;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             transition: all 125ms ease-in-out;
         }
@@ -106,44 +99,39 @@
 }
 
 form {
+    @include column_center;
+    gap: 35px;
     width: 652px;
     padding-top: 70px;
     padding-bottom: 35px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: white;
     box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
     border-radius: 30px;
-    gap: 35px;
 }
 
 .heading-span {
+    @include font(61px, 700, 73.2px);
     margin-top: -50px;
-    font-size: 61px;
-    font-weight: 700;
     letter-spacing: 0em;
     text-align: center;
 }
 
+
 ::placeholder {
+    @include font(18px, 400, 25.2px);
     color: #D1D1D1;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 25.2px;
 }
 
 .input-email-pw {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
+    @include width_height(422px, 51px);
     gap: 10px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
     padding: 13px 21px;
     box-sizing: border-box;
-    width: 422px;
-    height: 51px;
 }
+
 
 .input-email-img {
     background-image: url(../../assets/img/input_email_img.png);
@@ -158,9 +146,7 @@ form {
 }
 
 .login-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex_center;
 
 
     .mat-mdc-card {
@@ -176,43 +162,37 @@ form {
     }
 
     span {
-        margin-left: 20px;
-        margin-right: 35px;
+        @include margin_left_right(20px, 35px);
     }
 
     a {
         text-decoration: none;
-        color: #29ABE2;
+        color: $main_color_bright;
         margin-left: 25px;
     }
 }
 
 .login-buttons {
-    display: flex;
+    @include space_between_center;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     width: 340px;
 
     button {
-        font-size: 21px;
-        font-weight: 700;
-        line-height: 25.2px;
+        @include font(21px, 700, 25.2px);
         border-radius: 8px;
         padding: 4px 0;
         cursor: pointer;
     }
 
     .guest-login-btn {
+        @include width_height(150px, 51px);
         background-color: white;
-        color: #2A3647;
+        color: $main_color_dark;
         border: 1px solid black;
-        height: 51px;
-        width: 150px;
 
         &:hover {
-            color: #29ABE2;
-            border-color: #29ABE2;
+            color: $main_color_bright;
+            border-color: $main_color_bright;
             transition: all 125ms ease-in-out;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         }
@@ -220,15 +200,13 @@ form {
 }
 
 .login-btn {
-    background-color: #2A3647;
+    @include width_height(145px, 51px);
+    background-color: $main_color_dark;
     border: none;
     color: white;
-    width: 145px;
-    height: 51px;
-    width: 130px;
 
     &:not([disabled]):hover {
-        background: #29ABE2;
+        background: $main_color_bright;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         transition: all 125ms ease-in-out;
     }
@@ -240,86 +218,11 @@ form {
     }
 }
 
-.forgot-pw-page {
-    position: relative;
-    width: 826px;
-    height: 370px;
-    padding-top: 90px;
-}
-
 .back-img {
     cursor: pointer;
     position: absolute;
     top: 30px;
     left: 50px;
-}
-
-#forgot-pw-span {
-    width: 656px;
-    height: 50px;
-}
-
-.send-email-btn {
-    background-color: #2A3647;
-    color: white;
-    margin-top: 6px;
-    height: 51px;
-    width: 264px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-}
-
-.send-email-btn:hover {
-    background: #29ABE2;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    transition: all 125ms ease-in-out;
-}
-
-.sign-up-page {
-    position: relative;
-    padding: 70px 0 35px 0;
-    width: 652px;
-}
-
-.sign-up-btn {
-    height: 51px;
-    width: 145px;
-    border-radius: 8px;
-    padding: 4px 0;
-    gap: 10px;
-    background-color: #2A3647;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.reset-pw-page {
-    position: relative;
-    width: 700px;
-    height: 450px;
-    padding: 15px 60px 44px 60px;
-}
-
-#email-sent-text {
-    position: fixed;
-    bottom: 70px;
-}
-
-.continue-btn {
-    background-color: #2A3647;
-    color: white;
-    height: 51px;
-    width: 264px;
-    border-radius: 8px;
-    cursor: pointer;
-    border: none;
-}
-
-.continue-btn:hover {
-    background: #29ABE2;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    transition: all 125ms ease-in-out;
 }
 
 .msg-box {
@@ -331,55 +234,6 @@ form {
     font-weight: 700;
     font-size: 22px;
     color: #29ABE2;
-}
-
-.opacity {
-    opacity: 0;
-}
-
-@media(max-width: 900px) {
-    .forgot-pw-page {
-        width: 360px;
-        height: 420px;
-    }
-
-    #forgot-pw-span {
-        width: 330px;
-    }
-
-    .input-email-forgot-pw {
-        width: 330px !important;
-        margin: 25px !important;
-    }
-
-    .heading-span-forgot-pw {
-        font-size: 40px !important;
-        line-height: 120% !important;
-    }
-
-    .back-img-forgot-pw {
-        display: none;
-    }
-
-    .back-img-forgot-pw-mobile {
-        display: block;
-        position: absolute;
-        top: 30px;
-        left: 25px;
-    }
-
-    .send-email-btn {
-        width: 180px;
-    }
-
-    .send-email-btn-font {
-        font-size: 16px !important;
-    }
-
-    .reset-pw-page {
-        width: 500px;
-        height: 528px;
-    }
 }
 
 @media(max-width:700px) {
@@ -441,17 +295,6 @@ form {
         margin-top: -20px;
     }
 
-    .back-img-web {
-        display: none;
-    }
-
-    .back-img-sign-up-mobile {
-        display: block !important;
-        position: absolute;
-        top: 30px;
-        left: 25px;
-    }
-
     .back-img {
         display: none;
     }
@@ -492,10 +335,9 @@ form {
 
     @media(max-width: 400px) {
         .join-logo {
+            @include width_height(40px, 104px);
             top: 10px;
             left: 41px;
-            width: 40px;
-            height: 104px;
         }
 
         .content {
