@@ -8,7 +8,8 @@
     </div>
     <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
         <div class="content-container">
-            <img class="add-task-btn-mobile" src="../../assets/img/create_task_btn_mobile.png" alt="Create tassk button" (click)="onSubmitAndNavigate()">
+            <img class="add-task-btn-mobile" src="../../assets/img/create_task_btn_mobile.png" alt="Create tassk button"
+                (click)="onSubmitAndNavigate()">
             <div class="left-container width-unset">
                 <div formGroupName="profileForm">
                     <div class="selection-container">
@@ -33,8 +34,7 @@
                                 <img class="category-cancel category-member-selection"
                                     src="../../assets/img/icon_cancel_subtask.svg" alt="close-wrapper"
                                     (click)="toggleCategoryMenu(); resetCategory()">
-                                <div class="member-category-wrapper category-wrapper"
-                                    [@openCategories]="categoryMenu ? 'end' : 'start'">
+                                <div class="member-category-wrapper category-wrapper">
                                     <div class="each-member-category each-category"
                                         *ngFor="let category of categories$ | async"
                                         (click)="clickOnCategory(category)">
@@ -54,15 +54,15 @@
                     <div class="selection-container prevent-select">
                         <label>Assigned To</label>
                         <div class="select-wrapper assigned-to-wrapper">
-                            <div class="postion-reltaive" *ngIf="assignedToMenu">
+                            <div class="postion-relative" *ngIf="assignedToMenu">
+                                <span>Select your members</span>
                                 <img class="category-accept category-member-selection"
                                     src="../../assets/img/icon_check_subtask.svg" alt="category-accept"
                                     (click)="membersSelected()">
                                 <img class="category-cancel category-member-selection"
                                     src="../../assets/img/icon_cancel_subtask.svg" alt="close-wrapper"
                                     (click)="cancelSelection()">
-                                <div class="member-category-wrapper"
-                                    [@openAssignedTo]="assignedToMenu ? 'end' : 'start'">
+                                <div class="member-category-wrapper">
                                     <div class="each-member-category" *ngFor="let contact of contacts$ | async"
                                         (click)="selectContact(contact)"
                                         [ngClass]="{'selected-contact': isSelected(contact)}">
@@ -131,11 +131,10 @@
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="submit-and-clear">
-                        <img class="task-added-img" *ngIf="taskAdded"  src="../../assets/img/task_added_info.png"
+                        <img class="task-added-img" *ngIf="taskAdded" src="../../assets/img/task_added_info.png"
                             alt="task-added">
                         <div class="button-container" *ngIf="!taskAdded">
                             <div class="btn-clear" (click)="onClear($event)">Clear<img class="clear-img"

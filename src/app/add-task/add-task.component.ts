@@ -13,36 +13,6 @@ import { Router } from '@angular/router';
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss'],
-  animations: [
-    trigger('openCategories', [
-      state('start', style({
-        height: '0',
-        display: 'none',
-        overflow: 'hidden',
-      })),
-      state('end', style({
-        overflow: 'auto',
-        height: '*',
-        width: '100%',
-        display: 'flex',
-      })),
-      transition('end <=> start', animate('200ms ease-in-out'))
-    ]),
-    trigger('openAssignedTo', [
-      state('start', style({
-        height: '0',
-        display: 'none',
-        overflow: 'hidden',
-      })),
-      state('end', style({
-        overflow: 'auto',
-        height: '*',
-        width: '100%',
-        display: 'flex',
-      })),
-      transition('end <=> start', animate('200ms ease-in-out'))
-    ]),
-  ]
 })
 
 

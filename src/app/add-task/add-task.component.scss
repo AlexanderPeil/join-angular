@@ -52,10 +52,6 @@ label {
     gap: 10px;
 }
 
-.input-content {
-    background-color: white;
-}
-
 input,
 select,
 .select-wrapper {
@@ -123,14 +119,22 @@ select,
     padding: 0;
 }
 
-.postion-reltaive {
+.postion-relative {
     position: relative;
+
+    span {
+        position: relative;
+        top: 12px;
+        padding: 9px;
+        color: $main_color_bright;
+    }
 }
 
 .member-category-wrapper {
-    flex-direction: column;
+    @include flex_direction_column;
     gap: 10px;
     padding: 10px;
+    margin-top: 15px;
 
     p {
         margin: 0;

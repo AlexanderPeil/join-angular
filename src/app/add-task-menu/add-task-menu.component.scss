@@ -1,14 +1,11 @@
+@import '../../variables.scss';
+
 .add-task-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
+    @include flex_center;
+    @include width_height(100vw, 100vh);
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
@@ -24,9 +21,7 @@
 }
 
 .header-popup {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include space_between_center;
 }
 
 .close-header-popup {
@@ -35,7 +30,7 @@
     padding: 10px;
 
     &:hover {
-        background-color: #94d5f0;
+        background-color: $main_color_bright;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 10px;
         transition: all 225ms ease-in-out;
@@ -61,24 +56,18 @@ span {
 }
 
 .left-container {
-    display: flex;
-    flex-direction: column;
-    width: 452px;
-    height: 506px;
+    @include flex_direction_column;
+    @include width_height(452px, 506px);
     gap: 10px;
 }
 
 .selection-container {
-    display: flex;
-    flex-direction: column;
+    @include flex_direction_column;
     gap: 10px;
 }
 
 .select-wrapper {
-    position: relative;
-    height: 50px;
-    display: flex;
-    flex-direction: column;
+    @include flex_direction_column;
     padding: 0 !important;
 }
 
@@ -94,20 +83,6 @@ select,
     outline: none;
 }
 
-.member-wrapper {
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-
-    .each-member {
-        cursor: pointer;
-
-        &:hover {
-            color: #29ABE2;
-        }
-    }
-}
-
 .selected-contact {
     background-color: #abcdef;
     margin-right: 10px;
@@ -121,19 +96,48 @@ select,
     }
 
     .color-picker {
+        @include width_height(40px, 45px);
         right: 89px;
         top: 2px;
         padding: 0px !important;
         border: none;
         cursor: pointer;
-        width: 40px;
-        height: 45px;
         outline: none;
     }
 }
 
-.select-member {
+.category-wrapper {
     position: relative;
+    margin-top: 50px !important;
+
+    .each-category {
+        @include align_items_center;
+
+        .category-color {
+            @include width_height(15px, 15px);
+            border-radius: 100%;
+            margin-left: 8%;
+        }
+    }
+}
+
+.member-category-wrapper {
+    @include flex_direction_column;
+    gap: 10px;
+    padding: 10px;
+    margin-top: 15px;
+
+    p {
+        margin: 0;
+    }
+}
+
+.each-member-category {
+    cursor: pointer;
+
+    &:hover {
+        color: $main_color_bright;
+    }
 }
 
 .category-member-selection {
@@ -143,7 +147,7 @@ select,
     cursor: pointer;
 
     &:hover {
-        background-color: #29ABE2;
+        background-color: $main_color_bright;
         border-radius: 10px;
     }
 }
@@ -156,19 +160,15 @@ select,
     right: 5px;
 }
 
-.category-assigned-to {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background-color: #f5f5f5;
-    width: 101%;
-    top: 50px;
-    left: 0;
-    z-index: 11;
-    border-radius: 10px;
-    height: 138px;
-    overflow-y: auto;
-    margin-left: -1px;
+.postion-relative {
+    position: relative;
+
+    span {
+        position: relative;
+        top: 12px;
+        padding: 9px;
+        color: $main_color_bright;
+    }
 }
 
 select {
@@ -190,7 +190,6 @@ textarea {
 
 select::-ms-expand {
     display: none;
-    /* Standardpfeil im IE 10 und 11 entfernen */
 }
 
 .middle-gap {
@@ -225,21 +224,18 @@ select::-ms-expand {
 }
 
 .prio-btn {
-    display: flex;
+    @include flex_center;
+    @include width_height(100%, 51px);
+    @include button_styles;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 10px;
     gap: 10px;
+    padding: 10px 10px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     font-size: 21px;
     font-weight: 400;
     background-color: rgb(255, 255, 255);
-    width: 100%;
     position: relative;
-    transition: all 100ms ease-in-out;
-    cursor: pointer;
 
     &:hover {
         box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
@@ -248,56 +244,36 @@ select::-ms-expand {
 }
 
 .sector-top {
-    display: flex;
-    justify-content: space-between;
+    @include space_between_center;
     line-height: 0;
-    align-items: center;
     font-size: 18px;
     padding: 5px 20px;
     cursor: pointer;
-}
 
-.prio-btn-red,
-.prio-btn-orange,
-.prio-btn-green {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 18px 10px;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
-    background-color: rgb(255, 61, 0);
-    color: white;
-    width: 100%;
-    height: 51px;
-    gap: 10px;
-    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
-}
-
-.prio-btn-orange {
-    background-color: rgb(255, 168, 0);
-}
-
-.prio-btn-green {
-    background-color: #7AE229;
+    img {
+        height: 8px;
+    }
 }
 
 .subtask-container {
+    @include align_items_center;
+    flex-direction: row;
+    gap: 10px;
     width: 100%;
     background-color: white;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     font-size: 21px;
     font-weight: 400;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
     isolation: isolate;
+}
+
+.flex-center {
+    @include align_items_center;
+}
+
+.width {
+    width: 100%;
 }
 
 .subtask-input {
@@ -322,8 +298,7 @@ select::-ms-expand {
 }
 
 .submit-and-clear {
-    display: flex;
-    justify-content: center;
+    @include justify_content_center;
     padding-top: 85px;
 
     button {
@@ -331,46 +306,43 @@ select::-ms-expand {
         border-radius: 10px;
         padding: 18px 10px;
         margin-left: 25px;
+        transition: background 255ms ease-in-out;
     }
 }
 
 .btn-createTask {
-    background: #2A3647;
+    background: $main_color_dark;
+    @include flex_center;
     color: white;
     border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 10px;
     font-weight: 700;
     transition: all 100ms ease-in-out;
 
     &:hover {
-        background-color: #29ABE2;
-        border: 2px solid #29ABE2;
+        background-color: $main_color_bright;
+        border: 2px solid $main_color_bright;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 }
 
+
 .btn-clear {
-    border: solid 1px #2A3647;
+    @include button_styles;
+    @include flex_center;
+    gap: 10px;
+    border: solid 1px $main_color_dark;
     font-size: 1.5rem;
     border-radius: 10px;
     padding: 18px 10px;
     margin-left: 25px;
     transition: background 255ms ease-in-out;
-    color: #2A3647;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: $main_color_dark;
     width: 136px;
-    gap: 10px;
-    transition: all 100ms ease-in-out;
-    cursor: pointer;
 
     &:hover {
-        color: #29ABE2;
-        border: 2px solid #29ABE2;
+        color: $main_color_bright;
+        border: 2px solid $main_color_bright;
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     }
 }
@@ -381,77 +353,8 @@ fieldset {
     margin: 0;
 }
 
-.checkbox_urgen,
-.checkbox_medium,
-.checkbox_low {
-    display: none;
-}
-
-.checkbox_urgen[type="radio"]:checked+label {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
-    background-color: rgb(255, 61, 0);
-    color: white;
-    width: 100%;
-    gap: 10px;
-    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
-}
-
-.checkbox_medium[type="radio"]:checked+label {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
-    background-color: rgb(255, 168, 0);
-    color: white;
-    width: 100%;
-    gap: 10px;
-    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
-}
-
-.checkbox_low[type="radio"]:checked+label {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
-    background-color: #7AE229;
-    color: white;
-    width: 100%;
-    gap: 10px;
-    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
-}
-
-.circle {
-    height: 12px;
-    width: 12px;
-    border-radius: 100%;
-    margin-left: 15px;
-    border: white;
-}
-
 .category {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
     padding: 7px 20px;
     cursor: pointer;
 
@@ -461,8 +364,7 @@ fieldset {
 }
 
 .assigned-to {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
     padding: 7px 20px;
 }
 
@@ -475,69 +377,8 @@ fieldset {
     /* Standard syntax */
 }
 
-.assigned-to-line {
-    display: flex;
-    justify-content: space-between;
-    padding: 7px 20px;
-}
-
 .assigned-to-wrapper {
     margin-bottom: 30px;
-}
-
-.popup-task-added {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 5px 10px;
-    color: white;
-    background-color: #2A3647;
-    border: none;
-    border-radius: 10px;
-}
-
-.category-added-cont {
-    text-align: center;
-    width: 250px;
-    z-index: 21;
-    font-size: 16px;
-    background-color: #2a3647;
-    color: white;
-    padding: 5px;
-    border-radius: 10px;
-}
-
-.cursor-pointer {
-    cursor: pointer;
-}
-
-.user-btn {
-    height: 35px;
-}
-
-.height {
-    height: 750px;
-}
-
-.delete-subtask {
-    height: 15px;
-    padding-left: 15px;
-}
-
-.del-newCat {
-    margin-left: auto;
-}
-
-.del-newCat img {
-    height: 15px;
-    width: 15px;
-}
-
-@media(max-width:1400px) {
-    .main-container {
-        margin-right: 10px;
-    }
 }
 
 @media(max-width:1200px) {
@@ -559,19 +400,6 @@ fieldset {
 
     .left-container {
         height: unset;
-    }
-
-    .title-container {
-        width: 450px;
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    .main-container {
-        margin-left: 300px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
     }
 
     .middle-gap {
@@ -603,6 +431,10 @@ fieldset {
     .prio-btn,
     .submit-and-clear {
         font-size: 16px;
+    }
+
+    .select-wrapper {
+        z-index: 3;
     }
 }
 
