@@ -9,7 +9,8 @@
             <button class="add-task-btn-mobile d-none" [routerLink]="['/add-task-menu', 'todo']">+</button>
         </div>
         <div class="search-container">
-            <div class="search-box"><input type="text" placeholder="Find Task" onkeyup="findTasks()" id="findTask">
+            <div class="search-box">
+                <input type="text" placeholder="Find Task" [(ngModel)]="searchTerm" (ngModelChange)="filterTasks()">
                 <div class="dividing-line"></div>
                 <div class="search-icon"><img src="assets/img/magnifier.png"></div>
             </div>
@@ -27,7 +28,7 @@
                 <div cdkDropList id="todoList" [cdkDropListData]="todo"
                     [cdkDropListConnectedTo]="['inProgressList', 'awaitingFeedbackList', 'doneList']"
                     class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let task of todo" (mousedown)="onMousedown($event)"
+                    <div class="example-box" *ngFor="let task of filteredTodoTasks" (mousedown)="onMousedown($event)"
                         (mouseup)="onMouseup($event, task.id)" cdkDrag>
                         <div class="card-head" [style.background-color]="task.color">{{ task.category }}</div>
                         <div class="card-body">
@@ -58,7 +59,7 @@
                 <div cdkDropList id="inProgressList" [cdkDropListData]="in_progress"
                     [cdkDropListConnectedTo]="['todoList', 'awaitingFeedbackList', 'doneList']" class="example-list"
                     (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let task of in_progress" (mousedown)="onMousedown($event)"
+                    <div class="example-box" *ngFor="let task of filteredInProgressTasks" (mousedown)="onMousedown($event)"
                         (mouseup)="onMouseup($event, task.id)" cdkDrag>
                         <div class="card-head" [style.background-color]="task.color">{{ task.category }}</div>
                         <div class="card-body">
@@ -88,7 +89,7 @@
                 <div cdkDropList id="awaitingFeedbackList" [cdkDropListData]="awaiting_feedback"
                     [cdkDropListConnectedTo]="['todoList', 'inProgressList', 'doneList']" class="example-list"
                     (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let task of awaiting_feedback" (mousedown)="onMousedown($event)"
+                    <div class="example-box" *ngFor="let task of filteredAwaitingFeedbacktasks" (mousedown)="onMousedown($event)"
                         (mouseup)="onMouseup($event, task.id)" cdkDrag>
                         <div class="card-head" [style.background-color]="task.color">{{ task.category }}</div>
                         <div class="card-body">
@@ -118,7 +119,7 @@
                 <div cdkDropList id="doneList" [cdkDropListData]="done"
                     [cdkDropListConnectedTo]="['todoList', 'inProgressList', 'awaitingFeedbackList']"
                     class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let task of done" (mousedown)="onMousedown($event)"
+                    <div class="example-box" *ngFor="let task of filteredDoneTasks" (mousedown)="onMousedown($event)"
                         (mouseup)="onMouseup($event, task.id)" cdkDrag>
                         <div class="card-head" [style.background-color]="task.color">{{ task.category }}</div>
                         <div class="card-body">

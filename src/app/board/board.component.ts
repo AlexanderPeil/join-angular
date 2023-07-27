@@ -36,6 +36,12 @@ export class BoardComponent implements OnInit {
   done: any[] = [];
 
   mousedownTime: number | undefined;
+  searchTerm: string = '';
+
+  filteredTodoTasks!: any[];
+  filteredInProgressTasks!: any[];
+  filteredAwaitingFeedbacktasks!: any[];
+  filteredDoneTasks!: any[];
 
 
   constructor(private firestore: AngularFirestore, private router: Router, private route: ActivatedRoute) { }
@@ -60,6 +66,11 @@ export class BoardComponent implements OnInit {
             case 'done': this.done.push(task); break;
           }
         });
+
+        this.filteredTodoTasks = this.todo;
+        this.filteredInProgressTasks = this.in_progress;
+        this.filteredAwaitingFeedbacktasks = this.awaiting_feedback;
+        this.filteredDoneTasks = this.done;
       });
 
     this.firestore.collection('contacts').valueChanges().subscribe(contacts => {
@@ -67,7 +78,8 @@ export class BoardComponent implements OnInit {
     });
 
     const taskId = this.route.snapshot.paramMap.get('id');
-  }
+}
+
 
 
   drop(event: CdkDragDrop<any[]>) {
@@ -145,14 +157,13 @@ export class BoardComponent implements OnInit {
       let initials = parts[0][0] + parts[1][0];
       return initials.toUpperCase();
     } else {
-      if(name.length > 1) {
+      if (name.length > 1) {
         return name.substring(0, 2).toUpperCase();
       } else {
         return name[0].toUpperCase();
       }
     }
   }
-  
 
 
 
@@ -163,6 +174,28 @@ export class BoardComponent implements OnInit {
 
   closeEditMenu(): void {
     this.selectedTask = null;
+  }
+
+
+  filterTasks() {
+    if (!this.searchTerm) {
+      this.filteredTodoTasks = this.todo;
+      this.filteredInProgressTasks = this.in_progress;
+      this.filteredAwaitingFeedbacktasks = this.awaiting_feedback;
+      this.filteredDoneTasks = this.done;
+    } else {
+      this.filteredTodoTasks = this.filterTasksBySearchTerm(this.todo);
+      this.filteredInProgressTasks = this.filterTasksBySearchTerm(this.in_progress);
+      this.filteredAwaitingFeedbacktasks = this.filterTasksBySearchTerm(this.awaiting_feedback);
+      this.filteredDoneTasks = this.filterTasksBySearchTerm(this.done);
+    }
+  }
+
+  filterTasksBySearchTerm(tasks: TaskInterface[]): TaskInterface[] {
+    return tasks.filter(task =>
+      task.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      task.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
 }

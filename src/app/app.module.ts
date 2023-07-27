@@ -32,8 +32,6 @@ import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { DataService } from './data-service';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { CardTaskComponent } from './card-task/card-task.component';
-// import { VerifyEmailComponent } from './verify-email/verify-email.component';
-
 
 
 @NgModule({
@@ -56,7 +54,6 @@ import { CardTaskComponent } from './card-task/card-task.component';
     EditContactComponent,
     EditTaskComponent,
     CardTaskComponent,
-    // VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
