@@ -5,7 +5,6 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
-import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 
@@ -48,8 +47,7 @@ export class AuthService {
         });
       })
       .catch((error) => {
-        console.error(error); // Log the error for debugging
-        return Promise.reject(error.message); // Pass the error message to the calling function
+        return Promise.reject(error.message); 
       });
   }
 
@@ -80,21 +78,9 @@ export class AuthService {
         }
       })
       .catch((error) => {
-        window.alert(error.message);
+        return Promise.reject(error);
       });
   }
-
-
-
-
-  // Send email verfificaiton when new user sign up
-  // sendVerificationMail() {
-  //   return this.afAuth.currentUser
-  //     .then((u: any) => u.sendEmailVerification())
-  //     .then(() => {
-  //       this.router.navigate(['verify-email-address']);
-  //     });
-  // }
 
 
   forgotPassword(passwordResetEmail: string) {

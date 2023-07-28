@@ -1,8 +1,8 @@
 <img class="join-logo logo-animation" src="assets/img/join_logo.png" alt="join-logo">
 <img class="d-none" [class.animation-stop]="animationStopped" id="animation-mobile"
-    src="assets/img/animation-mobile.png" alt="animation mobile">
+    src="assets/img/animation_mobile.png" alt="animation mobile">
 
-<div class="start-bg start-bg-mobile">
+<div class="start-bg">
     <div class="content">
         <div class="sign-up">
             <span>Not a Join user?</span>
@@ -27,12 +27,11 @@
             </div>
 
             <div class="login-buttons">
-                <button [disabled]="!loginForm.valid" type="submit" class="login-btn btn-font login-btn-mob">Log
+                <button [disabled]="!loginForm.valid" type="submit" class="login-btn login-btn-mob">Log
                     in</button>
-                <button routerLink="/summary" type="button" class="guest-login-btn btn-font login-btn-mob"
+                <button routerLink="/summary" type="button" class="guest-login-btn login-btn-mob"
                     (click)="onGuestLogin()">Guest Log in</button>
             </div>
         </form>
-
     </div>
 </div>
