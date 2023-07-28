@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="card-task-bottom">
-                <a class="edit-task"></a>
+                <a class="edit-task" [routerLink]="['/edit-task', task.id]"></a>
                 <div class="delete-task" (click)="deleteTask()"></div>
             </div>
         </div>

@@ -68,6 +68,12 @@ export class DataService {
   }
 
 
+  updateTask(id: string, task: TaskInterface): Promise<void> {
+    return this.firestore.collection('tasks').doc(id).update(task);
+  }
+  
+
+
   getTaskById(id: string): Observable<TaskInterface | undefined> {
     return this.firestore.collection('tasks').doc<TaskInterface>(id).snapshotChanges()
       .pipe(
@@ -107,12 +113,6 @@ export class DataService {
   deleteTask(taskId: string): Observable<void> {
     return from(this.firestore.collection('tasks').doc(taskId).delete());
   }
-
-
-  updateTask(id: string, task: TaskInterface): Promise<void> {
-    return this.firestore.collection('tasks').doc(id).update(task);
-  }  
-
 
   getCategories(): Observable<any[]> {
     return this.firestore.collection('categories').valueChanges();

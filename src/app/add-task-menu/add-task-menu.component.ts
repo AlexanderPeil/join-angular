@@ -279,7 +279,6 @@ export class AddTaskMenuComponent implements OnInit {
   }
 
 
-
   addSubtask() {
     const control = new FormControl(null);
     (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);

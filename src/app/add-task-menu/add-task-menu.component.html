@@ -106,9 +106,9 @@
                                     <div class="subtask-container">
                                         <div class="width flex-center" *ngIf="!subtaskInput">
                                             <input class="subtask-input" placeholder="Add new subtask"
-                                                (click)="addSubtask()" />
+                                                (click)="addSubtask()">
                                             <img class="plus-icon" src="assets/img/plus_icon.png"
-                                                (click)="addSubtask()" />
+                                                (click)="addSubtask()">
                                         </div>
                                         <div class="subtask-container"
                                             *ngFor="let control of getSubtasks(); index as i">
