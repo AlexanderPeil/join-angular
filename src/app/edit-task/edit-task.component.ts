@@ -25,7 +25,7 @@ export class EditTaskComponent implements OnInit {
 
   prioUrgent: boolean = false;
   prioMedium: boolean = false;
-  prioLow: boolean = true;
+  prioLow: boolean = false;
 
   minDate: string;
   categoryMenu = false;
@@ -60,7 +60,7 @@ export class EditTaskComponent implements OnInit {
         const subtasksFormArray = new FormArray(task?.subtasks?.map(item => new FormControl(item)) || []);
         if (this.currentTask?.subtasks) {
           this.createdSubtasks = [...this.currentTask.subtasks];
-        }        
+        }
         const profileForm = this.taskForm.get('profileForm') as FormGroup;
         profileForm.setControl('assignedTo', assignedToFormArray);
         profileForm.setControl('subtasks', subtasksFormArray);
@@ -77,6 +77,9 @@ export class EditTaskComponent implements OnInit {
             color: task?.color ?? null
           }
         });
+        this.prioUrgent = task?.prio === 'urgent';
+        this.prioMedium = task?.prio === 'medium';
+        this.prioLow = task?.prio === 'low';
       });
     });
     console.log(this.createdSubtasks);
@@ -122,28 +125,28 @@ export class EditTaskComponent implements OnInit {
       assignedTo: assignedToArray,
       date: profileForm.controls['date'].value ?? '',
       prio: profileForm.controls['prio'].value ?? '',
-      subtasks: this.createdSubtasks, 
+      subtasks: this.createdSubtasks,
       category: categoryForm.controls['category'].value ?? '',
       color: categoryForm.controls['color'].value ?? '',
       status: (this.currentTask?.status as 'todo' | 'in_progress' | 'awaiting_feedback' | 'done') ?? 'todo',
     };
 
     if (this.currentTask && this.currentTask.id) {
-      this.dataService.updateTask(this.currentTask.id, newTask)
+      return this.dataService.updateTask(this.currentTask.id, newTask)
         .then(() => {
           console.log('Aufgabe erfolgreich in Firestore aktualisiert.');
-          this.location.back();
+          this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
         })
         .catch((error) => {
           console.error('Fehler beim Aktualisieren der Aufgabe:', error);
+          throw error;
         });
     } else {
       console.error('Fehler: currentTask oder currentTask.id ist null.');
+      throw new Error('Fehler: currentTask oder currentTask.id ist null.');
     }
     this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
   }
-
-
 
 
   categorySelected() {
@@ -221,7 +224,7 @@ export class EditTaskComponent implements OnInit {
     this.createdSubtasks.push(value);
     this.subtaskInput = false;
   }
-  
+
 
 
   cancelSubtask() {
@@ -242,15 +245,6 @@ export class EditTaskComponent implements OnInit {
       this.feedbackMessageMembers = 'Select your Members';
     }, 2000);
   }
-
-
-  // cancelSelection() {
-  //   const assignedTo = this.taskForm.get('profileForm.assignedTo') as FormArray;
-  //   while (assignedTo.length !== 0) {
-  //     assignedTo.removeAt(0)
-  //   }
-  //   this.toggleAssignedToMenu();
-  // }
 
 
   getSubtasks() {
@@ -278,10 +272,14 @@ export class EditTaskComponent implements OnInit {
   }
 
 
-  onSubmitAndNavigate() {
+  async onSubmitAndNavigate() {
     if (this.taskForm.valid) {
-      this.onSubmit();
-      this.router.navigate(['/board']);
+      try {
+        await this.onSubmit();
+        this.router.navigate(['/board']);
+      } catch (error) {
+        console.error('Fehler beim Speichern der Aufgabe:', error);
+      }
     } else {
       console.log('Was machst du da????');
     }
@@ -289,7 +287,25 @@ export class EditTaskComponent implements OnInit {
 
 
   onClear(event: Event) {
+    event.stopPropagation();
+    this.resetAllSelections();
+  }
 
+
+  /**
+   * Resets all selections and forms.
+   */
+  resetAllSelections() {
+    this.taskForm.reset();
+    this.feedbackMessageMembers = 'Select your Members';
+    this.selectedCategory = null;
+    this.categoryMenu = false;
+    this.assignedToMenu = false;
+    this.createdSubtasks = [];
+    this.prioUrgent = false;
+    this.prioMedium = false;
+    this.prioLow = true;
+    this.subtaskInput = false;
   }
 
 }

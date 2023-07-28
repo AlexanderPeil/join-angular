@@ -324,7 +324,7 @@ export class AddTaskMenuComponent implements OnInit {
   }
 
 
-  /**
+/**
  * Resets all selections and forms.
  */
   resetAllSelections() {
