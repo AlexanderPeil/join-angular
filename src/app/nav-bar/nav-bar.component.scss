@@ -1,7 +1,8 @@
+@import '../../variables.scss';
+
 nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include column_center;
+    @include font(16px, 400, 120%);
     padding: 66px 0px;
     gap: 103px;
     position: fixed;
@@ -9,31 +10,24 @@ nav {
     left: 0px;
     top: 0px;
     bottom: 0px;
-    background: #2A3647;
+    background: $main_color_dark;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 0px;
-    font-size: 16px;
-    line-height: 120%;
     z-index: 4;
     font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 21px;
     color: #000000;
 }
 
 .nav-bar {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 229px;
+    @include flex_direction_column;
+    @include width_height(100%, 229px);
     gap: 15px;
 }
 
 .nav-main {
+    @include align_items_center;
     color: #FFFFFF;
     text-decoration: none;
-    display: flex;
-    align-items: center;
     padding: 8px 53px;
     height: 46px;
     white-space: nowrap;
@@ -44,22 +38,19 @@ nav {
 }
 
 .nav-content {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
 }
 
 .nav-icon-container {
-    display: flex;
-    justify-content: center;
+    @include justify_content_center;
     width: 28px;
     padding-right: 16px;
 }
 
 .legal-notice {
+    @include align_items_center;
     color: #FFFFFF;
     text-decoration: none;
-    display: flex;
-    align-items: center;
     padding: 8px 34px;
     height: 31px;
     margin-top: auto;
@@ -75,7 +66,7 @@ nav {
 }
 
 nav a.active {
-    background-color: #29ABE2;
+    background-color: $main_color_bright;
     /* Set the desired background color for the focus effect */
     color: white;
     /* Set the desired text color for the focus effect */
@@ -136,9 +127,8 @@ nav a.active {
 
 @media(max-width: 700px) {
     .nav-main {
-        height: unset;
+        @include width_height(90px, unset);
         padding: 0;
-        width: 90px;
         justify-content: center;
     }
 }

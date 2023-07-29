@@ -27,7 +27,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
-import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { DataService } from './data-service';
 import { EditTaskComponent } from './edit-task/edit-task.component';
@@ -50,7 +49,6 @@ import { CardTaskComponent } from './card-task/card-task.component';
     HelpPageComponent,
     AddContactComponent,
     AddTaskMenuComponent,
-    ContactDetailComponent,
     EditContactComponent,
     EditTaskComponent,
     CardTaskComponent,

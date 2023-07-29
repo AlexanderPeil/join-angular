@@ -76,6 +76,11 @@
     margin-right: $mr;
 }
 
+@mixin padding_left_right($pl, $pr) {
+    padding-left: $pl;
+    padding-right: $pr;
+}
+
 
 $main_color_bright: #29ABE2;
 $main_color_dark: #2A3647;

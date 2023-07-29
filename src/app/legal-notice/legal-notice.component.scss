@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 a {
     text-decoration: none;
 }
@@ -10,34 +12,25 @@ a {
 }
 
 .main-content {
-    display: flex;
-    flex-direction: column;
+    @include flex_direction_column;
     align-items: flex-start;
     gap: 35px;
     height: 411px;
     padding: 25px 20px 25px 270px;
-    // margin-top: -35px;
-    // padding-right: 200px;
 }
 
 h1 {
+    @include font(61px, 700, 73.2px);
     margin: 40px 0;
-    font-weight: 700;
-    font-size: 61px;
-    line-height: 73.2px;
 }
 
 h2 {
+    @include font(27px, 700, 32.4px);
     margin: 0;
-    font-weight: 700;
-    font-size: 27px;
-    line-height: 32.4px;
 }
 
 p {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19.2px;
+    @include font(16üx, 400, 19.2px);
 }
 
 @media(max-width: 1200px) {
