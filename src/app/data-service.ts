@@ -63,6 +63,11 @@ export class DataService {
   }
 
 
+  getContact(id: string): Observable<any> {
+    return this.firestore.collection('contacts').doc<any>(id).valueChanges();
+  }
+
+
   addTask(task: TaskInterface): Promise<void> {
     return this.firestore.collection('tasks').doc(task.id).set(task);
   }
@@ -71,7 +76,7 @@ export class DataService {
   updateTask(id: string, task: TaskInterface): Promise<void> {
     return this.firestore.collection('tasks').doc(id).update(task);
   }
-  
+
 
 
   getTaskById(id: string): Observable<TaskInterface | undefined> {
@@ -87,7 +92,7 @@ export class DataService {
           }
         })
       );
-  }  
+  }
 
 
   getTasks(): Observable<TaskInterface[]> {

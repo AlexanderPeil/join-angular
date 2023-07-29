@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -34,6 +34,7 @@ export class AddTaskMenuComponent implements OnInit {
   createdSubtasks: string[] = [];
   status!: "todo" | "in_progress" | "awaiting_feedback" | "done";
   @ViewChildren('subtaskInput') subtaskInputs!: QueryList<ElementRef>;
+  contactId!: string | null;
 
 
   /**
@@ -45,7 +46,8 @@ export class AddTaskMenuComponent implements OnInit {
     private firestore: AngularFirestore,
     private dataService: DataService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private cd: ChangeDetectorRef) {
     this.minDate = new Date().toISOString().split('T')[0];
     this.contacts$ = this.dataService.getContacts();
     this.categories$ = this.dataService.getCategories();
@@ -60,8 +62,16 @@ export class AddTaskMenuComponent implements OnInit {
   ngOnInit(): void {
     const statusFromRoute = this.route.snapshot.paramMap.get('status');
     this.status = statusFromRoute ? statusFromRoute as "todo" | "in_progress" | "awaiting_feedback" | "done" : 'todo';
-  }
 
+    this.contactId = this.route.snapshot.paramMap.get('contactId');
+    if (this.contactId) {
+      this.dataService.getContact(this.contactId).subscribe(contact => {
+        console.log(contact);
+        this.selectContact(contact);
+        this.cd.markForCheck();
+      });
+    }
+  }
 
 
   /**
@@ -213,9 +223,24 @@ export class AddTaskMenuComponent implements OnInit {
   isSelected(contact: any) {
     const assignedTo = this.taskForm.get('profileForm.assignedTo') as FormArray;
     const fullName = `${contact.firstName} ${contact.lastName}`;
-    return assignedTo.controls.some(control => control.value === fullName);
+    const selected = assignedTo.controls.some(control => control.value === fullName);
+
+    console.log(`Ist ${fullName} ausgewählt? ${selected}`);
+
+    return selected;
   }
 
+
+  openSelectWrapper() {
+    if (this.contactId) {
+      this.dataService.getContact(this.contactId).subscribe(contact => {
+        console.log(contact);
+        this.selectContact(contact);
+        this.cd.markForCheck();
+      });
+    }
+    this.toggleAssignedToMenu(); 
+  }
 
 
   /**
@@ -283,7 +308,7 @@ export class AddTaskMenuComponent implements OnInit {
     const control = new FormControl(null);
     (this.taskForm.get('profileForm.subtasks') as FormArray).push(control);
     this.subtaskInput = true;
-  
+
     setTimeout(() => {
       const lastInput = this.subtaskInputs.last;
       if (lastInput) {
@@ -324,9 +349,9 @@ export class AddTaskMenuComponent implements OnInit {
   }
 
 
-/**
- * Resets all selections and forms.
- */
+  /**
+   * Resets all selections and forms.
+   */
   resetAllSelections() {
     this.taskForm.reset();
     this.feedbackMessageMembers = 'Select your Members';

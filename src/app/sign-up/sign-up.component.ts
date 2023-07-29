@@ -4,7 +4,12 @@ import { AuthService } from "../shared/services/auth.service";
 
 
 /**
- * The component provides the functionality for the sign-up process of the app.
+ * @class
+ * The LoginComponent provides the functionality for user login into the application.
+ * @property {FormGroup} loginForm - The form group instance for the login form.
+ * @property {boolean} animationStopped - Flag indicating whether animation has been stopped.
+ * @property {boolean} isEmailPasswordInvalid - Flag indicating whether entered email or password is invalid.
+ * @property {FormControl} rememberMeControl - The form control instance for the 'Remember Me' checkbox.
  */
 @Component({
   selector: 'app-sign-up',

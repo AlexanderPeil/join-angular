@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'summary', component: SummaryComponent},
   { path: 'board', component: BoardComponent},
   { path: 'add-task', component: AddTaskComponent},
-  { path: 'add-task-menu/:status', component: AddTaskMenuComponent},
+  { path: 'add-task-menu/:status/:contactId', component: AddTaskMenuComponent},
   { path: 'edit-task/:id', component: EditTaskComponent},
   { path: 'card-task/:id', component: CardTaskComponent},
   { path: 'contacts', component: ContactsComponent},

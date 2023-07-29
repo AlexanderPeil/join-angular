@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, map } from 'rxjs';
-import { DataService  } from '../data-service';
-import { TaskInterface, ContactInterface } from '../modellInterface';
+import { DataService } from '../data-service';
+import { ContactInterface } from '../modellInterface';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-contacts',
@@ -14,7 +16,10 @@ export class ContactsComponent implements OnInit {
   uniqueLetters: string[] = [];
   selectedContact: ContactInterface | null = null;
 
-  constructor(private firestore: AngularFirestore, private contactService: DataService ) {
+  constructor(
+    private firestore: AngularFirestore, 
+    private contactService: DataService,
+    private route: ActivatedRoute) {
     this.contacts$ = this.firestore.collection('contacts').snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as ContactInterface;
@@ -22,14 +27,11 @@ export class ContactsComponent implements OnInit {
         return { ...data, id };
       }))
     );
-    
+
   }
 
   selectContact(contact: ContactInterface) {
     this.contactService.setSelectedContact(contact);
-  }
-
-  editContact(selectedContact: ContactInterface) {
   }
 
   deleteContact(contact: ContactInterface) {

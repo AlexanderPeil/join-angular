@@ -50,6 +50,7 @@ label {
 .selection-container {
     @include flex_direction_column;
     gap: 10px;
+    margin-top: 10px;
 }
 
 input,

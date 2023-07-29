@@ -5,7 +5,11 @@ import { Router } from '@angular/router';
 
 
 /**
- * The ForgotPasswordComponent provides the functionality for resetting user password.
+ * @class
+ * The SignUpComponent provides the functionality for user registration in the application.
+ * @property {FormGroup} signUpForm - The form group instance for the sign up form.
+ * @property {boolean} userAlreadyExists - Flag indicating whether the user already exists in the system.
+ * @property {boolean} isPasswordTooShort - Flag indicating whether the provided password is too short.
  */
 @Component({
   selector: 'app-forgot-password',

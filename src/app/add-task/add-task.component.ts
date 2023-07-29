@@ -35,8 +35,6 @@ export class AddTaskComponent {
   @ViewChildren('subtaskInput') subtaskInputs!: QueryList<ElementRef>;
 
 
-
-
   /**
    * @param {Location} location - Location instance. 
    * @param {AngularFirestore} firestore - Firestore instance. 
@@ -124,7 +122,6 @@ export class AddTaskComponent {
       return;
     }
   
-    // this.addCategory(categoryForm.controls['category'].value, categoryForm.controls['color'].value);
     this.taskForm.controls.categoryForm.reset({ color: '#ff0000' });
   }
 
