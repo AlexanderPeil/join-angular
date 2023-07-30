@@ -133,6 +133,9 @@
                     <div class="submit-and-clear">
                         <img class="task-added-img" *ngIf="taskAdded" src="../../assets/img/task_added_info.png"
                             alt="task-added">
+                            <div *ngIf="taskCreationError" class="error-message">
+                                <span>Das Formular ist ungültig. Bitte überprüfen Sie Ihre Eingaben.</span>
+                              </div>
                         <div class="button-container" *ngIf="!taskAdded">
                             <div class="btn-clear" (click)="onClear($event)">Clear<img class="clear-img"
                                     src="assets/img/iconoir_cancel.png">

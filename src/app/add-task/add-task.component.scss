@@ -377,6 +377,11 @@ select::-ms-expand {
     object-fit: contain; 
 }
 
+.error-message {
+    color: white;
+    background-color: $main_color_dark;
+}
+
 .delete-subtask {
     padding-left: 15px;
 }
