@@ -1,8 +1,38 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../services/user';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import {
+  Firestore,
+  doc,
+  setDoc,
+  docData,
+  updateDoc,
+  collection,
+  collectionData,
+  deleteDoc,
+  query,
+  where,
+  Query,
+  DocumentData
+} from '@angular/fire/firestore';
+import {
+  Auth,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  updateProfile,
+  User as FirebaseUser,
+  signInAnonymously,
+  GoogleAuthProvider,
+  signOut,
+  deleteUser,
+  onAuthStateChanged,
+  getAuth,
+  updateEmail,
+  confirmPasswordReset,
+} from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Injectable({
@@ -12,108 +42,115 @@ import { Router } from '@angular/router';
 
 export class AuthService {
   userData: any;
+  private userSubscription?: Subscription;
 
 
   constructor(
-    public afs: AngularFirestore, 
-    public afAuth: AngularFireAuth, 
+    private firestore: Firestore,
+    public auth: Auth,
     public router: Router,
-    public ngZone: NgZone 
-  ) {
-    this.afAuth.authState.subscribe((user) => {
-      if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user')!);
-      } else {
-        localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
+    public ngZone: NgZone
+  ) { }
+
+
+  async signIn(email: string, password: string) {
+    try {
+      const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+      if (userCredential.user) {
+        await this.router.navigate(['summary']);
       }
-    });
+    } catch (err) {
+      console.error('An unexpected error occurred. Please try again', err);
+      throw err;
+    }
   }
 
 
-  signIn(email: string, password: string) {
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.setUserData(result.user);
-        this.afAuth.authState.subscribe((user) => {
-          if (user) {
-            this.router.navigate(['summary']);
-          }
-        });
-      })
-      .catch((error) => {
-        return Promise.reject(error.message); 
-      });
+  async signInAnonymously() {
+    try {
+      const userCredential = await signInAnonymously(this.auth);
+      if (userCredential.user) {
+        await this.router.navigate(['summary']);
+      }
+    } catch (err) {
+      console.error('Sign in failed:', err); {
+        throw err;
+      }
+    }
   }
 
 
-  signInAnonymously() {
-    return this.afAuth.signInAnonymously()
-      .then((result) => {
-        this.setUserData(result.user);
-        this.router.navigate(['summary']);
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+  async signUp(displayName: string, email: string, password: string) {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      if (userCredential.user) {
+        await this.router.navigate(['summary']);
+      }
+    } catch (err) {
+      console.error(err); {
+        throw err;
+      }
+    }
   }
 
 
-  signUp(displayName: string, email: string, password: string) {
-    return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        if (result.user) {
-          result.user.updateProfile({
-            displayName: displayName
-          }).then(() => {
-            this.setUserData(result.user);
-            this.router.navigate(['summary']);
-          });
-        }
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
+  async forgotPassword(passwordResetEmail: string) {
+    try {
+      await sendPasswordResetEmail(this.auth, passwordResetEmail);
+    } catch (error) {
+      console.log('An unexpected error occurred. Please try again', error);
+      throw error;
+    }
   }
 
 
-  forgotPassword(passwordResetEmail: string) {
-    return this.afAuth.sendPasswordResetEmail(passwordResetEmail);
-  }
-
-
-
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null;
-  }
-
-
-  setUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
+  async setUserData(user: FirebaseUser, isOnline?: boolean) {
+    const { uid, email, displayName, emailVerified, photoURL } = user;
     const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
+      uid,
+      email: email || null,
+      displayName: displayName || null,
+      displayNameLower: displayName?.toLowerCase() || null,
+      emailVerified,
+      photoURL,
+      ...(typeof isOnline !== 'undefined' && { isOnline }),
     };
-    return userRef.set(userData, {
-      merge: true,
-    });
+    await setDoc(doc(this.firestore, `users/${uid}`), userData);
+    return userData;
   }
 
 
-  signOut() {
-    return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
-    });
+  async signOut() {
+    const currentUser = this.auth.currentUser;
+    if (currentUser) {
+      if (currentUser.displayName === 'Guest') {
+        await this.deleteGuestUser(currentUser.uid);
+      } else {
+        await this.setUserOnlineStatus(currentUser.uid, false);
+      }
+    }
+    await signOut(this.auth);
+    this.router.navigate(['login']);
+  }
+
+
+  async deleteGuestUser(uid: string) {
+    try {
+      if (this.auth.currentUser && this.auth.currentUser.uid === uid) {
+        await deleteUser(this.auth.currentUser);
+      }
+      await deleteDoc(doc(this.firestore, 'users', uid));
+      this.userSubscription?.unsubscribe();
+    } catch (error) {
+      console.error('Error during deleting guest user:', error);
+    }
+  }
+
+
+  async setUserOnlineStatus(uid: string, isOnline: boolean) {
+    // const userRef = doc(this.firestore, `users/${uid}`);
+    // await updateDoc(userRef, {
+    //   isOnline: isOnline,
+    // });
   }
 }

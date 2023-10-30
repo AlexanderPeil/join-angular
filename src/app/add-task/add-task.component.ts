@@ -1,5 +1,5 @@
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { TaskInterface } from '../modellInterface';
@@ -49,6 +49,7 @@ export class AddTaskComponent {
   feedbackMessageMembers = 'Select your Members';
   createdSubtasks: string[] = [];
   @ViewChildren('subtaskInput') subtaskInputs!: QueryList<ElementRef>;
+  loading: boolean = false;
 
 
   /**
@@ -96,18 +97,19 @@ export class AddTaskComponent {
    */
   taskForm = new FormGroup({
     profileForm: new FormGroup({
-      title: new FormControl(''),
-      description: new FormControl(''),
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
       assignedTo: new FormArray([]),
-      date: new FormControl(''),
+      date: new FormControl('', Validators.required),
       prio: new FormControl('low'),
       subtasks: new FormArray([])
     }),
     categoryForm: new FormGroup({
-      category: new FormControl(''),
-      color: new FormControl('#ff0000')
+      category: new FormControl('', Validators.required),
+      color: new FormControl('#ff0000', Validators.required)
     })
   });
+  
 
 
 
@@ -115,21 +117,26 @@ export class AddTaskComponent {
    * Method to submit the form and create a new task.
    */
   async onSubmit() {
-    const { profileForm, categoryForm } = this.taskForm.controls as { [key: string]: FormGroup };
-    const fields = ['title', 'description', 'assignedTo', 'date', 'prio'];
-    let category = categoryForm.controls['category'].value || this.selectedCategory.category;
-    let color = categoryForm.controls['color'].value || this.selectedCategory.color;
+    const profileForm = this.taskForm.controls['profileForm'] as FormGroup;
+    const categoryForm = this.taskForm.controls['categoryForm'] as FormGroup;
+    let category = categoryForm.controls['category'].value;
+    if (!category) {
+      category = this.selectedCategory.category;
+    }
+    let color = categoryForm.controls['color'].value;
+    if (!color) {
+      color = this.selectedCategory.color;
+    }
     const newTask: TaskInterface = {
-      ...fields.reduce((obj, field) => ({ ...obj, [field]: profileForm.controls[field].value || '' }), {}),
+      title: profileForm.controls['title'].value ?? '',
+      description: profileForm.controls['description'].value ?? '',
+      assignedTo: profileForm.controls['assignedTo'].value ?? '',
+      date: profileForm.controls['date'].value ?? '',
+      prio: profileForm.controls['prio'].value ?? '',
       subtasks: this.createdSubtasks,
-      category,
-      color,
+      category: category,
+      color: color,
       status: 'todo',
-      title: '',
-      description: '',
-      assignedTo: [],
-      date: '',
-      prio: ''
     };
     try {
       await this.dataService.addTask(newTask);
@@ -144,21 +151,22 @@ export class AddTaskComponent {
    * Submits the form and navigates to the board view if the form is valid.
    * If the task creation fails or the form is invalid, it sets `taskCreationError` to true.
    */
-  async onSubmitAndNavigate() {
+  onSubmitAndNavigate() {
     if (this.taskForm.valid) {
-      try {
-        await this.onSubmit();
-        this.taskAdded = true;
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        this.taskAdded = false;
+      this.onSubmit();
+      this.taskAdded = true;
+      setTimeout(() => {
         this.router.navigate(['/board']);
-        this.taskCreationError = false;
-      } catch (error) {
-        this.taskCreationError = true;
-      }
+      }, 2000);
     } else {
       this.taskCreationError = true;
     }
+  }
+
+
+  arrayNotEmpty(control: AbstractControl): ValidationErrors | null {
+    const array = control as FormArray;
+    return array.controls.length > 0 ? null : { emptyArray: true };
   }
 
 

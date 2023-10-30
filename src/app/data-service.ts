@@ -78,7 +78,6 @@ export class DataService {
   }
 
 
-
   getTaskById(id: string): Observable<TaskInterface | undefined> {
     return this.firestore.collection('tasks').doc<TaskInterface>(id).snapshotChanges()
       .pipe(

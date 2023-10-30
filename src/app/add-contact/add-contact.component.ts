@@ -33,7 +33,10 @@ export class AddContactComponent implements OnInit {
      * @param {Router} router - Router instance.
      * @param {FormBuilder} fb - FormBuilder instance.
    */
-  constructor(private firestore: AngularFirestore, private router: Router, private fb: FormBuilder) { }
+  constructor(
+    private firestore: AngularFirestore, 
+    private router: Router, 
+    private fb: FormBuilder) { }
 
 
   ngOnInit(): void {

@@ -19,18 +19,16 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { HelpPageComponent } from './help-page/help-page.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { AddTaskMenuComponent } from './add-task-menu/add-task-menu.component';
-import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { DataService } from './data-service';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { CardTaskComponent } from './card-task/card-task.component';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -63,11 +61,9 @@ import { CardTaskComponent } from './card-task/card-task.component';
     CdkDropList,
     NgFor,
     CdkDrag,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    AngularFireStorageModule,
-    AngularFireDatabaseModule
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [
     DataService
