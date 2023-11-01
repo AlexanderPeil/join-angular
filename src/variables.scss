@@ -66,6 +66,11 @@
     line-height: $line;
 }
 
+@mixin font_size_weight($size, $weight) {
+    font-size: $size;
+    font-weight: $weight;
+}
+
 @mixin width_height($width, $height) {
     width: $width;
     height: $height;
@@ -81,9 +86,11 @@
     padding-right: $pr;
 }
 
+@mixin button_hover {
+    cursor: pointer;
+    transition: all 225ms ease-in-out;
+}
 
-$main_color_bright: #29ABE2;
-$main_color_dark: #2A3647;
-$color_black: #000000;
-$main_bg_color: #F6F7F8;
-;
+$main_color_bright: #29abe2;
+$main_color_dark: #2a3647;
+$main_bg_color: #f6f7f8;

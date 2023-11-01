@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
-import { Task } from 'src/models/tasks';
+import { Task } from 'src/shared/models/tasks';
 
 @Injectable({
   providedIn: 'root'

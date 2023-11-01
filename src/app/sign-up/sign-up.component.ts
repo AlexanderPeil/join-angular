@@ -39,10 +39,16 @@ export class SignUpComponent implements OnInit {
    * Angular lifecycle hook that initializes the sign-up form.
    */
   ngOnInit() {
+    this.handleSignupValidation();
+  }
+
+
+  handleSignupValidation() {
     this.signUpForm = this.formBuilder.group({
       displayName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
     });
   }
 

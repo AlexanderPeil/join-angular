@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../services/user';
+import { User } from '../../../shared/models/user';
 import {
   Firestore,
   doc,

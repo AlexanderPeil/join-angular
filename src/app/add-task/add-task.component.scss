@@ -43,8 +43,7 @@ button {
 }
 
 label {
-    font-weight: 400;
-    font-size: 21px;
+    @include font_size_weight(21px, 400);
 }
 
 .selection-container {
@@ -56,10 +55,9 @@ label {
 input,
 select,
 .select-wrapper {
+    @include font_size_weight(21px, 400);
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
     padding: 13px 21px;
     background-color: white;
     outline: none;
@@ -177,14 +175,13 @@ select {
 }
 
 textarea {
+    @include font_size_weight(21px, 400);
     min-height: 119px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     padding: 18px 21px;
     outline: none;
     resize: vertical;
-    font-size: 21px;
-    font-weight: 400;
 }
 
 select::-ms-expand {
@@ -232,13 +229,12 @@ select::-ms-expand {
     @include flex_center;
     @include width_height(100%, 51px);
     @include button_styles;
+    @include font_size_weight(21px, 400);
     flex-direction: row;
     gap: 10px;
     padding: 10px 10px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
     background-color: rgb(255, 255, 255);
     position: relative;
 
@@ -250,14 +246,13 @@ select::-ms-expand {
 
 .subtask-container {
     @include align_items_center;
+    @include font_size_weight(21px, 400);
     flex-direction: row;
     gap: 10px;
     width: 100%;
     background-color: white;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    font-size: 21px;
-    font-weight: 400;
     isolation: isolate;
 }
 

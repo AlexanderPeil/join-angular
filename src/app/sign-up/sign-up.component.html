@@ -12,11 +12,11 @@
             <span class="d-none msg-box" [class.d-none]="!isPasswordTooShort">Password should be at least 6 characters</span>
             <input class="input-name-img input-email-pw" type="text" placeholder="Name" formControlName="displayName">
             <input class="input-email-img input-email-pw" type="email" placeholder="Email" formControlName="email">
-            <input class="input-password-img input-email-pw" type="password" placeholder="Password"
-                formControlName="password">
+            <input class="input-password-img input-email-pw" type="password" placeholder="Password" formControlName="password">
+            <input class="input-password-img input-email-pw" type="password" placeholder="Password" formControlName="confirmPasssword">
             <button
-                [disabled]="signUpForm.get('name')?.value === '' || signUpForm.get('email')?.value === '' || signUpForm.get('password')?.value === '' "
-                class="sign-up-btn btn-font">Sign up</button>
+                [disabled]="signUpForm.get('name')?.value === '' || signUpForm.get('email')?.value === '' || signUpForm.get('password')?.value === '' || 
+                signUpForm.get('confirmPasssword')?.value" class="sign-up-btn btn-font">Sign up</button>
         </form>
     </div>
 </div>

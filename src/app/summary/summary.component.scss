@@ -37,7 +37,7 @@ h1 {
 
 .headline-sub {
     @include font(27px, 400, 32.4px);
-    color: #2A3647;
+    color: $main_color_dark;
     white-space: nowrap;
 }
 
@@ -74,7 +74,7 @@ h1 {
 
 .nav-to-content:hover {
     @include width_height(175px, 175px);
-    background-color: #2A3647;
+    background-color: $main_color_dark;
     box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
 }
 
@@ -97,7 +97,7 @@ h1 {
     @include font(20px, 400, 24px);
     text-align: center;
     gap: 13px;
-    color: #2A3647;
+    color: $main_color_dark;
 }
 
 .urgent-container {
@@ -106,7 +106,7 @@ h1 {
 
 .urgent:hover {
     @include width_height(490px, 155px);
-    background-color: #2A3647;
+    background-color: $main_color_dark;
     box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
 }
 
@@ -136,7 +136,7 @@ h1 {
 
 .todo-done:hover {
     @include width_height(185px, 155px);
-    background-color: #2A3647;
+    background-color: $main_color_dark;
     box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
 }
 
@@ -166,7 +166,7 @@ h1 {
 .counter-title-urg {
     @include width_height(52px, 19px);
     @include font(16px, 400, 19.2px);
-    color: #2A3647;
+    color: $main_color_dark;
     text-align: center;
 }
 
@@ -183,12 +183,12 @@ h1 {
 
 .dl-date {
     @include font(21px, 700, 25.2px);
-    color: #2A3647;
+    color: $main_color_dark;
 }
 
 .dl-text {
     @include font(16px, 400, 19.2px);
-    color: #2A3647;
+    color: $main_color_dark;
 }
 
 .to-do-done-container {
@@ -205,7 +205,7 @@ h1 {
 
 .greet {
     @include font(47px, 500, 56.4px);
-    color: #2A3647;
+    color: $main_color_dark;
 }
 
 .greet-content-mobile {
@@ -248,13 +248,13 @@ h1 {
 
     .greet-mobile {
         @include font(36px, 400, 43.2px);
-        color: #2A3647;
+        color: $main_color_dark;
     }
 
     .username-mobile {
         @include justify_content_center;
         @include font(47px, 700, 56.4px);
-        color: #29ABE2;
+        color: $main_color_bright;
     }
 
     .title-container {

@@ -10,10 +10,9 @@
 }
 
 h1 {
+    @include font_size_weight(61px, 700);
     margin: unset !important;
     width: 315px;
-    font-weight: 700;
-    font-size: 61px;
 }
 
 .overflow {
@@ -23,8 +22,7 @@ h1 {
 /* Content - left side */
 
 .contact-list-container {
-    display: flex;
-    justify-content: center;
+    @include justify_content_center;
     width: 500px;
     background-color: white;
     overflow: auto;
@@ -47,32 +45,27 @@ h1 {
 }
 
 .contact-underline {
-    width: 100%;
-    height: 0.1px;
+    @include width_height(100%, 0.1px);
     background-color: #D1D1D1;
     margin-top: 20px;
 }
 
 .seperator-line-container {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
     background-color: white;
 }
 
 .separator-line {
-    width: 1.5px;
+    @include width_height(1.5px, 450px);
     background-color: #D1D1D1;
-    height: 450px;
 }
 
 .contact-list-box {
+    @include button_hover;
+    @include align_items_center;
     margin: 20px;
     padding: 10px 15px 10px 15px;
     gap: 20px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: all 225ms ease-in-out;
 
     &:hover {
         background-color: #F5F5F5;
@@ -87,8 +80,7 @@ h1 {
 }
 
 .contact-details {
-    display: flex;
-    flex-direction: column;
+    @include flex_direction_column;
     gap: 10px;
 }
 
@@ -97,13 +89,13 @@ h1 {
 }
 
 .contact-phone {
+    @include button_hover;
     font-size: 16px;
     text-decoration: none;
     color: black;
-    transition: all 225ms ease-in-out;
 
     &:hover {
-        color: #29abe2;
+        color: $main_color_bright;
     }
 }
 
@@ -114,31 +106,27 @@ h1 {
     text-decoration: none;
 
     &:hover {
-        color: #2a3647;
+        color: $main_color_dark;
     }
 }
 
 .contact-letters {
+    @include flex_center;
     padding: 10px;
     border-radius: 100%;
     background-color: aqua;
     color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     border: 2px solid white;
 }
 
 .small-letters {
-    height: 35px;
-    width: 35px;
+    @include width_height(35px, 35px);
     font-size: 16px;
 }
 
 .big-letters {
-    height: 100px;
-    width: 100px;
+    @include width_height(100px, 100px);
     font-size: 47px;
     border: none !important;
 }
@@ -154,8 +142,7 @@ h1 {
 }
 
 .area-for-close-popups {
-    width: 100%;
-    height: 100%;
+    @include width_height(100%, 100%);
 }
 
 .popup-contact-added {
@@ -182,9 +169,8 @@ h1 {
 }
 
 .contact-selection-container {
+    @include flex_direction_column;
     padding-left: 50px;
-    display: flex;
-    flex-direction: column;
     gap: 20px;
 }
 
@@ -195,11 +181,10 @@ h1 {
 
 .contact-cancel-icon,
 .contact-cancel-icon-mobile {
+    @include button_hover;
     padding: 10px;
     height: 25px;
     border-radius: 8px;
-    transition: all 225ms ease-in-out;
-    cursor: pointer;
 }
 
 .contact-selection-box {
@@ -207,22 +192,19 @@ h1 {
 }
 
 .contact-selection {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
     gap: 30px;
 }
 
 .contact-information-name {
-    font-size: 47px;
-    font-weight: 500;
+    @include font_size_weight(47px, 500);
     padding: 0px 0 15px 0;
 }
 
 .contact-add-task {
+    @include button_hover;
     font-size: 14px;
     color: #007CEE;
-    cursor: pointer;
-    transition: all 225ms ease-in-out;
 
     &:hover {
         color: #2A3647;
@@ -236,10 +218,9 @@ h1 {
 }
 
 .contact-edit {
+    @include button_hover;
     padding: 10px;
-    cursor: pointer;
     border-radius: 10px;
-    transition: all 225ms ease-in-out;
     object-fit: contain;
     background-image: url(../../assets/img/edit_contact.png);
     background-repeat: no-repeat;
@@ -252,16 +233,14 @@ h1 {
 }
 
 .delete-contact {
-    cursor: pointer;
+    @include button_hover;
+    @include width_height(50px, 60px);
     object-fit: contain;
     margin-top: 20px;
     border-radius: 10px;
-    transition: all 225ms ease-in-out;
     background-image: url(../../assets/img/delete.png);
     background-repeat: no-repeat;
     background-position: center;
-    height: 60px;
-    width: 50px;
 
     &:hover {
         background-image: url(../../assets/img/delete_hover.png);
@@ -269,9 +248,7 @@ h1 {
 }
 
 .contact-edit-tools {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include space_between_center;
     margin-top: 50px;
     margin-bottom: 20px;
 }
@@ -282,10 +259,9 @@ h1 {
 }
 
 .contact-trash-icon {
+    @include button_hover;
     padding: 10px;
     height: 25px;
-    transition: all 225ms ease-in-out;
-    cursor: pointer;
 
     &:hover {
         border-radius: 10px;
@@ -311,30 +287,26 @@ h1 {
 /* Title and subtitle */
 
 .contact-header-container {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
     margin-top: 171px;
     margin-bottom: 50px;
     padding-left: 47px;
 }
 
 .contact-header-seperator {
-    width: 3px;
-    height: 56px;
+    @include width_height(3px, 56px);
     border-radius: 32px;
     margin-left: 32px;
-    background-color: #29ABE2;
+    background-color: $main_color_bright2;
 }
 
 .contact-header-slogan {
-    font-size: 27px;
-    font-weight: 400;
+    @include font_size_weight(27px, 400);
     padding-left: 32px;
 }
 
 .contact-btn-icon {
-    width: 25px;
-    height: 22px;
+    @include width_height(22px, 25px);
 }
 
 .contact-btn-position {
@@ -345,27 +317,24 @@ h1 {
 }
 
 .contact-cancel-btn {
-    display: flex;
+    @include align_items_center;
+    @include button_hover;
+    @include font_size_weight(14px, 700);
     justify-content: space-evenly;
-    align-items: center;
     background-color: white;
     padding: 5px 10px 5px 10px;
     gap: 8px;
     border: 1px solid black;
     border-radius: 8px;
-    color: #2A3647;
-    font-weight: 700;
-    font-size: 14px;
+    color: $main_color_dark;
     letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 225ms ease-in-out;
     width: 140px;
+    transition: all 125ms ease-in-out;
 
     &:hover {
-        color: #29ABE2;
-        border-color: #29ABE2;
+        color: $main_color_bright;
+        border-color: $main_color_bright;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        transition: all 125ms ease-in-out;
     }
 }
 
@@ -374,25 +343,21 @@ h1 {
 }
 
 .contact-add-btn {
-    display: flex;
+    @include align_items_center;
+    @include button_hover;
+    @include width_height(170px, 60px);
+    @include font_size_weight(14px, 700);
     justify-content: space-evenly;
-    align-items: center;
     color: white;
-    background-color: #2A3647;
+    background-color: $main_color_dark;
     padding: 5px 10px 5px 10px;
     gap: 8px;
     border: none;
     border-radius: 8px;
-    font-weight: 700;
-    font-size: 14px;
     letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 225ms ease-in-out;
-    width: 170px;
-    height: 60px;
 
     &:hover {
-        background-color: #29ABE2;
+        background-color: $main_color_bright;
         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px;
     }
 }
@@ -414,8 +379,7 @@ h1 {
     }
 
     .contact-form-left-neutral {
-        flex-direction: column;
-        align-items: center;
+        @include column_center;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         border-bottom-left-radius: unset;
@@ -423,8 +387,7 @@ h1 {
     }
 
     .contact-form-left {
-        flex-direction: column;
-        align-items: center;
+        @include column_center;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         border-bottom-left-radius: unset;
@@ -432,11 +395,10 @@ h1 {
     }
 
     .contact-form-right {
+        @include column_center;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
         border-top-right-radius: unset;
-        text-align: center;
-        flex-direction: column;
         padding-top: 40px;
     }
 
@@ -493,14 +455,12 @@ h1 {
     }
 
     .contact-selection-overlay {
+        @include flex_direction_column;
+        @include width_height(100%, 100%);
         background-color: #F5F5F5;
         position: absolute;
         right: 0;
         z-index: 1;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        width: 100%;
         transform: translateX(100%);
         transition: all 250ms ease-in-out;
         margin-top: 80px;
@@ -523,12 +483,10 @@ h1 {
     }
 
     .contact-header-container {
-        display: flex;
-        align-items: center;
+        @include align_items_center;
+        @include padding_left_right(10%, 10%);
         margin-top: 0;
         gap: 20px;
-        padding-left: 10%;
-        padding-right: 10%;
     }
 
     .contact-header-seperator {
@@ -550,20 +508,17 @@ h1 {
     }
 
     .mobile-contact-back-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex_center;
+        @include button_hover;
         background-color: white;
         padding: 5px;
         gap: 8px;
         border: none;
         border-radius: 50%;
         color: #2A3647;
-        cursor: pointer;
-        transition: all 225ms ease-in-out;
 
         &:hover {
-            border-color: #29ABE2;
+            border-color: $main_color_bright;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             transition: all 125ms ease-in-out;
         }

@@ -1,11 +1,8 @@
 @import '../../variables.scss';
 
 .add-contact-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
+    @include flex_center;
+    @include width_height(100vw, 100vh);
     position: fixed;
     top: 0;
     left: 0;
@@ -15,8 +12,7 @@
 }
 
 .add-contact-menu {
-    display: flex;
-    justify-content: center;
+    @include justify_content_center;
     width: 1000px; 
     position: relative;
     z-index: 999;
@@ -26,21 +22,18 @@
 }
 
 .contact-input-container {
-    display: flex;
-    flex-direction: column;
+    @include flex_direction_column;
     gap: 52px;
     padding: 30px;
     width: 452px;
 }
 
 h1 {
-    font-size: 36px;
-    font-weight: 700;
+    @include font_size_weight(36px, 700);
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+    @include flex_direction_column;
     gap: 20px;
 
     button:not([disabled]):hover {
@@ -55,24 +48,19 @@ form {
     }
 
     button {
-        display: flex;
+        @include align_items_center;
+        @include font_size_weight(14px, 700);
+        @include button_hover;
+        @include width_height(170px, 60px);
+        @include margin_left_right(auto, 20px);
         justify-content: space-evenly;
-        align-items: center;
         color: white;
-        background-color: #2A3647;
+        background-color: $main_color_dark;
         padding: 5px 10px 5px 10px;
         gap: 8px;
         border: none;
         border-radius: 8px;
-        font-weight: 700;
-        font-size: 14px;
         letter-spacing: 0.5px;
-        cursor: pointer;
-        transition: all 225ms ease-in-out;
-        width: 170px;
-        height: 60px;
-        margin-left: auto;
-        margin-right: 20px;
 
         img {
             width: 18px;
@@ -81,17 +69,14 @@ form {
 }
 
 input {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
+    @include width_height(422px, 51px);
+    @include font_size_weight(21px, 400);
     gap: 10px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
     padding: 13px 21px;
     box-sizing: border-box;
-    width: 422px;
-    height: 51px;
-    font-size: 21px;
-    font-weight: 400;
     background-color: white;
     outline: none;
 }
@@ -101,9 +86,7 @@ input {
 }
 
 .contact-form-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @include colum_justify_center;
     background-color: #2A3647;
     color: white;
     padding: 30px;
@@ -111,8 +94,7 @@ input {
     border-bottom-left-radius: 10px;
 
     .contact-form-logo {
-        height: 60px;
-        width: 60px;
+        @include width_height(60px, 60px);
         padding: 0px 0px 30px 0px;
     }
 
@@ -122,15 +104,13 @@ input {
 }
 
 .contact-form-right {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
     background-color: white;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 
     .user-icon {
-        height: 90px;
-        width: 90px;
+        @include width_height(90px, 90px);
         margin-right: -10px;
         padding-left: 20px
     }
@@ -142,11 +122,10 @@ input {
 }
 
 .close {
+    @include button_hover;
     padding: 10px;
     height: 25px;
     border-radius: 8px;
-    transition: all 225ms ease-in-out;
-    cursor: pointer;
 
     &:hover {
         background-color: #94d5f0;
@@ -155,16 +134,14 @@ input {
 }
 
 .p-none {
+    @include width_height(70px, 45px);
     padding: 0px !important;
     border: none;
     cursor: pointer;
-    width: 70px;
-    height: 45px;
 }
 
 .contact-popup-bottom {
-    display: flex;
-    align-items: center;
+    @include align_items_center;
     justify-content: space-around;
 }
 
@@ -200,11 +177,10 @@ input {
     }
 
     .close-popup-mobile {
+        @include button_hover;
         padding: 10px;
         height: 25px;
         border-radius: 8px;
-        transition: all 225ms ease-in-out;
-        cursor: pointer;
         display: block;
 
         &:hover {
@@ -214,8 +190,7 @@ input {
     }
 
     .contact-form-left {
-        flex-direction: column;
-        align-items: center;
+        @include align_items_center;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         border-bottom-left-radius: unset;
@@ -233,7 +208,6 @@ input {
 
     .user-icon {
         margin-top: -80px;
-        margin-right: unset;
         padding: unset !important;
         margin-right: unset !important;
     }

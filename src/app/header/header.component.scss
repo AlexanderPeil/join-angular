@@ -6,8 +6,7 @@
 
 header {
     @include space_between_center;
-    font-size: 21px;
-    font-weight: 400;
+    @include font_size_weight(21px, 400);
     color: #000000;
     flex-direction: row;
     padding: 0px 36px 0px 348px;
@@ -28,7 +27,7 @@ header {
 
 .logout-menu {
     position: absolute;
-    background: #2a3647;
+    background: $main_color_dark;
     top: 100%;
     right: 0;
     list-style-type: none;
