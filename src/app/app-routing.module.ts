@@ -14,23 +14,28 @@ import { AddTaskMenuComponent } from './add-task-menu/add-task-menu.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { CardTaskComponent } from './card-task/card-task.component';
+import { AuthGuard } from './shared/services/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent},
-  { path: 'sign-up', component: SignUpComponent},
-  { path: 'forgot-password', component: ForgotPasswordComponent},
-  { path: 'summary', component: SummaryComponent},
-  { path: 'board', component: BoardComponent},
-  { path: 'add-task', component: AddTaskComponent},
-  { path: 'add-task-menu/:status/:contactId', component: AddTaskMenuComponent},
-  { path: 'edit-task/:id', component: EditTaskComponent},
-  { path: 'card-task/:id', component: CardTaskComponent},
-  { path: 'contacts', component: ContactsComponent},
-  { path: 'add-contact', component: AddContactComponent},
-  { path: 'edit-contact/:id', component: EditContactComponent},
-  { path: 'legal-notice', component: LegalNoticeComponent},
-  { path: 'help-page', component: HelpPageComponent},
-  { path: '**', component: LoginComponent }
+  { path: '', component: LoginComponent },
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  
+  // Proteced routes
+  { path: 'summary', component: SummaryComponent, canActivate: [AuthGuard] },
+  { path: 'board', component: BoardComponent, canActivate: [AuthGuard] },
+  { path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuard] },
+  { path: 'add-task-menu/:status/:contactId', component: AddTaskMenuComponent, canActivate: [AuthGuard] },
+  { path: 'edit-task/:id', component: EditTaskComponent, canActivate: [AuthGuard] },
+  { path: 'card-task/:id', component: CardTaskComponent, canActivate: [AuthGuard] },
+  { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard] },
+  { path: 'add-contact', component: AddContactComponent, canActivate: [AuthGuard] },
+  { path: 'edit-contact/:id', component: EditContactComponent, canActivate: [AuthGuard] },
+  
+  { path: 'legal-notice', component: LegalNoticeComponent },
+  { path: 'help-page', component: HelpPageComponent },
+  
+  { path: '**', redirectTo: '', pathMatch: 'full' } 
 ];
 
 @NgModule({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { DataService } from '../data-service';
+import { DataService } from '../shared/services/data-service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

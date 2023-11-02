@@ -3,9 +3,9 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../data-service';
+import { DataService } from '../shared/services/data-service';
 import { Observable } from 'rxjs';
-import { TaskInterface } from '../modellInterface';
+import { TaskInterface } from '../shared/models/modellInterface';
 import { Router } from '@angular/router';
 
 

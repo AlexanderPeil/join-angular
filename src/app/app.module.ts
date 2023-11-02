@@ -22,7 +22,7 @@ import { AddTaskMenuComponent } from './add-task-menu/add-task-menu.component';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
-import { DataService } from './data-service';
+import { DataService } from './shared/services/data-service';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { CardTaskComponent } from './card-task/card-task.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';

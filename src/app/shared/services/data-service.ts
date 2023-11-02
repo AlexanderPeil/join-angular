@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, firstValueFrom, from, map, Observable } from 'rxjs';
-import { ContactInterface, TaskInterface } from './modellInterface';
+import { ContactInterface, TaskInterface } from '../models/modellInterface';
 
 @Injectable({
   providedIn: 'root'

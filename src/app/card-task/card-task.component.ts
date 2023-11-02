@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from '../data-service';
-import { TaskInterface, ContactInterface } from '../modellInterface';
+import { DataService } from '../shared/services/data-service';
+import { TaskInterface, ContactInterface } from '../shared/models/modellInterface';
 import { Observable, map, of, switchMap } from 'rxjs';
 
 @Component({

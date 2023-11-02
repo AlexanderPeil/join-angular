@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../../../shared/models/user';
+import { User } from '../models/user';
 import {
   Firestore,
   doc,
@@ -43,6 +43,7 @@ import { Subscription } from 'rxjs';
 export class AuthService {
   userData: any;
   private userSubscription?: Subscription;
+  user: any = null;
 
 
   constructor(
@@ -50,7 +51,20 @@ export class AuthService {
     public auth: Auth,
     public router: Router,
     public ngZone: NgZone
-  ) { }
+  ) {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
+    });
+  }
+
+
+  isLoggedIn(): boolean {
+    return this.user !== null;
+  }
 
 
   async signIn(email: string, password: string) {
@@ -80,10 +94,12 @@ export class AuthService {
   }
 
 
-  async signUp(displayName: string, email: string, password: string) {
+  async signUp(firstName: string, lastName: string, email: string, password: string) {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-      if (userCredential.user) {
+      const user = userCredential.user;
+      if (user) {
+        await this.setUserData(user, firstName, lastName);
         await this.router.navigate(['summary']);
       }
     } catch (err) {
@@ -104,16 +120,15 @@ export class AuthService {
   }
 
 
-  async setUserData(user: FirebaseUser, isOnline?: boolean) {
-    const { uid, email, displayName, emailVerified, photoURL } = user;
+  async setUserData(user: FirebaseUser, firstName: string, lastName: string, isOnline?: boolean) {
+    const { uid, email, emailVerified } = user;
     const userData: User = {
       uid,
       email: email || null,
-      displayName: displayName || null,
-      displayNameLower: displayName?.toLowerCase() || null,
+      firstName: firstName || null,
+      lastName: lastName || null,
       emailVerified,
-      photoURL,
-      ...(typeof isOnline !== 'undefined' && { isOnline }),
+      isOnline,
     };
     await setDoc(doc(this.firestore, `users/${uid}`), userData);
     return userData;
@@ -148,9 +163,9 @@ export class AuthService {
 
 
   async setUserOnlineStatus(uid: string, isOnline: boolean) {
-    // const userRef = doc(this.firestore, `users/${uid}`);
-    // await updateDoc(userRef, {
-    //   isOnline: isOnline,
-    // });
+    const userRef = doc(this.firestore, `users/${uid}`);
+    await updateDoc(userRef, {
+      isOnline: isOnline,
+    });
   }
 }

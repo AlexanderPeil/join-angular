@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .d-none {
     display: none !important;
 }
@@ -297,7 +299,7 @@ h1 {
     @include width_height(3px, 56px);
     border-radius: 32px;
     margin-left: 32px;
-    background-color: $main_color_bright2;
+    background-color: $main_color_bright;
 }
 
 .contact-header-slogan {

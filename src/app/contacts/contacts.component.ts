@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, map } from 'rxjs';
-import { DataService } from '../data-service';
-import { ContactInterface } from '../modellInterface';
+import { DataService } from '../shared/services/data-service';
+import { ContactInterface } from '../shared/models/modellInterface';
 import { ActivatedRoute } from '@angular/router';
 
 

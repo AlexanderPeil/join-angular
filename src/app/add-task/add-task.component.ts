@@ -2,8 +2,8 @@ import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { TaskInterface } from '../modellInterface';
-import { DataService } from '../data-service';
+import { TaskInterface } from '../shared/models/modellInterface';
+import { DataService } from '../shared/services/data-service';
 import { Router } from '@angular/router';
 
 

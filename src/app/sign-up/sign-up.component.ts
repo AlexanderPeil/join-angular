@@ -45,7 +45,8 @@ export class SignUpComponent implements OnInit {
 
   handleSignupValidation() {
     this.signUpForm = this.formBuilder.group({
-      displayName: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
@@ -91,8 +92,8 @@ export class SignUpComponent implements OnInit {
    */
   onSubmit() {
     if (this.signUpForm.valid) {
-      const { displayName, email, password } = this.signUpForm.value;
-      this.authService.signUp(displayName, email, password)
+      const { firstname, lastName, email, password } = this.signUpForm.value;
+      this.authService.signUp(firstname, lastName, email, password)
         .catch((error) => {
           switch (error.code) {
             case "auth/email-already-in-use":

@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AuthService } from "../shared/services/auth.service";
-import { DataService } from '../data-service';
-import { TaskInterface } from '../modellInterface';
+import { DataService } from '../shared/services/data-service';
+import { TaskInterface } from '../shared/models/modellInterface';
 import { DatePipe } from '@angular/common';
 
 
