@@ -99,7 +99,7 @@ export class AuthService {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       const user = userCredential.user;
       if (user) {
-        await this.setUserData(user, firstName, lastName);
+        await this.setUserData(user, firstName, lastName, true);
         await this.router.navigate(['summary']);
       }
     } catch (err) {

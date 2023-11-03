@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
 
 .d-none {
     display: none;
@@ -13,7 +13,7 @@
     @include width_height(100px, 120px);
     position: absolute;
     top: 67px;
-    left: 77px;    
+    left: 77px;
     object-fit: contain;
 }
 
@@ -116,10 +116,9 @@ form {
     text-align: center;
 }
 
-
 ::placeholder {
     @include font(18px, 400, 25.2px);
-    color: #D1D1D1;
+    color: #d1d1d1;
 }
 
 .input-email-pw {
@@ -127,11 +126,10 @@ form {
     @include width_height(422px, 51px);
     gap: 10px;
     border-radius: 10px;
-    border: 1px solid #D1D1D1;
+    border: 1px solid #d1d1d1;
     padding: 13px 21px;
     box-sizing: border-box;
 }
-
 
 .input-email-img {
     background-image: url(../../assets/img/input_email_img.png);
@@ -147,7 +145,6 @@ form {
 
 .login-bottom {
     @include flex_center;
-
 
     .mat-mdc-card {
         border-radius: 0;
@@ -212,8 +209,7 @@ form {
     }
 
     &[disabled] {
-        cursor: not-allowed;
-        pointer-events: none;
+        cursor: not-allowed !important;
         filter: contrast(0.5);
     }
 }
@@ -231,7 +227,7 @@ form {
     color: $main_color_bright;
 }
 
-@media(max-width:700px) {
+@media (max-width: 700px) {
     .join-logo {
         top: 37px;
         width: 70px;
@@ -326,8 +322,7 @@ form {
         display: none !important;
     }
 
-
-    @media(max-width: 400px) {
+    @media (max-width: 400px) {
         .join-logo {
             @include width_height(40px, 104px);
             top: 10px;

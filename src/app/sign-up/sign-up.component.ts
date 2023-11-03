@@ -45,12 +45,13 @@ export class SignUpComponent implements OnInit {
 
   handleSignupValidation() {
     this.signUpForm = this.formBuilder.group({
-      firstname: ['', Validators.required],
+      firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-    });
+      confirmPasssword: ['', Validators.required],
+    }, { validators: this.passwordMatchValidator });
+
   }
 
 
@@ -64,10 +65,22 @@ export class SignUpComponent implements OnInit {
   }
 
 
+  passwordMatchValidator(formGroup: FormGroup) {
+    const password: string = formGroup.get('password')?.value;
+    const confirmPassword: string = formGroup.get('confirmPasssword')?.value;
+
+    if (password !== confirmPassword) {
+      formGroup.get('confirmPasssword')?.setErrors({ NoPassswordMatch: true });
+    } else {
+      formGroup.get('confirmPasssword')?.setErrors(null);
+    }
+  }
+
+
   /**
-   * Sets isPasswordTooShort to true and clears it after a delay.
-   * @private
-   */
+ * Sets isPasswordTooShort to true and clears it after a delay.
+ * @private
+ */
   private handleWeakPasswordError() {
     this.isPasswordTooShort = true;
     this.clearErrorAfterDelay(() => this.isPasswordTooShort = false);
@@ -92,8 +105,8 @@ export class SignUpComponent implements OnInit {
    */
   onSubmit() {
     if (this.signUpForm.valid) {
-      const { firstname, lastName, email, password } = this.signUpForm.value;
-      this.authService.signUp(firstname, lastName, email, password)
+      const { firstName, lastName, email, password } = this.signUpForm.value;
+      this.authService.signUp(firstName, lastName, email, password)
         .catch((error) => {
           switch (error.code) {
             case "auth/email-already-in-use":

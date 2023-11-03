@@ -106,17 +106,21 @@
                                 <label>Subtasks</label>
                                 <div class="subtask-container">
                                     <div class="width flex-center" *ngIf="!subtaskInput">
-                                        <input class="subtask-input" placeholder="Add new subtask" (click)="addSubtask()" #subtaskInput>
+                                        <input class="subtask-input" placeholder="Add new subtask"
+                                            (click)="addSubtask()" #subtaskInput>
                                         <img class="plus-icon" src="assets/img/plus_icon.png" (click)="addSubtask()">
                                     </div>
                                     <div class="subtask-container" *ngFor="let control of getSubtasks(); index as i">
-                                        <input class="subtask-input" type="text" placeholder="Add new subtask" [formControl]="control" #subtaskInput>
-                                        <img *ngIf="subtaskInput" class="subtask-icons" src="../../assets/img/icon_check_subtask.svg" (click)="confirmSubtask(i)">
+                                        <input class="subtask-input" type="text" placeholder="Add new subtask"
+                                            [formControl]="control" #subtaskInput>
+                                        <img *ngIf="subtaskInput" class="subtask-icons"
+                                            src="../../assets/img/icon_check_subtask.svg" (click)="confirmSubtask(i)">
                                         <div *ngIf="subtaskInput" class="gap-img-subtask"></div>
-                                        <img *ngIf="subtaskInput" class="subtask-icons" src="../../assets/img/icon_cancel_subtask.svg" (click)="cancelSubtask()">
+                                        <img *ngIf="subtaskInput" class="subtask-icons"
+                                            src="../../assets/img/icon_cancel_subtask.svg" (click)="cancelSubtask()">
                                     </div>
                                 </div>
-                                
+
 
                                 <div>
                                     <ul>
@@ -133,14 +137,15 @@
                     <div class="submit-and-clear">
                         <img class="task-added-img" *ngIf="taskAdded" src="../../assets/img/task_added_info.png"
                             alt="task-added">
-                            <div *ngIf="taskCreationError" class="error-message">
-                                <span>Das Formular ist ungültig. Bitte überprüfen Sie Ihre Eingaben.</span>
-                              </div>
+                        <div *ngIf="taskCreationError" class="error-message">
+                            <span>Das Formular ist ungültig. Bitte überprüfen Sie Ihre Eingaben.</span>
+                        </div>
                         <div class="button-container" *ngIf="!taskAdded">
                             <div class="btn-clear" (click)="onClear($event)">Clear<img class="clear-img"
                                     src="assets/img/iconoir_cancel.png">
                             </div>
-                            <div><Button class="btn-createTask" [disabled]="!taskForm.valid"  (click)="onSubmitAndNavigate()">Create Task<img
+                            <div><Button class="btn-createTask" [disabled]="!taskForm.valid"
+                                    (click)="onSubmitAndNavigate()">Create Task<img
                                         src="assets/img/icons_check.png"></Button>
                             </div>
                         </div>

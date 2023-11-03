@@ -11,10 +11,11 @@ import {
   query,
   where,
   Query,
-  DocumentData
+  DocumentData,
+  addDoc
 } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-import { Task } from 'src/app/shared/models/tasks';
+import { Task } from '../models/task-model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,16 @@ export class TaskService {
 
   constructor(private firestore: Firestore) {}
 
+
+  async addTask(task: Task): Promise<void> {
+    const tasksCollectionRef = collection(this.firestore, 'tasks');
+
+    try {
+      await addDoc(tasksCollectionRef, task);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      throw new Error('Error adding task to Firestore');
+    }
+  }
 
 }
